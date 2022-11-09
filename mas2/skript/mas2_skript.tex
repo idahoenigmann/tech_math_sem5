@@ -1,0 +1,253 @@
+\documentclass[]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[many]{tcolorbox}
+
+\newtheorem{theorem}{Satz}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{corollary}{Folgerung}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Def}
+\newtheorem*{remark}{Beberkung}
+\newtheorem*{example}{Beispiel}
+
+\tcolorboxenvironment{theorem}{
+	colback=blue!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\tcolorboxenvironment{lemma}{
+	colback=yellow!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\tcolorboxenvironment{definition}{
+	colback=green!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\tcolorboxenvironment{definition*}{
+	colback=green!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+%opening
+\title{Maß- und Wahrscheinlichkeitstheorie Skript Felsenstein W2022}
+\author{Ida Hönigmann}
+
+\begin{document}
+
+\maketitle
+
+\section{Produkträume und Maße}
+Auf dem kartesischen Produkt von Grundmengen
+\begin{align*}
+	\Omega = \bigtimes_{i=1}^{n}\Omega_i
+\end{align*}
+wird eine Produkt-(Sigma)Algebra konstruiert, wobei $(\Omega_i, \mathcal{A}_i)$ Messräume sind. Es soll $(\Omega_i, \mathcal{A}_i)$ in $(\Omega, \mathcal{A})$ eingebettet werden.
+
+\begin{definition*}[Projektion]
+	\begin{align*}
+		\pi_i : \Omega \mapsto \Omega_i \text{ mit } \pi_i(\omega_1,...,\omega_n)=\omega_i
+	\end{align*}
+\end{definition*}
+Die Produktalgebra wird von den Projektionen erzeugt.
+
+\begin{definition}[Produktalgebra]
+	\begin{align*}
+		\mathcal{A} := \bigotimes_{i=1}^{n}\mathcal{A}_i := \sigma(\pi_1,...,\pi_n)\\
+		\text{d.h. } \pi_1^{-1}(A_1) \cap \pi_2^{-1}(A_2) \cap ... \cap \pi_n^{-1}(A_n) \text{ für } A_i \in \mathcal{A}_i
+	\end{align*}
+	erzeugen diese Algebra (bzw. $A_1\times A_2\times ...\times A_n$).
+\end{definition}
+
+Wenn $\mathcal{A}_i = \sigma(\mathcal{E}_i)$ erzeugt wird von $\mathcal{E}_i$, wird $\bigotimes\mathcal{A}_i$ von $\bigtimes\mathcal{E}_i$ erzeugt.
+
+\begin{theorem}[1.PR]
+	$\mathcal{A}_i=\sigma(\mathcal{E}_i)$ mit $\mathcal{E}_i\subset 2^{\Omega_i}$. $\Omega_i$ sei aus $\mathcal{E}_i$ monoton erreichbar ($E_{i,k} \nearrow \Omega_i$)\footnote{Man kann fordern, dass $\Omega_i \in \mathcal{E}_i$, dann ist es erfüllt.}.
+	\begin{align*}
+		\mathcal{E} = \{\bigtimes_{i=1}^{n}E_i, E_i\in\mathcal{E}_i\}
+	\end{align*}
+	Dann gilt
+	\begin{align*}
+		\bigotimes_{i=1}^{n}\mathcal{A}_i = \sigma(\mathcal{E}).
+	\end{align*}
+\end{theorem}
+
+\begin{proof}[Beweis Satz 1.PR]
+$\sigma(\mathcal{E})$ ist die kleinste Sigma-Algebra, sodass die Projektionen messbar sind: $\tilde{\mathcal{A}}$ sei Sigma-Algebra auf $\Omega = \bigtimes_i \Omega_i$.
+
+$\pi_i$ ist $\tilde{\mathcal{A}}-\mathcal{A}_i$ messbar $\iff \sigma(\mathcal{E}) \subseteq \tilde{\mathcal{A}}$.
+
+$\implies$: Alle $\pi_i$ seien $\tilde{\mathcal{A}}-\mathcal{A}_i$ messbar, d.h. $\pi_i^{-1}(\mathcal{E}_i) \subseteq \tilde{\mathcal{A}}$, wobei für $E_i \in \mathcal{E}_i$
+\begin{align*}
+	\pi_i^{-1}(E_i) = \Omega_1\times\Omega_2\times ...\times E_i\times\Omega_{i+1}\times ...\times\Omega_n
+\end{align*}
+Da
+\begin{align*}
+	\underbrace{\bigtimes_{i=1}^{n}E_i}_{\in \mathcal{E}} = \bigcap_{i=1}^{n}\pi_i^{-1}(E_i) \subseteq \tilde{\mathcal{A}} \implies \sigma(\mathcal{E}) \subseteq \tilde{\mathcal{A}}.
+\end{align*}
+
+$\impliedby$: Es gelte $\sigma(\mathcal{E}) \subseteq \tilde{\mathcal{A}}$.
+Jedes $\Omega_i$ ist aus $\mathcal{E}_i$ monoton erreichbar mit $E_{i,k}\nearrow \Omega_i, k\to\infty$.
+\begin{align*}
+	F_k = E_{1,k}\times E_{2,k}\times ... \times E_i \times ... \times E_{n,k} \nearrow \pi_i^{-1}(E_i) \\
+	\lim F_k = \bigcup_{k=1}^{\infty}F_k = \pi_i^{-1}(E_i) \in \sigma(\mathcal{E}) \subset \tilde{\mathcal{A}}
+\end{align*}
+Urbild vom Erzeuger in $\tilde{\mathcal{A}}$, $\pi_i^{-1}(\mathcal{E}_i)\subseteq \tilde{\mathcal{A}} \forall i$, alle $\pi_i$ sind $\tilde{\mathcal{A}}-\mathcal{A}_i$ messbar.
+
+Alle Projektionen $\sigma(\mathcal{E})$ messbar, also $\sigma(\pi_1,...,\pi_n) \subset \sigma(\mathcal{E})$. Nach obigem setze $\tilde{\mathcal{A}}=\sigma(\pi_1,...,\pi_n) \implies \sigma(\mathcal{E}) \subseteq \sigma(\pi_1,...,\pi_n)$ also $\sigma(\mathcal{E}) = \sigma(\pi_1,...,\pi_n)$.
+\end{proof}
+
+\begin{remark}
+	$\{A_1\times ...\times A_n | A_i \in \mathcal{A}_i\}$ ist keine Sigma-Algebra, da nicht Vereinigungs-stabil.
+\end{remark}
+
+Die komponentenweise Behandlung im Produktraum ist anwendbar auf n-dim. Funktionen.
+
+\begin{corollary}
+	\begin{align*}
+		f_i:\Omega_0 &\mapsto \Omega_i, f=(f_1,...,f_n) =: \otimes_i f_i\\
+		f: \Omega_0 &\mapsto \bigtimes_i\Omega_i = \Omega
+	\end{align*}
+	Dann gilt:
+	\begin{align*}
+		f \text{ ist } (\Omega_0,\mathcal{A}_0) \mapsto \underbrace{\bigotimes_{i=1}^{n}(\Omega_i, \mathcal{A}_i)}_{\text{Produktraum}}  \text{ messbar } \iff f_i \mathcal{A}_0-\mathcal{A}_i \text{ messbar}
+	\end{align*}
+\end{corollary}
+\begin{proof}[Beweis Folgerung]
+	$\implies$: Da $f_i=\pi_i\circ f$ und $\pi_i \otimes_j \mathcal{A}_j-\mathcal{A}_i$ messbar ist $f_i$ als Verkettung messbar.
+	
+	$\impliedby$: $A \in \otimes\mathcal{A}_i$ Menge aus der Produktalgebra mit $A = \times_{i=1}^{n}A_i \leftarrow$ erzeugen $\otimes_{i=1}^{n} \mathcal{A}_i$.
+	\begin{align*}
+		f^{-1}(A) = \bigcap_{i=1}^{n}f_i^{-1}(A_i) \in \mathcal{A}_0
+	\end{align*}
+	Diese Rechtecke erzeugen $\sigma(f) = \sigma(f_1,...,f_n) \subseteq \mathcal{A}_0$ also ist $f \mathcal{A}_0-\otimes\mathcal{A}_i$ messbar.
+\end{proof}
+
+Anwendung auf Borel-Algebra: $\mathcal{B}^k=\otimes_{i=1}^k\mathcal{B}$ erzeugt von den Rechtecken $\times_i (a_i,b_i]$. Die Lebesgue-Mengen werden nicht von den Produkten erzeugt: $\otimes_{i=1}^k\mathcal{L} \subsetneq \mathcal{L}_k$.
+
+Nicht alle Nullmengen von $\mathcal{B}^k$ sind durch die Produkte mit allen Nullmengen erzeugbar.
+
+\begin{definition*}[Schnitt]
+	Besondere Mengen (für Integralberechnungen) sind die Schnitte:
+	\begin{align*}
+		A \in \mathcal{A} = \mathcal{A}_1 \otimes \mathcal{A}_2\\
+		A_{x_1} := \{x_2 \in \Omega_2| (x_1,x_2) \in A\}\\
+		A_{x_2} := \{x_1 \in \Omega_1| (x_1,x_2) \in A\}
+	\end{align*}
+\end{definition*}
+
+Die Schnitte sind messbar.
+\begin{theorem}[2.PR]
+	$A \in \mathcal{A}_1\otimes\mathcal{A}_2$ messbar bez. Produktalgebra, dann ist $A_{x_1}\in\mathcal{A}_2$ und $A_{x_2}\in\mathcal{A}_1$ für alle $x_1$ bzw. $x_2$.
+\end{theorem}
+
+\begin{proof}
+	$x_1$ sei fest. Betrachte $\mathcal{M} = \{A\subseteq \Omega_1\times\Omega_2|A_{x_1}\in\mathcal{A}_2\}$. $\mathcal{M}$ ist Sigma-Algebra: $\Omega \in \mathcal{M}$, $(A_{x_1})^c = (A^c)_{x_1}$ und $\cup A_{x_i,1}=(\cup A_i)_{x_1}$.
+	
+	Für die Erzeuger Mengen $A_1\times A_2 \in \mathcal{E}$ mit $A_i \in \mathcal{A}_i$
+	\begin{align*}
+		(A_1\times A_2)_{x_1} = \begin{cases}
+									A_2, & x_1 \in A_1\\
+									\emptyset, & x_1 \notin A_1
+								\end{cases}
+	\end{align*}
+	also $(A_1\times A_2)_{x_1} \in \mathcal{A}_2$, $\mathcal{E} \subseteq \mathcal{M}$ und $\sigma(\mathcal{E}) = \mathcal{A}_1 \otimes \mathcal{A}_2 \subseteq \mathcal{M}$, alle Mengen, alle $x_1$ erfüllen die Messbarkeit-Bedingungen.
+\end{proof}
+
+Die Abbildungen $x_1 \mapsto \mu_2(A_{x_1})$ sind messbare Abbildungen.
+
+\begin{theorem}[3.PR]
+	$\mathcal{A}=\mathcal{A}_1\otimes\mathcal{A}_2$, auf $\mathcal{A}_2$ sei $\mu_2$ ein sigma-endliches Maß auf $(\Omega_2,\mathcal{A}_2,\mu_2)$. Dann ist $x_1 \mapsto \mu_2(A_{x_1})$ eine $\mathcal{A}_1$ messbare Abbildung (entsprechendes gilt auch für $x_2 \mapsto \mu_1(A_{x_2})$).
+\end{theorem}
+\begin{proof}
+	TODO
+\end{proof}
+
+Mit diesen Funktionen wird das Produktmaß erklärt.
+\begin{definition*}[Produktmaß]
+	\begin{align*}
+		\mu\left(\bigtimes_{i=1}^k A_i\right) = \prod_{i=1}^{k}\mu_i(A_i)
+	\end{align*}
+	Wenn $\Omega = \Omega_1^k$ mit $\mu_i = \mu$ gilt
+	\begin{align*}
+		\mu\left(\bigtimes_{i=1}^k A_i\right) = \prod_{i=1}^{k}\mu(A_i).
+	\end{align*}
+\end{definition*}
+
+Dieses Maß ist eindeutig definiert, wenn $\mu_1$, $\mu_2$ sigma-endlich sind, dann sind die Funktionen $f_B(x_1)$ bzw. $f_B(x_2)$ die ''Dichten'' bezüglich den Randmaßen $\mu_1$ bzw. $\mu_2$. $\mu_1$, $\mu_2$ werden auch als marginale Maße bezeichnet.
+
+\begin{theorem}[4.PR]
+	\begin{enumerate}
+		\item $\mu_2$ sei sigma-endlich. Dann definiert
+		\begin{align*}
+			\mu(A) = \int_{\Omega_1}\mu_2(A_{x_1})d\mu_1(x_1)
+		\end{align*}
+		das Produktmaß auf $(\Omega, \mathcal{A})$.
+		
+		\item Sind beide Maße $\mu_1$,$\mu_2$ sigma-endlich, dann ist $\mu$ eindeutig und
+		\begin{align*}
+			\mu(A) = \int_{\Omega_1}\mu_2(A_{x_1})d\mu_1(x_1) = \int_{\Omega_2}\mu_1(A_{x_2})d\mu_2(x_2)
+		\end{align*}
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	TODO
+\end{proof}
+
+\begin{example}
+	Insbesonders bei endlichem Maß anwendbar. $X$,$Y$ stochastische Größen, dann wird eindeutig eine zweidim. Verteilung auf $\mathbb{R}^2$ durch $P[(X,Y)\in A\times B] := P[X\in A] P[Y \in B]$ Produktverteilung.
+\end{example}
+
+Verallgemeinerung der Maße von Schnitten ist die Schnittfunktion.
+\begin{definition}[Schnittfunktion]
+	\begin{align*}
+		f:\Omega_1\times\Omega_2 \mapsto\Omega' \text{ Dann heißt }\\
+		x_2 \mapsto f_{x_1}(x_2) = f(x_1,x_2) \text{ $x_1$-Schnitt}\\
+		x_1 \mapsto f_{x_2}(x_1) = f(x_1,x_2) \text{ $x_2$-Schnitt}\\
+	\end{align*}
+	von f. (messbare Funktion $\Omega_1\times\Omega_2 \to (\Omega', \mathcal{A}')$).
+\end{definition}
+
+\begin{theorem}[5.PR]
+	$f$ sei messbar $(\Omega, \mathcal{A}) \mapsto (\Omega', \mathcal{A}')$.
+	Die Schnittfunktionen sind messbar:
+	\begin{align*}
+		f_{x_1} \text{ ist messbar } (\Omega_2,\mathcal{A}_2) \mapsto (\Omega', \mathcal{A}')\\
+		f_{x_2} \text{ ist messbar } (\Omega_1,\mathcal{A}_1) \mapsto (\Omega', \mathcal{A}')
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	TODO
+\end{proof}
+
+\end{document}
