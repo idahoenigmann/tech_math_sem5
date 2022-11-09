@@ -250,4 +250,95 @@ Verallgemeinerung der Maße von Schnitten ist die Schnittfunktion.
 	TODO
 \end{proof}
 
+Mit den Funktionenschnitten lässt sich auch ein mehrdim. Integral "zerteilen".
+
+\begin{theorem}[6.PR Satz von Fubini (-Tonelli)]
+	Produktraum $(\Omega,\mathcal{A}, \mu) = \otimes_i (\Omega_i, \mathcal{A}_i, \mu_i)$, $f$ messbar $\Omega \mapsto \mathbb{R}$, $\mu_i$ sigma-endlich.
+	Das zweidimensionale Integral von $f$ ist aufspaltbar
+	\begin{align*}
+		\int f d\mu = \int_{\Omega_1}\left(\int_{\Omega_2}f_{x_1}(x_2) d\mu_2\right)d\mu_1 = \int_{\Omega_2}\left(\int_{\Omega_1}f_{x_2}(x_1) d\mu_1\right)d\mu_2
+	\end{align*}
+	wenn eine der folgenden Bedingungen gilt:
+	\begin{itemize}
+		\item $f\geq 0$: Dann ist $x_2\mapsto \phi_2(x_2) = \int_{\Omega_1}f_{x_2}d\mu_1$ messbar $\mathcal{A}_2$ und $x_1\mapsto \phi_1(x_1) = \int_{\Omega_2}f_{x_1}d\mu_2$ messbar $\mathcal{A}_1$
+		\item $f$ ist integrierbar, $\int f d\mu < \infty$: Dann sind $f_{x_1}$ $\mu_2$-integrierbar $[\mu_1]$ f.ü. und $f_{x_2}$ $\mu_1$-integrierbar $[\mu_2]$ f.ü.
+		\item $\int_{\Omega_1}\int_{\Omega_2}|f_{x_1}|d\mu_2 d\mu_1 < \infty$ oder $\int_{\Omega_2}\int_{\Omega_1}|f_{x_2}|d\mu_1 d\mu_2 < \infty$: Daraus folgt $f$ integrierbar.
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	TODO
+\end{proof}
+
+Durch Iteration gilt die Fubini-Schnitt Konstruktion auch für mehrdimensionale $k\in\mathbb{N}$ Integrale:
+
+Wenn $f:\Omega\mapsto\mathbb{R}$ messbar mit $\Omega=\Omega_1\times ...\times\Omega_n$
+\begin{align*}
+	\int f d\mu = \int_{\Omega_1}\left(\int_{\Omega_2\times ...\times\Omega_n} f_{x_1} d\mu_2\otimes ...\otimes \mu_k\right) d\mu_1(x_1)
+\end{align*}
+
+Viele Folgerungen: Doppelreihen-Satz $\sum_i\sum_j a_{ij} = \sum_j\sum_i a_{ij}$ Kriterien für Konvergenz
+
+\begin{corollary}[Maße mit Dichten bezüglich dem Produktmaß]
+	$\Omega = \Omega_1\times\Omega_2$, $\mathcal{A}=\mathcal{A}_1\otimes\mathcal{A}_2$,  $\mu=\mu_1\otimes\mu_2$
+	
+	$\nu$ sei absolut stetig bzgl. $\mu$ ($\nu \ll \mu$), es existiert ein $f=\frac{d\nu}{d\mu}\geq 0$ mit $\nu(A)=\int_A f d\mu$ ($f$ integrierbar)
+	
+	$\mu$ sei sigma-endlich, $\nu$ erzeugt ein $\nu_1 \ll \mu_1$ auf $(\Omega_1, \mathcal{A}_1)$ und ein $\nu_2 \ll \mu_2$ auf ($\Omega_2, \mathcal{A}_2$) mit den Dichten $\phi_1, \phi_2$.
+	\begin{align*}
+		A \in \mathcal{A}_1: \nu_1(A_1) = \int_{A_1}\phi_1(x_1)d\mu_1 = \int_{A_1} \int_{\Omega_2} f_{x_1}(x_2) d\mu_2 d\mu_1
+	\end{align*}
+\end{corollary}
+
+\begin{example}
+	2 dim SG mit Gleichverteilung auf dem Einheitskreis $P[(X,Y)\in K] = 1$. Dichte $f$ bezgl. $\lambda^2 = \lambda_1\otimes\lambda_1$. $f(x,y)=\frac{1}{\pi}1_K$.
+	\begin{align*}
+		\phi_1(x)=\int f_X(y)d\lambda = \int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}\frac{1}{\pi} d\lambda(y) = \frac{2\sqrt{1-x^2}}{\pi}
+	\end{align*}
+	(Symmetrie: $\phi_2(y) = \frac{2\sqrt{1-y^2}}{\pi}$)
+	
+	Randverteilung $\nu_1$ $P[X\in A] = \int_A \frac{2}{\pi}\sqrt{1-y^2} d\lambda(y)$
+	
+	$\nu$ ist nicht das Produktmaß $\nu \neq \nu_1 \otimes \nu_2$ außer $f(x,y)=f_1(x)f_2(y)$.
+\end{example}
+
+\begin{definition*}[Ordinatenmenge, Graph]
+	Die Punkte unter einer positiven Funktion $f\geq 0$ heißt Ordinatenmenge $O_f=\{(x,y)|0\leq <\leq f(x)\}$ und der Graph ist $\Gamma_f=\{(x,f(x))|x\in\Omega\}$.
+\end{definition*}
+
+Für sigma-endliches Maß $\mu$ und $f$ messbar, dann ist $O_f$ eine bezüglich $\mathcal{A}\otimes\mathcal{B}$ messbare Menge und $\int f d\mu = (\mu \otimes \lambda)(O_f)$. Der Graph ist eine Nullmenge, $(\mu \otimes \lambda)(\Gamma_f) =0$
+
+\subsection{$\infty$-dim. Produkträume}
+Die Konstruktion der $\infty$-dim. Produkt-Messräume ist der endl. dim. Konstruktion entsprechend. $I$ sei Index-Menge,
+\begin{align*}
+	\otimes_{i\in I}\mathcal{A}_i := \sigma(\pi_i, i\in I) && \pi_i ... \text{ Projektion auf } \Omega_i
+\end{align*}
+beispielsweise $\otimes_{i\in I}\mathcal{B}$ auf $\Omega=\mathbb{R}^I$ (Funktionenraum).
+
+\begin{definition*}[Zylinder,Pfeiler]
+	$Z \subseteq \Omega^I$ heißt Zylinder, wenn $Z=\pi_j^{-1}(C)=C\times\Omega^{j^C}$ wobei $J\subseteq I$ eine endliche Teilindexmenge ist und $C$ die endlich dim. Basis des Zylinders ist;
+	und Pfeiler, wenn $C$ ein Rechteck $\times_{i \in J}A_i$ ist.
+\end{definition*}
+
+Auf den Pfeilern lässt sich das n-dim. Produktmaß erklären. $P^n(C)=\pi_{j\in J}P(A_j)$
+
+Im abzählbar unendlichen Fall ist die Vorgangsweise ähnlich, wie im endl. dim. Fall:
+
+\begin{theorem}[7.PR]
+	$X_i$ sei eine Folge von SGn auf $(\Omega_i,\mathcal{A}_i)$ mit gegebener gemeinsamer Verteilung
+	\begin{align*}
+		P_i(A) = P[X_j\in A_j, j\leq i, X_i \in A]
+	\end{align*}
+	für $A_j\in\mathcal{A}_j$ und $A\in\mathcal{A}_i$. D.h. die gemeinsame Verteilung von $(X_1,...,X_n)$ sind auf $(\times_i\Omega_i, \otimes_i\mathcal{A}_i)$ mit
+	\begin{align*}
+		P[(X_1,...,X_n)\in A_n, X_i \in \mathbb{R}, i>n] = P[(X_1,...,X_n) \in A_n]
+	\end{align*}
+	also für Zylinder $Z = \pi_{1,...,n}^{-1}(C_n)$, $C_n \in \otimes_i\mathcal{A}_i$ gilt $P[Z]=P_n(Cn)$.
+	
+	Wenn diese Wahrscheinlichkeitsverteilung verträglich sind, d.h. die Randverteilungen (bzw. alle Teilmengen endl.) eindeutig sind, lässt sich obiges Prinzip verallgemeinern.
+\end{theorem}
+
+\begin{theorem}[8.PR Satz von Kolmogoroff]
+	content...
+\end{theorem}
+
 \end{document}
