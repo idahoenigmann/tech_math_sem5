@@ -338,7 +338,297 @@ Im abzählbar unendlichen Fall ist die Vorgangsweise ähnlich, wie im endl. dim.
 \end{theorem}
 
 \begin{theorem}[8.PR Satz von Kolmogoroff]
-	content...
+	$(\Omega_i,\mathcal{A}_i), i\in I$ sei eine Familie von Messräumen und $P_j$ sind endl. dim. Verteilungen auf $(\mathbb{R}^J, \mathcal{B}_{|J|}), J \subset I, J$ endlich. Diese Verteilungen seien verträglich ($P_j=P_k\pi_{k,j}^{-1}, J \subset K, K$ ebenfalls endlich).
+	
+	Dann existiert ein eindeutiges Maß $P$ auf $(\mathbb{R}^I, \mathcal{B}_I=\otimes_{i\in I}\mathcal{B})$ mit genau diesen Randverteilungen ($P(A)=P_J(\pi_j^{-1}(A)), A \in \otimes_{i\in J}\mathcal{A}_i$).
 \end{theorem}
+
+Das Produktmaß $\mu_1\otimes\mu_2$ auf $\mathcal{A}_1\otimes\mathcal{A}_2$ muss nicht vollständig sein, wenn $(\Omega_i,\mathcal{A}_i,\mu_i), i=1,2$ vollständige Maßräume sind.
+
+\begin{example}
+	$(\mathbb{R}^2,\mathcal{L}_2,\lambda_2)$ ist ein vollständiger Maßraum. $\lambda_2(\mathbb{R}\times\{1\})=0$ und für beliebiges $A\subseteq\mathbb{R} \lambda_2(A\times\{1\})=0$. Wenn $A\notin\mathcal{L}$, dann sollte aber trotzdem der Schnitt von $A\times\{1\}$, $(A\times\{1\})_1=A\in \mathcal{L}$ messbar sein, das ist ein Widerspruch. Es folgt also $\mathcal{L}\otimes\mathcal{L}\neq\mathcal{L}_2$.
+\end{example}
+
+\begin{theorem}[9.PR]
+	$(\Omega_i,\mathcal{A}_i,\mu_i), i=1,2$ seinen sigma-endliche Maßräume. Wenn die messbaren Funktionen $f_i:(\Omega_i,\mathcal{A}:i)\rightarrow(\mathbb{R},\mathcal{B})$ entweder
+	\begin{itemize}
+		\item $f_i\geq 0$ oder
+		\item $f_i$ ist integrierbar, $i=1,2$
+	\end{itemize}
+	ist, dann gilt
+	\begin{align*}
+		\int f_1 \cdot f_2 d\mu_1\otimes d\mu_2 = \int f_1 d\mu_1 \cdot \int f_2 d\mu_2
+	\end{align*}
+	Im 2. Fall ist $f_1\cdot f_2$ auf $(\Omega_1\times\Omega_2, \mathcal{A}_1\otimes\mathcal{A}_2,\mu_1\otimes\mu_2)$ integrierbar.
+\end{theorem}
+
+\begin{proof}
+	Eigentlich klar, da $(f_1\cdot f_2)_{x_1} = f_1(x_1)\cdot f_2(.)$ $\mathcal{A}_2$ messbar ist und nach Fubini
+	\begin{align*}
+		\int f_1 \cdot f_2 d\mu_1\otimes d\mu_2 = \int_{\Omega_1}\int_{\Omega_2} f_1(x_1) f_2(x_2) d\mu_2(x_2) d\mu_1 = \int_{\Omega_1}\left(f_1(x_1) \int_{\Omega_2} f_2(x_2) d\mu_2(x_2) \right) = \int f_1 d\mu_1 \cdot \int f_2 d\mu_2 
+	\end{align*}
+	Genauso gilt $\int |f_1f_2| d\mu_1\otimes d\mu_2 = \int |f_1| d\mu_1 \int |f_2| d\mu_2$ und wenn die rechte Seite endlich ist, gilt $f_1\cdot f_2 \in \mathcal{L}_1$ bezüglich dem Produktraum.
+\end{proof}
+
+Die Betrachtung unabhängiger SGn $X_i, i=1,...,k$ erfolgt bequemer auf dem Produktraum. Auch wenn alle $\Omega_i=\Omega$, also alle SGn auf dem selben Raum definiert sind, übersiedelt man für die Erklärung der gemeinsamen Verteilung auf den Produktraum.
+
+Wenn $X=(X_1,...,X_k)$ ein Vektor unabhängiger SGn $X_i$ ist, gilt
+\begin{align*}
+	PX^{-1} = PX_1^{-1}\otimes ...\otimes PX_k^{-1}.
+\end{align*}
+Wenn $PX^{-1}$ ein Wahrscheinlichkeitsmaß mit Dichte ist, dann gilt
+\begin{align*}
+	PX^{-1}(A) = \int_A f_X d\lambda_k = \int_A f(x_1,...,x_k) d\lambda(x_1)...d\lambda(x_k)
+\end{align*}
+und die Randverteilung von $X_i$ ist mit Dichte
+\begin{align*}
+	PX_i^{-1}(A_i) = \int_{A_i\times\mathbb{R}^{k-1}} f_X d\lambda_k = \int_{A_i}\left(\int_\mathbb{R}...\int_\mathbb{R} f_X d\lambda ... d\lambda \right) d\lambda
+\end{align*}
+und wieder erhält man die Randdichte
+\begin{align*}
+	f_i(x_i) = \int_\mathbb{R} ...\int_\mathbb{R} f(x_1,...,x_k) d\lambda(x_1) ... d\lambda(x_{i-1}) d\lambda(x_{i+1}) ... d\lambda(x_k)
+\end{align*}
+(Das ist nicht neu, aber jetzt wird kein Umweg über das Riemann-Integral benötigt.)
+
+Wenn die $X_i$ unabhängig sind ist die gemeinsame Dichte
+\begin{align*}
+	f_X(x_1,...,x_k) = \prod_{i=1}^{k}f_i(x_i).
+\end{align*}
+Nach dem letzten Satz gilt für integrierbare $f$ und $g$ und unabhängige $X$ und $Y$
+\begin{align*}
+	\mathbb{E}f(X)g(Y) = \mathbb{E}f(X)\cdot\mathbb{E}g(Y)
+\end{align*}
+d.h. auch $\mathbb{E}XY = \mathbb{E}X \mathbb{E}Y$ und die SGn $X$ und $Y$ sind unkorreliert.
+
+Die Umkehrung gilt natürlich nicht, da Unkorreliertheit nur bedeutet, dass es keinen linearen Zusammenhang gibt.
+
+Wenn $Y=c$ f.s., dann sind $X$,$Y$ unabhängig, wenn $\mathbb{E}XY = \mathbb{E}X\mathbb{E}Y$, dass dann automatisch gilt. Auch wenn $X\sim A_{p_1}$ (Alternativ-verteilt) und $Y\sim A_{p_2}$ und
+\begin{align*}
+	\mathbb{E}XY = \mathbb{E}X\mathbb{E}Y = 0(1-p_1p_2) + 1p_1p_2 = p_1p_2
+\end{align*}
+d.h. $P(X=1)P(Y=1)=p_1p_2$ und $X$ und $Y$ sind unabhängig.
+
+Ansonsten ist nur bei Normalverteilung kein Unterschied zwischen Unkorreliertheit und Unabhängigkeit.
+
+\begin{example}
+	$(X,Y)\sim \mathcal{N}(\mu_x,\mu_y,\sigma_x^2,\sigma_y^2,\rho)$ o.B.d.A $\mu_x=\mu_y = 0$
+	
+	Die gemainsame Dichte zerfällt (siehe EI24)
+	\begin{align*}
+		f(x,y) = \underbrace{\frac{1}{\sqrt{2\pi}\sigma_x} exp\left(-\frac{1}{2}\left(\frac{x}{\sigma_x}\right)^2\right)}_{f_1(x)} \cdot \underbrace{\frac{1}{\sqrt{2\pi}\sigma_x} \frac{\sigma_x}{\sigma_y\sqrt{1-\rho^2}} exp\left(-\frac{1}{2}\left(\frac{\sigma_x^2(y-m)^2}{(1-\rho^2)\sigma_y^2}\right)^2\right)}_{f_2(x,y)}
+	\end{align*}
+	mit $m=\rho x \frac{\sigma_y}{\sigma_x}$ d.h.
+	\begin{align*}
+		\mathbb{E}XY = \int\int xyf(x,y)d\lambda_2 = \int\underbrace{\int y f_2(x,y) dy}_m xf_1(x) dx = \int m x f_1(x) dx = \rho \int x^2 f_1(x) dx = \rho \frac{\sigma_y}{\sigma_x}\sigma_x^2 = \rho\sigma_x\sigma_y
+	\end{align*}
+	$X$,$Y$ sind unkorreliert $\iff \rho = 0$, dann ist $f(x,y) = f_1(x)\cdot \Phi(\frac{y}{\sigma_y})$ ($\Phi$ Dichte der $\mathcal{N}(0,1)$) und sind $X$,$Y$ unabhängig.
+\end{example}
+
+Zwei Normalverteilungen können nur linear abhängen. Ansonsten kann sogar eine vollständige Abhängigkeit (nicht linear) bei unkorrelierten SGn vorliegen.
+
+\begin{example}
+	$X\sim U_{-1,1}, Y = X^2$. Dann gilt $\mathbb{E}X=0$ und $\mathbb{E}XY = \mathbb{E}X^3 = 0$ und $X$ und $Y$ sind unkorreliert.
+\end{example}
+
+Nur wenn für alle integrierbaren $f$,$g$ $f(X)$ und $g(Y)$ unkorreliert sind, dann sind $X$ und $Y$ unabhängig.
+
+Der Satz von Fubini ist ein wichtiges Werkzeug auch um bekannte Sätze der Integrationstheorie zu verallgemeinern, wie beispielsweise die partielle Integration.
+
+\begin{theorem}[10.PR]
+	$\mu_F$ und $\mu_G$ seinen Lebesgue-Stieltes Maße mit $F$ bzw. $G$ als Verteilungsfunktionen. $G_-(x)=\lim_{\tilde{x}\nearrow x}G(\tilde{x})$ ist der linksseitige Grenzwert von $G$. Dann gilt
+	\begin{align*}
+		\int_{(a,b]}Fd\mu_G + \int_{(a,b]}G_-d\mu_F = F(b)G(b)-F(a)G(a)
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	in der Übung.
+	
+	Wenn $F$ und $G$ stetig differenzierbar sind, dann gilt $d\mu_G = G'd\lambda$ und $d\mu_F = F'd\lambda$ und
+	\begin{align*}
+		\int_{(a,b]} F\cdot G' d\lambda + \int_{(a,b]} G\cdot F' d\lambda = F(b)G(b)-F(a)G(a)
+	\end{align*}
+	und in der üblichen Schreibweise für Stammfunktionen $\int FG' = FG - \int F'G$
+\end{proof}
+
+Mit dem Hauptsatz der Diff- u. Integrationstheorie lässt sich auch die bedingte Verteilung auf stetige Verteilungen erweitern.
+
+Für diskrete SGn $X$,$Y$ (beispielsweise auf $\mathbb{N}$ verteilt) ist
+\begin{align*}
+	P[X=k|Y=l] = \frac{P[X=k,Y=l]}{P[Y=l]}, k,l\in\mathbb{N}
+\end{align*}
+die Punktwahrscheinlichkeit $p_k$ der bedingten Verteilung $X|Y=l$.
+
+Besitzt $X$ eine stetig differenzierbare VF $F$ mit $F'=f_X$ als Dichte, gilt
+\begin{align*}
+	\lim\limits_{\triangle\rightarrow0}\frac{F(x+\triangle)-F(x)}{\triangle} = f_X(x) \text{ oder}\\
+	\frac{P[X\in[x-\triangle,x]]}{\triangle} \rightarrow f_X(x) \text{ für } \triangle\rightarrow0 \text{ oder}\\
+	P[X\in[x-\triangle,x]] \sim f_X(x)\triangle
+\end{align*}
+
+Mit dieser "infidezimalen Wahrscheinlichkeit" als Dichte erhält man, wenn auch $Y$ die Dichte $f_Y$ hat,
+\begin{align*}
+	P[X\in[x-\triangle,x]|Y\in[y-\triangle,y]] = \frac{P[X\in[x-\triangle,x], Y\in[y-\triangle,y]]}{P[Y\in[y-\triangle,y]]} =\\
+	\frac{\int_{x-\triangle}^{x}\int_{y-\triangle}^{y} f_{X,Y}(s,t) ds dt}{\int_{[y-\triangle,y]}f_Y(t) d\lambda(t)}\sim \frac{f_{X,Y}(x,y)\triangle^2}{f_Y(y)\triangle} = \frac{f_{X,Y}(x,y)\triangle}{f_Y(y)}
+\end{align*}
+
+\begin{definition}[bedingte Dichte]
+	$X:\Omega\rightarrow\mathbb{R}$ und $Y:\Omega\rightarrow\mathbb{R}$ sind SGn mit Dichte $f(x,y)$. $f_X$, $f_Y$ sind die Randdichten von $X$ und $Y$. Dann heißt für $y$ mit $f_Y(y)>0$
+	\begin{align*}
+		f(x|y) := \frac{f(x,y)}{f_Y(y)}
+	\end{align*}
+	die bedingte Dichte von $X$ bedingt durch $Y=y$. $f(x|y)$ ist $PY^{-1}_-$ f.s. definiert.
+\end{definition}
+
+Da für festes $y$
+\begin{align*}
+	\int_\mathbb{R} f(x|y) d\lambda(x) = \frac{\int_\mathbb{R} f(x,y) d\lambda(x)}{\int_\mathbb{R} f(x,y) d\lambda(x)} = 1 
+\end{align*}
+und $f(x|y)\geq 0$ ist $f(.|y)$ eine Wahrscheinlichkeitsdichte und tatsächlich eine Verteilung festgelegt.
+
+Wenn $X|Y=y PY^{-1}$-f.s. einen endlichen Erwartungswert besitzt, dann heißt die Funktion
+\begin{align*}
+	y\mapsto \mathbb{E}[X|Y=y] = \int x f(x|y) d\lambda(x)
+\end{align*} 
+bedingter Erwartungswert. Dann ist $h(Y):=\mathbb{E}[X|Y]$ eine $PY^{-1}$-f.s. messbare Funktion. $h(.)$ heißt auch Regressionsfunktion. $h(Y)$ ist als Prognose von $X$ nach der Beobachtung von $Y$ zu verstehen.
+
+\begin{example}
+	$(X,Y)$ sei bivariat normalverteilt $(X,Y)\sim\mathcal{N}(\mu_x,\mu_y,\sigma_x^2,\sigma_y^2, \rho)$. Die Darstellung der bivariaten Normalverteilungsdichte (PR18) führt auf die bedingte Dichte
+	\begin{align*}
+		f(x|y) = \frac{1}{\sqrt{2\pi v}}exp\left(-\frac{1}{2}\left(\frac{x-m}{v}\right)^2\right)\\
+		\text{mit } m = \mu_x + \rho\frac{\sigma_x}{\sigma_y}(y-\mu_y) \text{ und } v^2 = \sigma_x^2(1-\rho^2)
+	\end{align*}
+	d.h. $X|Y\sim\mathcal{N}(m,v^2)$.
+	
+	Die Regressionsfunktion ist linear
+	\begin{align*}
+		\mathbb{E}[X|Y] = \mu_x + \rho \frac{\sigma_x}{\sigma_y}(y-\mu_y)
+	\end{align*}
+	Auch diese Eigenschaft charakterisiert die Normalverteilung.
+\end{example}
+
+Für die Regressionsfunktion $H(Y):=\mathbb{E}[X|Y]$ gilt bei Normalverteilung $\mathbb{E}H(Y)=\mu_x$. Das ist generell der Fall:
+\begin{align*}
+	\mathbb{E}H(Y) = \int\mathbb{E}[X|Y=y]dPY^{-1} = \int\int x f(x|y) dx f_Y(y) dy\\
+	= \int\int x \underbrace{f(x|y)f_Y(y)}_{f(x,y)} dy dx =	\int\int x f(x,y) dy dx = \int x f_X(x) dx = \mathbb{E}X.
+\end{align*}
+Die mittlere Prognose entspricht dem unbedingten Erwartungswert.
+
+\subsection{Faltung von Maßen}
+\begin{definition}[Faltungsmaß]
+	$\mu_1,\mu_2$ sind sigma-endliche Maße auf $(\mathbb{R}, \mathcal{B})$. Das Faltungsmaß ist durch
+	\begin{align*}
+		\mu_1*\mu_2 (A) = \int \mu_1(A-y) \mu_2(dy)
+	\end{align*}
+	definiert.
+	
+	Das $\mu_1 * \mu_2$ tatsächlich ein Maß ist, ergibt sich daraus, dass es das von der Summe $S=X_1+X_2$ erzeugte Maß ist. D.h. $\mu_1 * \mu_2 = (\mu_1 \otimes \mu_2)S^{-1}$
+\end{definition}
+
+\begin{proof}
+	$S^{-1}(A) = \{(x,y)\in \mathbb{R}^2: x+y\in A\}$, wobei $A \in \mathcal{B}$. Der Schnitt von $S^{-1}(A)$ ist $S^{-1}(A)_y = \{x|x\in A-y\} = A-y$
+	
+	Die Darstellung des Produktmaßes mittels Schnitten wie zuvor,
+	\begin{align*}
+		\mu_1\otimes\mu_2(B) = \int \mu_1(B_y) d\mu_2(y), B \in \mathcal{A}_1 \otimes \mathcal{A}_2
+	\end{align*}
+	ergibt
+	\begin{align*}
+		\mu_1 * \mu_2(S^{-1}(A)) = \int \mu_1(A-y) d\mu_2(y) \text{ und }\\
+		(\mu_1\otimes\mu_2)S^{-1} = \mu_1 * \mu_2.
+	\end{align*}
+	Es ist auch in die andere "Richtung" darstellbar: $\mu_1 * \mu_2 = \int \mu_2(A-x) d\mu_1(dx)$
+\end{proof}
+
+Neben der Kommutativität $\mu_1 * \mu_2 = \mu_2 * \mu_1$ besitzt die Faltung noch folgende Eigenschaften:
+\begin{itemize}
+	\item $\mu_i, i=1,2,3$ sind sigma-endliche Maße auf $(\mathbb{R}, \mathcal{B})$
+	
+	\begin{align*}
+		(\mu_1*\mu_2)* \mu_3 = \mu_1 * (\mu_2 * \mu_3)
+	\end{align*}
+	\begin{proof}
+		$A \in \mathcal{B}_2$
+		\begin{align*}
+			(\mu_1 * \mu_2) * \mu_3(A) = \int \mu_1 * \mu_2 (A-z) d\mu_3(z) = \int\left(\int \mu_2(A-z-x) d\mu_1(x)\right) d\mu_3 = \\
+			\int\int \mu_2(A-z-x) d\mu_3(z) d\mu_1 = \int \mu_2 * \mu_3 (A-x) d\mu_1(x) = (\mu_2 * \mu_3) * \mu_1(A) = \mu_1 * (\mu_2 * \mu_3) (A)
+		\end{align*}
+	\end{proof}
+
+	\item $\mu_1(\mathbb{R}) = \mu_2(\mathbb{R}) = 1 \implies \mu_1 * \mu_2(\mathbb{R}) = 1$
+	
+	\begin{proof}
+		Da $\mathbb{R}-y=\mathbb{R} \forall y\in\mathbb{R}$ gilt
+		\begin{align*}
+			\mu_1 * \mu_2 (\mathbb{R}) = \int \mu_2(\mathbb{R}-x) d\mu_1(x) = \int \mu_2(\mathbb{R}) d\mu_1(x) = \mu_2(\mathbb{R}) \cdot \mu_1(\mathbb{R}) = 1
+		\end{align*}
+		
+		Die Faltung von Wahrscheinlichkeitsmaßen ist auch ein Wahrscheinlichkeitsmaß.
+	\end{proof}
+	
+	Sind $\mu_1 = PX_1^{-1}$ und $\mu_2=PX_2^{-1}$ von SGn $X_1$ bzw. $X_2$ induziert, dann ist $\mu_1 * \mu_2 = PX_1^{-1} * PX_2^{-1} = P(X_1+X_2)^{-1}$ das von $X_1,X_2$ induzierte Maß, vorausgesetzt $X_1,X_2$ sind unabhängig, also für $X=(X_1,X_2), PX = PX_1^{-1} \otimes PX_2^{-1}$.
+	
+	\item Es existiert auch ein neutrales Element der Faltung $\mu_0$ mit $\mu_0 * \mu = \mu = \mu * \mu_0$.
+	
+	\begin{proof}
+		Für $\mu_0 = \delta_0$, d.h. $\delta_0(A) = 1_A(0)$ gilt
+		\begin{align*}
+			\mu_0 * \mu(A) = \int \mu_0(A-x) d\mu(x) = \int \underbrace{1_{A-x}(0)}_{1_A(x)} d\mu(x) = \int 1_A(x) d\mu(x) = \mu(A).
+		\end{align*}
+	\end{proof}
+\end{itemize}
+
+Die Faltung bildet eine kommutative Halbgruppe.
+
+Die bereits vorher erklärte Faltung von messbaren Funktionen hängt erwartungsgemäß mit der Faltung von Maßen zusammen. Bei Maßen mit Dichten ist die Dichte der Faltung genau die Faltung der Dichten.
+
+\begin{theorem}[11.PR]
+	$\mu_1,\mu_2$ seien Maße mit Dichten bezüglich $\lambda$: $\mu_1 = \int f_1 d\lambda$ und $\mu_2 = \int f_2d\lambda$ und $f_1,f_2$ sind reellwertig.
+	
+	Dann ist
+	\begin{align*}
+		\mu_1 * \mu_2(A) = \int_A\left(\int_\mathbb{R} f_1(s-y) f_2(y) d\lambda(y) \right) d\lambda(s)
+	\end{align*}
+	 also die Dichte von $\mu_1 * \mu_2$ ist die Faltung der Dichten $f_1 * f_2$.
+\end{theorem}
+\begin{proof}
+	TODO
+\end{proof}
+
+Damit wurde die Faltung im stetigen Fall auf die Faltungsdichte zurückgeführt. Analog werden diskrete Maße gefaltet.
+
+\begin{theorem}[12.PR]
+	$\mu_i, i=1,2$ sind diskrete Maße auf $(\mathbb{R}, \mathcal{B})$ mit Trägermenge $D_i$ (abzählbar). Dann ist $\mu_1 * \mu_2$ diskret verteilt mit der Trägermenge $D = D_1 + D_2 = \{s|s=x+y, x\in D_1, y\in D_2\}$ und für $s\in \mathbb{R}$ gilt
+	\begin{align*}
+		\mu_1 * \mu_2(s) = \sum_{y \in D_2} \mu_1(\{s-y\})\mu_2(\{y\})
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	TODO
+\end{proof}
+
+Für stochastischen Größen und die entsprechenden induzierten Wahrscheinlichkeitsmaße wurde diese diskrete Faltung bereits erklärt, o.B.d.A sei $X$ auf $\mathbb{N}$ diskret verteilt, genauso wie $Y$, dann ist
+\begin{align*}
+	P(X+Y=k) = \sum_{m\geq 0} P(X=k-m) P(Y=m)
+\end{align*}
+wenn $X$,$Y$ unabhängig sind, bzw.
+\begin{align*}
+	P(X+Y=k) = \sum_{m\geq 0} P(X=k-m|Y=m) P(Y=m)
+\end{align*}
+wenn $X$,$Y$ nicht unabhängig sind.
+
+Mit der bedingten Dichte gilt auch im stetigen Fall für die Dichte von $X+Y=:S$ bei abhängigen $X$ und $Y$
+\begin{align*}
+	f_S(s) = \int f(s-t|Y=t) f_Y(t) d\lambda(t)
+\end{align*}
+wobei $f(x|y)$ die Dichte der bedingten Verteilung von $X|Y$ bezeichnet. Auch hier können die marginalen Dichten getauscht werden, d.h. mit $g(y|x)$ als bedingte Dichte $Y|X$
+\begin{align*}
+	f_S(s) = \int g(s-x|X=x) f_X(x) d\lambda(x).
+\end{align*}
+
+Für die Binomialverteilung wurde die Faltung bereits durchgeführt.
+
+\begin{example}[Faltung negativer Binomialverteilung]
+	TODO
+\end{example}
 
 \end{document}
