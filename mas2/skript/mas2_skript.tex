@@ -190,7 +190,37 @@ Die Abbildungen $x_1 \mapsto \mu_2(A_{x_1})$ sind messbare Abbildungen.
 	$\mathcal{A}=\mathcal{A}_1\otimes\mathcal{A}_2$, auf $\mathcal{A}_2$ sei $\mu_2$ ein sigma-endliches Maß auf $(\Omega_2,\mathcal{A}_2,\mu_2)$. Dann ist $x_1 \mapsto \mu_2(A_{x_1})$ eine $\mathcal{A}_1$ messbare Abbildung (entsprechendes gilt auch für $x_2 \mapsto \mu_1(A_{x_2})$).
 \end{theorem}
 \begin{proof}
-	TODO
+	Für ein $A\in\mathcal{A}$ sei $f_A(x_1)=\mu_2(Ax_1)$
+	\begin{enumerate}
+		\item $\mu_2$ sei endlich. Betrachte $\mathcal{D}=\{E\in\mathcal{A}|f_E ist \mathcal{A}_1 \text{ Borel-messbar} (\mathbb{R}^+,\mathcal{B}^+)\}$
+		
+		$\mathcal{D}$ ist ein Dynkin-System:
+		\begin{itemize}
+			\item $\Omega \in \mathcal{D}$, da $\Omega_{x_1}=\Omega_2 \in \mathcal{A}_2 \forall x_1 : f_\Omega \equiv \mu_2(\Omega_2)$ konstant
+			
+			\item $A\subseteq\mathcal{B}$ und $f_A,f_B$ messbar
+			
+			$A_{x_1} \subseteq B_{x_1}$ und $\mu_2(B_{x_1}\setminus A_{x_1}) = \mu_2(B_{x_1}) - \mu_2(A_{x_1}) = f_B(x_1) - f_A(x_1)$ ist messbar als Differenz messbarer Funktionen.
+			
+			\item $A_i \in \mathcal{A}$ und disjunkt, $B=\bigcup_{i}A_i$
+			
+			Wenn $A_i \in \mathcal{D}$, $B_{x_1} = \bigcup A_{i,x_1}$
+			\begin{align*}
+				\mu_2(B_{x_1}) = f_B(x_1) = \sum_i f_{A_i}(x_1) = \mu_2(\bigcup A_{x_1})
+			\end{align*}
+			Eine abzählbare Summe messbarer Funktionen ist messbar (Darstellung jeder messbarer Funk $f=\sum_j c_j 1_{c_j}$).
+		\end{itemize}
+	
+		Jede Menge aus $\mathcal{E}=\{A_1\times A_2 | A_i \in \mathcal{A_i}\}$ (dem Erzeuger von $\mathcal{A}$) ist auch in $\mathcal{D}$, weil $f_{A_1\times A_2}(x_1) = \mu_2((A_1\times A_2)_{x_1}) = \mu_2(A_2) 1_{A_1}(x_1)$. $c1$ ist messbar.
+		
+		$\mathcal{E}$ ist ein durchschnitt-stabiler Erzeuger und $\mathcal{E}\subseteq\mathcal{D}\subseteq\mathcal{A}=\sigma(\mathcal{E})$ also $\mathcal{A}=\mathcal{D}$, alle solchen Funktionen sind messbar bez. $\mathcal{A_1}$.
+		
+		\item Ist $\mu_2$ sigma-endlich, es gibt eine Folge $A_{2,i}\nearrow\Omega_2$ mit endlichem Maß, daher auch eine disjunkte Folge ($D_n$), die eine Zerlegung von $\Omega_2$ sind und $\mu_2(B) = \mu_2(\bigcup_n(D_n\cap B)) = \sum_n \mu_2(B\cap D_n)$.
+		\begin{align*}
+			f_B(x_1) = \mu_2(B_{x_1}) = \sum_n \underbrace{\mu_2(B_{x_1} \cap D_n)}_{<\infty} = \sum_n f_{(B_{x_1}\cap D_n)}(x_1)
+		\end{align*}
+		also Summe messbarer Funktionen.
+	\end{enumerate}
 \end{proof}
 
 Mit diesen Funktionen wird das Produktmaß erklärt.
@@ -628,7 +658,92 @@ wobei $f(x|y)$ die Dichte der bedingten Verteilung von $X|Y$ bezeichnet. Auch hi
 Für die Binomialverteilung wurde die Faltung bereits durchgeführt.
 
 \begin{example}[Faltung negativer Binomialverteilung]
+	$X$ ist $NegB_{k,p}$, wenn $X$ die Anzahl der Fehlversuche ($\backsimeq 0$) bis zum k-ten Erfolg ($\backsimeq 1$) bei unabhängigen $0-1$ Versuchen mit Erfolgswahrscheinlichkeit $p$.
+	\begin{align*}
+		P(X=m)=\binom{m+k-1}{k-1}p^k(1-p)^m
+	\end{align*}
+	Die geometrische Verteilung $G_p$ ist ein Spezialfall, $G_p=NegB_{1,p}$ (Variante 2 der geometrischen Verteilung ist hier gemeint).
+	\begin{align*}
+		X_i\sim G_p: P(X_i=m)=p(1-p)^m, m\in\mathbb{N}
+	\end{align*}
+
+	Die Faltung zweier $G_p$ heißt
+	\begin{align*}
+		P(X_1+X_2=m)=\sum_{l=0}^{m}p(1-p)^{m-l}p(1-p)^l = (m+1)p^2(1-p)^m = \binom{m+2-1}{2-1}p^2(1-p)^m
+	\end{align*}
+	daher $X_1+X_2\sim NegB_{2,p}$.
+	
+	Genauso ergibt die Faltung $NegB_{k,p}*G_p=:\mu$
+	\begin{align*}
+		\mu(\{m\}) = \sum_{i=0}^{m}\binom{i+k-1}{k-1}p^k(1-p)^ip(1-p)^{m-i} = p^{k+1}(1-p)^m\sum_{i=0}^{m}\binom{i+k-1}{k-1} = p^{k+1}(1-p)^m\binom{k+m}{k}
+	\end{align*}
+	Mit dem Pascalschen Dreieck $\binom{n+1}{k} = \binom{n}{k-1}\binom{n}{k}$ und Induktion kann gezeigt werden, dass $\sum_{i=0}^{m}\binom{i+k-1}{k-1} = \binom{k+m}{k}$.
+	
+	Somit ist $NegB_{k,p} * G_p = NegB_{k+1,p}$. Mit Induktion gilt daher sofort $NegB_{k,p}*NegB_{\tilde{k},p} = NegB_{k+\tilde{k},p}$.
+	
+	Die Summe unabhängiger $NegB$-Verteilungen (mit gleichem $p$) ist wieder negativ Binomialverteilt.
+	
+	Bei verschiedenen $p$ ist die Summe nicht nach einer $NegB$ verteilt.
+\end{example}
+
+Die Faltung eines (absolut) stetigen Maßes und eines diskreten Maßes ergibt wieder ein Maß mit Dichte.
+
+\begin{theorem}[12.PR]
+	$\mu$ sei ein Maß mit Dichte $f$ bez. $\lambda$. $\mu$ daher $\mu \ll\lambda$ und $\nu$ sei ein diskretes Maß mit Trägermenge $D$ (abzählbar) auf $(\mathbb{R},\mathcal{B})$. Dann ist $\mu * \nu \ll \lambda$ und
+	\begin{align*}
+		\mu * \nu (A) = \int_A \underbrace{\sum_{k\in D} f(x-k)\nu(\{k\})}_{\text{ Dichte von }\mu * \nu} d\lambda(x).
+	\end{align*}
+\end{theorem}
+\begin{proof}
 	TODO
+\end{proof}
+\begin{remark}
+	Bei mehr als 2 Maßen genügt ein Maß $\mu_i \ll \lambda$.
+\end{remark}
+\begin{example}
+	$\mu$ sei eine Exponentialverteilung $E_{x_1}$ mit Dichte $f(s)=e^{-s}1_{(0,\inf)}(s)$. $\nu$ entspreche einer Geometrischen Verteilung $G_{\frac{1}{2}}$ (Version 1). $\nu(\{k\}) = \frac{1}{2^k}, k\geq 1$.
+	
+	Die Lebesgue-Dichte des Faltungsmaßes ist
+	\begin{align*}
+		h(x) = \sum_{k\geq 1}\frac{1}{2^k} e^{-(x-k)} 1_{(0,\infty)}(x-k) = e^{-(x-1)}\frac{(\frac{e}{2})^{\lfloor x\rfloor} - 1}{e-2}
+	\end{align*}
+	was einer stückweisen (auf $[n,n+1)$) gewichteten Exponentialfunktion (Verteiliung) entspricht.
+\end{example}
+
+Die Faltung kann auch mit der Verteilungsfunktion durchgeführt werden:
+
+$X$ besitzt $F$ als Verteilungsfunktion $Y$ hat $G$ als VF, $X$ und $Y$ unabhängig. Die Verteilungsfunktion von $X+Y$ ist
+\begin{align*}
+	H(t) = \int F(t-s) dG(s) = \int G(t-s) dF(s)
+\end{align*}
+(siehe Übung).
+
+Wie im letzten Beispiel ist $H(.)$ bis auf eine Nullmenge differenzierbar, wenn $F$ und $G$ differenzierbar mit Dichten $F'=f$ und $G'=g$ sind. Die (stückweise) differenzierbar VF $H$ ergibt die Dichte aus Satz 11.PR.
+\begin{align*}
+	\frac{dH}{dx}(s) = \int \frac{dF}{dx}(s-t)\frac{dG}{dx}(t) d\lambda(t).
+\end{align*}
+
+Natürlich wird auch die Verteilung der Differenz $X-Y$ unabhängiger Sgn $X,Y$ mit der Faltung von $X$ und $-Y$ bestimmt.
+
+Wenn Dichten existieren ist die Dichte von $X-Y$ $h(t)=\inf f_X(s) f_Y(s-t) d\lambda(s)$. Die Wahrscheinlichkeit für $X \leq Y$ kann auch mit der FaltungsVF für $X-Y$ berechnet werden.
+
+\begin{lemma}
+	$X,Y$ SGn mit VF $F_X,F_Y$ und Dichten $f_X,f_Y$. Wenn $X$ u.a. $Y$, dann ist
+	\begin{align*}
+		P[X\leq Y] = \int_\mathbb{R} F_X(t)f_Y(t) d\lambda(t).
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	\begin{align*}
+		P[X\leq Y] = \int_{\{x\leq y\}} f(x,y) d\lambda_2 = \int_\mathbb{R} \int_{(-\infty,Y]} f_X(x) f_Y(y) d\lambda_2(x,y) = \int_\mathbb{R} F_X(y)f_Y(y) d\lambda(y)
+	\end{align*}
+\end{proof}
+\begin{example}
+	$X,Y$ unabhängige Exponentialverteilungen mit Raten $\lambda_1,\lambda_2$, d.h. $X\sim E_{x_{\lambda_1}}, Y \sim E_{x_{\lambda_2}}$.
+	\begin{align*}
+		P(X\leq Y) = \int_{\mathbb{R}^+} (1-e^{-\lambda_1y})\lambda_2 e^{-\lambda_2y}d\lambda(y) = 1 - \frac{\lambda_2}{\lambda_1+\lambda_2} = \frac{\lambda_1}{\lambda_1 + \lambda_2}
+	\end{align*}
+	Anteil der Raten von $X$.
 \end{example}
 
 \end{document}
