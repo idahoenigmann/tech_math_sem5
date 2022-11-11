@@ -251,7 +251,15 @@ Dieses Maß ist eindeutig definiert, wenn $\mu_1$, $\mu_2$ sigma-endlich sind, d
 	\end{enumerate}
 \end{theorem}
 \begin{proof}
-	TODO
+	$f_A(x_1)=\mu_2(A_{x_1})$ ist eine $\mathcal{A}_1$-messbare Funktion $\forall A$ und durch die Additivität $f_{\cup A_i} = \sum f_{A_i}$ ist $\mu$ ein Maß auf $(\Omega, \mathcal{A})$.
+	
+	Für $A=A_1\times A_2$ gilt
+	\begin{align*}
+		\mu(A_1\times A_2) = \int_{\Omega_1} \underbrace{\mu_2((A_1\times A_2)_{x_1})}_{\mu_2(A_2) 1_{A_1}(x_1)} d\mu_1 = \mu_2(A_2) \underbrace{\int_{A_1} d\mu_1}_{\mu_1(A_1)}
+	\end{align*}
+	ist Produktmaß.
+	
+	$\mu$ ist auf dem (durchschnitts-stabilen) Erzeuger definiert, da die Maße sigma-endlich sind, ist $\mu$ eindeutig (Eindeutigkeitssatz). Vice versa gelten alle Gleichungen analog bez. $\mu_2$.
 \end{proof}
 
 \begin{example}
@@ -277,7 +285,13 @@ Verallgemeinerung der Maße von Schnitten ist die Schnittfunktion.
 	\end{align*}
 \end{theorem}
 \begin{proof}
-	TODO
+	$A'\in\mathcal{A}'$
+	\begin{align*}
+		f_{x_1}^{-1}(A') = \{x_2\in\Omega_2 | f(x_1,x_2) \in A'\} = \{x_2\in \Omega_2 | (x_1,x_2) \in f^{-1}(A')\} = (\underbrace{f^{-1}(A')}_{\text{ mb } \in \mathcal{A}})_{x_1}
+	\end{align*}
+	jede Schnittmenge ist messbar.
+	
+	Analog für $f_{x_2}^{-1}(A') \in \mathcal{A}_1$.
 \end{proof}
 
 Mit den Funktionenschnitten lässt sich auch ein mehrdim. Integral "zerteilen".
@@ -289,14 +303,51 @@ Mit den Funktionenschnitten lässt sich auch ein mehrdim. Integral "zerteilen".
 		\int f d\mu = \int_{\Omega_1}\left(\int_{\Omega_2}f_{x_1}(x_2) d\mu_2\right)d\mu_1 = \int_{\Omega_2}\left(\int_{\Omega_1}f_{x_2}(x_1) d\mu_1\right)d\mu_2
 	\end{align*}
 	wenn eine der folgenden Bedingungen gilt:
-	\begin{itemize}
+	\begin{enumerate}
 		\item $f\geq 0$: Dann ist $x_2\mapsto \phi_2(x_2) = \int_{\Omega_1}f_{x_2}d\mu_1$ messbar $\mathcal{A}_2$ und $x_1\mapsto \phi_1(x_1) = \int_{\Omega_2}f_{x_1}d\mu_2$ messbar $\mathcal{A}_1$
 		\item $f$ ist integrierbar, $\int f d\mu < \infty$: Dann sind $f_{x_1}$ $\mu_2$-integrierbar $[\mu_1]$ f.ü. und $f_{x_2}$ $\mu_1$-integrierbar $[\mu_2]$ f.ü.
 		\item $\int_{\Omega_1}\int_{\Omega_2}|f_{x_1}|d\mu_2 d\mu_1 < \infty$ oder $\int_{\Omega_2}\int_{\Omega_1}|f_{x_2}|d\mu_1 d\mu_2 < \infty$: Daraus folgt $f$ integrierbar.
-	\end{itemize}
+	\end{enumerate}
 \end{theorem}
 \begin{proof}
-	TODO
+	\begin{enumerate}
+		\item $f \geq 0:$ 4 Schritte des Integralaufbaus
+		
+		$f = 1_A, A \in \mathcal{A}$
+		\begin{align*}
+			x_2 \mapsto \phi_2(x_2) = \int_{\Omega_1} \underbrace{(1_A)_{x_2}}_{1_{A_{x_2}}} d\mu_1 = \mu_1(A_{x_2})
+		\end{align*}
+	
+		$\phi_2$ ist messbar (laut Satz PR5) und nach Satz PR7 gilt
+		\begin{align*}
+			\int f d\mu = \mu(A) = \int_{\Omega_2} \mu_1(A_{x_2}) d\mu_2(x_2) = \int_{\Omega_2} \phi_2 d\mu_2
+		\end{align*}
+	
+		Für einfache Funktionen $f = \sum_{i=1}^{n}\alpha_i 1_{A_i}$ ergibt sich das aus der Linearität:
+		\begin{align*}
+			f_{x_2} = \sum \alpha_i 1_{(A_i)_{x_2}}(x_1)
+		\end{align*}
+	
+		Schritt 3: $f_2\nearrow f, f_n$... einfache Funktionen, dann gilt $(f_n)_{x_2}\nearrow f_{x_2}$ (wieder aus der Darstellung $f=\sum_{i=1}^{\infty}\alpha_i 1_{A_i}$ + monotone Konvergenz ablesbar)
+		
+		\item $f$ integrierbar, betrachte Positiv- und Negativteil
+		\begin{align*}
+			max(0,f)_{x_2} = max(0, f_{x_2}) = (f^+)_{x_2}\\
+			\text{also } (f^+)_{x_2} = (f_{x_2})^+ \text{ und } f_{x_2}^- = (f^-)_{x_2} \text{ mit } |f|_{x_2} = |f_{x_2}|
+		\end{align*}
+	
+		Wegen $\int |f| d\mu < \infty$ gilt wegen oben für $|f|$:
+		\begin{align*}
+			\int |f| d\mu = \int_{\Omega_1} \int_{\Omega_2} |f|_{x_1} d\mu_2 d\mu_1 = \int_{\Omega_1} \underbrace{\int_{\Omega_2} |f_{x_1}| d\mu_2}_{\phi_1} d\mu_1 < \infty
+		\end{align*}
+	
+		Daher muss $\phi_1$ integrierbar sein (wie auch $\phi_2$). Integrierbarkeit erfordert auch $(f^+), (f^-)$ integrierbar sind, aufgespalten $f = f^+-f^-$ und $f_{x_i} = f_{x_i}^+ - f_{x_i}^-$. Nach 1. für $f^+, f^-$ getrennt ergibt
+		\begin{align*}
+			\int f d\mu = \int f^+ - \int f^- = \int_{\Omega_1} \int_{\Omega_2} f_{x_1}^+ d\mu_2 d\mu_1 - \int\int f^- d\mu_2 d\mu_1
+		\end{align*}
+	
+		\item impliziert $\int_{\Omega_2} f_{x_1}^+ d\mu_2 < \infty, \int_{\Omega_2} f_{x_1}^- d\mu_2 < \infty$ und somit $f$ integrierbar und 2.
+	\end{enumerate}
 \end{proof}
 
 Durch Iteration gilt die Fubini-Schnitt Konstruktion auch für mehrdimensionale $k\in\mathbb{N}$ Integrale:
@@ -621,7 +672,25 @@ Die bereits vorher erklärte Faltung von messbaren Funktionen hängt erwartungsg
 	 also die Dichte von $\mu_1 * \mu_2$ ist die Faltung der Dichten $f_1 * f_2$.
 \end{theorem}
 \begin{proof}
-	TODO
+	\begin{align*}
+		\mu_1 * \mu_2 (A) = \int_{\mathbb{R}} \mu_1(A-y) d\mu_2(y) = \int_{\mathbb{R}} \int_{A-y} f_1(x) d\lambda(x) f_2(y) d\lambda(y)
+	\end{align*}
+	Die Transformation $T_y(x) = x-y$ ist als lineare Transformation für $\lambda$ translationsinvariant. Für jedes $y$ gilt
+	\begin{align*}
+		\lambda T_y^{-1}(.) = \lambda(T_y^{-1}(.)) = \lambda(.)
+	\end{align*}
+	Das innere Integral ist nach dem Transformationssatz
+	\begin{align*}
+		\int_{A-y} f_1(x) d\lambda = \int_{T_y(A)} f_1 d\lambda = \int_A f_1\circ T_y(s) d\lambda(s)
+	\end{align*}
+	und mit dem Satz von Fubini ergibt sich
+	\begin{align*}
+		\mu_1 * \mu_2 (A) = \int_{\mathbb{R}} \left(\int_A f_1(s-y) d\lambda(s) \right) f_2(y) d\lambda(y) = \int_A \underbrace{\int_{\mathbb{R}} f_1(s-y) f_2(y) d\lambda(y)}_{f_1 * f_2} d\lambda(s)
+	\end{align*}
+	Analog gilt natürlich auch
+	\begin{align*}
+		\mu_1 * \mu_2 (A) = \int_A \left(\int f_2(s-x) f_1(x) d\lambda(x) \right) d\lambda(s).
+	\end{align*}
 \end{proof}
 
 Damit wurde die Faltung im stetigen Fall auf die Faltungsdichte zurückgeführt. Analog werden diskrete Maße gefaltet.
@@ -633,7 +702,22 @@ Damit wurde die Faltung im stetigen Fall auf die Faltungsdichte zurückgeführt.
 	\end{align*}
 \end{theorem}
 \begin{proof}
-	TODO
+	\begin{align*}
+		\mu_1 * \mu_2 (A) = \int_{D_2} \mu_1(A-y) d\mu_2(y) = \sum_{y\in D_2} \mu_1(A-y)\mu_2(\{y\})
+	\end{align*}
+	Die Trägermenge von $\mu_1 * \mu_2$ ist $D$, da $D^c-y \subseteq D_1^c$ für $y\in D_2$ und $\mu_1(D_1^c)=0$ gilt
+	\begin{align*}
+		\mu_1 * \mu_2 (D^c) = \sum_{y \in D_2} \underbrace{\mu_1(D^c-y)}_{=0}\mu_2(\{y\})\\
+		\implies \mu_1 * \mu_2 (D^c) = 0
+	\end{align*}
+	$\mu_1 * \mu_2(A) = \mu_1 * \mu_2 (A\cap D)$ und für $s\in D$ gilt
+	\begin{align*}
+		\mu_1 * \mu_2 (\{s\}) = \sum_{y \in D_2} \mu_1(\{s-y\})\mu_2(\{y\})
+	\end{align*}
+	oder mit vertauschten $\mu_i, i=1,2$
+	\begin{align*}
+		\mu_1 * \mu_2 (\{s\}) = \sum_{x \in D_1} \mu_2(\{s-x\}) \mu_1(\{x\})
+	\end{align*}
 \end{proof}
 
 Für stochastischen Größen und die entsprechenden induzierten Wahrscheinlichkeitsmaße wurde diese diskrete Faltung bereits erklärt, o.B.d.A sei $X$ auf $\mathbb{N}$ diskret verteilt, genauso wie $Y$, dann ist
@@ -688,14 +772,25 @@ Für die Binomialverteilung wurde die Faltung bereits durchgeführt.
 
 Die Faltung eines (absolut) stetigen Maßes und eines diskreten Maßes ergibt wieder ein Maß mit Dichte.
 
-\begin{theorem}[12.PR]
+\begin{theorem}[13.PR]
 	$\mu$ sei ein Maß mit Dichte $f$ bez. $\lambda$. $\mu$ daher $\mu \ll\lambda$ und $\nu$ sei ein diskretes Maß mit Trägermenge $D$ (abzählbar) auf $(\mathbb{R},\mathcal{B})$. Dann ist $\mu * \nu \ll \lambda$ und
 	\begin{align*}
 		\mu * \nu (A) = \int_A \underbrace{\sum_{k\in D} f(x-k)\nu(\{k\})}_{\text{ Dichte von }\mu * \nu} d\lambda(x).
 	\end{align*}
 \end{theorem}
 \begin{proof}
-	TODO
+	Da $\mu \ll \lambda$ gilt für eine Nullmenge $N$, $\lambda(N) = 0$ auch $\mu(N) = 0$. Wegen der Translationsinvarianz $\lambda(N-s) = 0$ für alle $s \in \mathbb{R}$, daher auch
+	\begin{align*}
+		\mu(N-s)=0 \text{ und } \mu * \nu (N) = \int \mu(N-s) \nu(ds) = 0\\
+		\implies \mu * \nu \ll \lambda.
+	\end{align*}
+
+	Sei $A = (-\infty, t], t\in \mathbb{R}$, dann gilt
+	\begin{align*}
+		\mu * \nu (A) = \int \sum_{k \leq t-s, k\in D} \nu(\{k\}) f(s) d\lambda(s) = \int \sum_{k\in D} \nu(\{k\}) 1_{(-\infty, t]}(k+s) f(s) d\lambda(s) = \\
+		\sum_{k\in D} \nu(k) \int 1_{(-\infty,t]}(x) f(x-k) d\lambda(x) = \int_{(-\infty,t]} \sum_{k\in D} f(x-k) \nu(k) d\lambda(x)
+	\end{align*}
+	Die Aussage gilt daher für Intervalle. Wegen des Fortsetzungssatzes gilt sie auch für jedes $A \in \mathcal{B}$.
 \end{proof}
 \begin{remark}
 	Bei mehr als 2 Maßen genügt ein Maß $\mu_i \ll \lambda$.
