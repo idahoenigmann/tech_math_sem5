@@ -841,4 +841,35 @@ Wenn Dichten existieren ist die Dichte von $X-Y$ $h(t)=\inf f_X(s) f_Y(s-t) d\la
 	Anteil der Raten von $X$.
 \end{example}
 
+\section{Signierte Maße und Zerlegungen}
+
+Die Summe von Maßen ist wieder ein Maß, die Differenz von Maßen ist eine zumindest sigma-additive Mengenfunktion.
+
+\begin{definition}[signiertes Maß]
+	Die Mengenfunktion $\nu$ ist ein signiertes Maß, wenn auf $(\Omega, \mathcal{A})$ gilt $\nu:\mathcal{A} \rightarrow (-\infty, \infty]$ oder $[-\infty, \infty)$ mit $\nu(\emptyset) = 0$ und für disjunkte $A_i \in \mathcal{A}$ ist $\nu(\bigcup_{i=1}^{\infty}A_i) = \sum_{i=1}^{\infty}\nu(A_i)$.
+\end{definition}
+
+Viele Eigenschaften von Maßen lassen sich auf signierte Maße übertragen, allerdings ein Integral über ein signiertes Maß macht Schwierigkeiten.
+Es stellt sich aber heraus, dass signierte Maße sich als Differenz zweier Maße darstellen lässt. Das und vieles folgende wäre sofort klar, wenn es für $\nu$ eine Dichte $f:\Omega\rightarrow\mathbb{R}$ bezüglich eines Maßes $\mu$ gibt $\nu(A) = \int_A f d\mu$, was auch $\nu \ll \mu$ zur Folge hat.
+
+\begin{align*}
+	\nu(A) = \int_A f^+ - f^- d\mu = \underbrace{\int_A f^+ d\mu}_{\mu_1} - \underbrace{\int_A f^- d\mu}_{\mu_2}
+\end{align*}
+
+Für $A \subseteq [f^+>0]$ ist eine Menge mit $\nu(A)\geq 0$ und auch jede Teilmenge $B \subseteq A$ erfüllt $\nu(B)\geq 0$.
+
+\begin{definition}[positive Menge, negative Menge]
+	$(\Omega, \mathcal{A}, \nu)$ sei signierter Maßraum. $A^+$ heißt positive Menge bez. $\nu$, wenn $\forall B \subseteq A^+: \nu(B)\geq 0$ erfüllt, $A^-$ ist $\nu$-negative Menge, wenn $\nu(B)\leq 0$ für $B \subseteq A^-$.
+\end{definition}
+
+Negative Mengen eines signierten Maßraumes bilden einen sigma-Ring (Bezeichnung $\mathcal{A}^-$). $\mathcal{A}^-$ ist $\cap$-stabil und $\triangle$-stabil. Die Monotonie folgt aus der Stetigkeit von signierten Maßen.
+
+Sie Maße sind signierte Maße stetig von unten. Die monoton wachsende Folge $A_n\nearrow A$ wird wieder mit disjunkten Teilmengen dargestellt, $A = \bigcup_{n=1}^{\infty}A_n = A_1 \cup (A_2\setminus A_1) \dots$.
+
+Bei der Stetigkeit von oben wird noch $|\nu(A_{n_0})| < \infty$ für ein $n_0$ (damit für $n\geq n_0$) verlangt.
+
+\begin{definition}[Hahn-Zerlegung]
+	Eine Hahn-Zerlegung von $\Omega$ besteht aus $\{P,P^c\}$, wobei $P$ eine positive und $P^c$ eine negative Menge ist.
+\end{definition}
+
 \end{document}
