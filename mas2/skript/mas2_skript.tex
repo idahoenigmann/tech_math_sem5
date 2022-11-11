@@ -872,4 +872,186 @@ Bei der Stetigkeit von oben wird noch $|\nu(A_{n_0})| < \infty$ für ein $n_0$ (
 	Eine Hahn-Zerlegung von $\Omega$ besteht aus $\{P,P^c\}$, wobei $P$ eine positive und $P^c$ eine negative Menge ist.
 \end{definition}
 
+\begin{theorem}[1.SZ]
+	Jeder signierte Maßraum $(\Omega, \mathcal{A}, \nu)$ besitzt eine Hahn Zerlegung von $\Omega$.
+\end{theorem}
+
+\begin{proof}
+	Sei $\nu: \mathcal{A}\rightarrow (-\infty, \infty]$. $\mathcal{A}^-$ das System der negativen Mengen. Sei $c:=\inf_{B\in\mathcal{A}'}\nu(B)$ daher gibt es eine Folge $B_n$ mit $\nu(B_n) < c + \frac{1}{n}$ und $B_n \in \mathcal{A}'$.
+	
+	$N:=\bigcup_n B_n$ ist eine negative Menge. Sei $P:=N^c$.
+	
+	Angenommen $P$ enthält eine negative Menge $B$ mit $\nu(B) < 0$, dann wäre $\nu(B\cup N) = \underbrace{\nu(B)}_{<0}+\nu(N) < c$ also $c$ nicht das Infimum.
+	
+	Demnach ist für jedes $B \subseteq P$ und $\nu(B) < 0$.
+	\begin{align*}
+		\mathcal{E}_1 := \sup\{\nu(M) | M \subseteq B\} > 0
+	\end{align*}
+
+	Es gibt ein $M_1 \subseteq B$ mit $\frac{\mathcal{E}_1}{2} \leq \nu(M_1) \neq \mathcal{E}_1$.
+	
+	Daher $\nu(B\setminus M_1) = \nu(B) - \nu(M_1) < \nu(B) < 0$. Auch $B\setminus M_1 \notin \mathcal{A}^-$, daher gibt es ein $M_2$ mit $\nu(B \setminus M_1 \setminus M_2) < 0$.
+	
+	Mit Induktion gibt es also eine Folge disjunkter Mengen $M_n \subseteq B$ mit $\nu(B\setminus \bigcup_{i=1}^{n}M_i) < 0$.
+	
+	Betrachte $D = B\setminus\bigcup_{i=1}^{\infty} M_i \implies B = \bigcup M_i \cup D$.
+	
+	Für $M_i$ gilt $\nu(M_i) > 0$ und $\nu(B) = \sum_i \nu(M_i) + \nu(D)$, daher $0 \leq \sum \nu(M_i) < \infty$ und $\nu(D) < 0$.
+	
+	Somit muss $\nu(M_i) \rightarrow 0$ und für $C \subseteq D \subseteq B \setminus \bigcup_{i=1}^{n} M_i$ jede Teilmenge $C$ erfüllt $\nu(C) \leq \mathcal{E}_n$ mit $\mathcal{E}_n \rightarrow 0 \implies \nu(C) \leq 0$.
+	
+	$D$ ist eine negative Menge mit $\nu(D) < 0$. Da $D \subseteq P = N^c$ wäre $N \cup D$ eine negative Menge mit $\nu(N \cup D) < \nu(N) = 0$. Damit kann $c = \inf_{B\in\mathcal{A}^-}\nu(B)$ nicht stimmen, die Annahme $\nu(B) < 0$ hält nicht, $P$ ist positive Menge.
+\end{proof}
+
+Hahn-Zerlegungen sind nicht eindeutig, für $\nu(.) = \inf_. f d\lambda$ kann der Trennungspunk gewählt werden. Aber die symmetrische Differenz positiver Mengen ist eine Nullmenge:
+
+Sei $\{P_1,P_1^c\}$ und $\{P_2, P_2^c\}$ jeweils eine Hahn-Zerlegung von $\Omega$. Dann gilt für $A \subseteq P_1 \setminus P_2$, dass $\nu(A) \geq 0$ ($A \subseteq P_1$) und $\nu(A) \leq 0$ ($A \subseteq P_2^c$), also $\nu(A) = 0$.
+
+\begin{definition}[Jordan-Zerlegung]
+	Eine Jordan-Zerlegung des signierten Maßes $\nu$ bilden Maße $\mu_1, \mu_2$ mit
+	\begin{align*}
+		\nu = \mu_1 - \mu_2,
+	\end{align*}
+	wobei $\mu_1,\mu_2$ singulär zueinander sind,
+	\begin{align*}
+		\mu_1 \perp \mu_2 \text{ d.h. } \exists M \text{ mit } \mu_1(M) = \mu_2(M^c) = 0.
+	\end{align*}
+\end{definition}
+
+Die Singularität führt auf folgende Minimaleigenschaft der Jordan-Zerlegung.
+
+Ist $\nu^+,\nu^-$ eine Jordanzerlegung von $\nu = \nu^+ - \nu^-$ und $\nu = \mu_1 - \mu_2$ für beliebige Maße $\mu_1,\mu_2$, dann gilt $\nu^+(A) \leq \mu_1(A)$ und $\nu^-(A) \leq \mu_2(A)$ für alle $A \in \mathcal{A}$.
+
+Mit obiger Trennungsmenge $M$ gilt
+\begin{align*}
+	\nu^+(A) = \underbrace{\nu^+(A\cap M)}_{=0} + \nu^+(A \cap M^c) = \nu^+(A \cap M^c) = \nu(A \cap M^c)\\
+	\nu^-(A) = \nu^-(A \cap M) + \underbrace{\nu^-(A \cap M^c)}_{=0} = \nu^-(A \cap M) = - \nu(A \cap M)\\
+	\implies \nu^+(A) = \mu_1(A \cap M^c) - \mu_2(A \cap M^c) \leq \mu_1(A)\\
+	\nu^-(A) = \mu_2(A\cap M) - \mu_1(A \cap M) \leq \mu_2(A)
+\end{align*}
+
+Mit der Hahn-Zerlegung findet man auch eine Jordan-Zerlegung.
+
+\begin{theorem}[2.SZ Jordan'scher Zerlegungssatz]
+	Jedes signierte Maß $\nu$ besitzt eine eindeutige Jordan-Zerlegung $\nu = \mu_1 - \mu_2$.
+\end{theorem}
+\begin{proof}
+	Aus der Hahn-Zerlegung $\Omega = P \cup P^c$ erhält man mit
+	\begin{align*}
+		\mu_1(A) = \nu(A \cap P) \text{ und } \mu_2(A) = - \nu(A \cap P^c)
+	\end{align*}
+	zwei singuläre Maße. Die Eindeutigkeit folgt aus der Minimaleigenschaft.
+	
+	Sei $\nu = \nu^+ - \nu^-$ mit singulären Maßen $\nu^+,\nu^-$, dann gilt $\nu^+ \leq \mu_1 \land \nu^- \leq \mu_2$ und $\mu_1 \leq \nu^+ \land \mu_2 \leq \nu^-$.
+\end{proof}
+
+\begin{definition*}[Totalvariation]
+	Durch $\mu_1 + \mu_2$ aus der Jordan-Zerlegung entsteht ein Maß, der Variation bzw. Totalvariation mit der Bezeichnung $|\nu| = \mu_1 + \mu_2$ genannt wird. Die Rechtfertigung der Bezeichnung gilt.
+\end{definition*}
+
+\begin{lemma}
+	Für das signierte Maß $\nu$ gilt
+	\begin{align*}
+		\forall A \in \mathcal{A}: |\nu(A)| \leq |\nu|(A).
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	Die Aussage folgt sofort aus
+	\begin{align*}
+		|\nu(A)| = |\mu_1(A) - \mu_2(A)| \leq |\mu_1(A)| + |\mu_2(A)| = |\nu|(A).
+	\end{align*}
+\end{proof}
+
+Die Zerlegungssätze für signierte Maße werden für sigma-endliche Maße konkretisiert.
+
+\begin{definition}[Lebesgue-Zerlegung]
+	$\nu$ und $\mu$ seinen sigma-endliche Maße auf $(\Omega, \mathcal{A})$. Eine Lebesgue-Zerlegung von $\nu$ besteht aus Maßen $\nu_c,\nu_s$, sodass
+	\begin{align*}
+		\nu = \nu_c + \nu_s && \text{ und } && \nu_c \ll \mu && \text{ und } &&
+		\nu_s \perp \mu
+	\end{align*}
+	also $\nu_c$ absolut stetig bezüglich $\mu$ und $\nu_s$ singulär zu $\mu$ ist.
+\end{definition}
+
+$\nu$ ist in Bezug auf $\mu$ in einen stetigen und einen singulären Anteil zerlegt.
+
+Die zentrale Aussage ist, dass eine Lebesgue-Zerlegung für sigma-endliche Maße immer existiert und eindeutig ist. Für den Beweis können verschiedene Wege genommen werden. Eine Möglichkeit ist die Verwendung des Satzes von Riesz.
+
+\begin{theorem}[Darstellungssatz von Riesz-Frechet]
+	$(V,<.,.>)$ sei ein Hilbertraum und $H:V\rightarrow\mathbb{R}$ eine reellwertige Abbildung. Dann sind folgende Aussagen äquivalent:
+	\begin{itemize}
+		\item $H$ ist stetig und linear
+		\item $\exists a \in V$ mit $H(x) = <x,a>$ und $a$ ist eindeutig bestimmt.
+	\end{itemize}
+\end{theorem}
+
+Der Hilbertraum hier ist $\mathcal{L}_2(\mu)$ (also die quadratisch integrierbaren Funktionen) mit $<f,g> = \int fg d\mu$.
+
+Die Abbildung $H: \mathcal{L}^2(\mu) \rightarrow \mathbb{R}$ ist also genau dann stetig und linear, wenn es ein $f \in \mathcal{L}_2(\mu)$ gibt mit $H(g) = \int gf d\mu \forall g \in \mathcal{L}_2$.
+
+\begin{theorem}[3.SZ Zerlegungssatz von Lebesgue]
+	Ein sigma-endliches Maß $\nu$ auf dem sigma-endlichen Maßraum $(\Omega, \mathcal{A}, \mu)$ hat eine eindeutige Lebesgue Zerlegung.
+\end{theorem}
+
+\begin{theorem}[4.SZ Satz von Radon-Nikodym]
+	Für sigma-endliche Maße $\mu,\nu$ gilt $\nu \ll \mu \iff \nu$ ist Maß mit Dichte, d.h.
+	\begin{align*}
+		\nu(A) = \int_A f d\mu
+	\end{align*}
+	mit f.ü. eindeutiger Dichte $f \geq 0$; $f = \frac{d\nu}{d\mu}$.
+\end{theorem}
+\begin{proof}[Satz 3 und 4]
+	TODO
+\end{proof}
+
+Der Satz von Radon-Nikodym ist damit auch gezeigt, da wenn $\nu \ll \mu$ wird $\nu_s \equiv 0$ in der Lebesgue-Zerlegung gesetzt.
+
+\begin{example}
+	$\mu_i, i=1,2$ seinen Poissonverteilungen mit Raten $\lambda_i > 0$
+	\begin{align*}
+		\mu_1(\{k\}) = \frac{\lambda_1^k}{k!} e^{-\lambda_1}, k \in \mathbb{N}
+	\end{align*}
+
+	$\mu_1 \ll \mu_2$ und $\mu_2 \ll \mu_1$, da $\mu_i(\{k\})>0 \forall k \in \mathbb{N}$.
+	\begin{align*}
+		\mu_2(\{k\}) = \left(\frac{\lambda_2}{\lambda_1}\right)^k e^{\lambda_1 - \lambda_2} \mu_1(\{k\}) \\
+		\text{also } \frac{d\mu_2}{d\mu_1} = \left(\frac{\lambda_2}{\lambda_1}\right)^k e^{\lambda_1 - \lambda_2} \text{ und}\\
+		\mu_2(A) = \sum_{k\in A} \left(\frac{\lambda_2}{\lambda_1}\right)^k e^{\lambda_1 - \lambda_2} \mu_1(\{k\})
+	\end{align*}
+\end{example}
+
+\begin{definition}[Äquivalenz]
+	Die Maße $\mu_1, \mu_2$ heißen äquivalent ($\mu_1 \approx \mu_2$), wenn $\mu_1 \ll \mu_2$ und $\mu_2 \ll \mu_1$.
+\end{definition}
+
+\begin{lemma}
+	Die sigma-endlichen Maße $\mu_1$ und $\mu_2$ seinen äquivalent $\mu_1 \approx \mu_2$. Dann gilt für die RN-Dichten
+	\begin{align*}
+		\frac{d\mu_1}{d\mu_2} = \left(\frac{d\mu_2}{d\mu_1}\right)^{-1} \mu_1\text{-f.ü.}
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	Da $\mu_1 \ll \mu_2 \ll \mu_1$ ergibt die Anwendung der Kettenregel mit $\mu_2 = f_2 \cdot \mu_1$
+	\begin{align*}
+		\mu_1(A) = \int_A f_1 d\mu_2 = \int_A \underbrace{f_1}_{\frac{d\mu_1}{d\mu_2}} \underbrace{f_2}_{\frac{d\mu_2}{d\mu_1}} d\mu_1
+	\end{align*}
+	Da $\mu_1(A) = \int_A 1d\mu_1$ und die RN-Dichte f.ü. eindeutig ist, gilt $\mu_1$-f.ü.
+	\begin{align*}
+		\frac{d\mu_1}{d\mu_2} \frac{d\mu_2}{d\mu_1} = 1 \implies \frac{d\mu_1}{d\mu_2} = \left(\frac{d\mu_2}{d\mu_1}\right)^{-1}
+	\end{align*}
+	("Kehrwert und Ableitung sind vertauschbar.")
+\end{proof}
+
+Ein einfaches Beispiel zeigt, dass die (sigma-)Endlichkeit der Maße unverzichtbar ist.
+
+\begin{example}
+	$\mathcal{A}=\{\Omega,\emptyset\}$, $\mu_1(\emptyset) = 0 = \mu_2(\emptyset)$ und $\mu_1(\Omega) = 1, \mu_2(\Omega) = \infty$. $\mu_1 \approx \mu_2$
+	\begin{align*}
+		\mu_1(\Omega) = \int_\Omega f d\mu_2
+	\end{align*}
+	ist für keine messbare Funktion $f \geq 0$ möglich.
+\end{example}
+
+Im obigem Beispiel (Poissonverteilung) waren $\mu_i \ll \zeta$ (Zählmaß) und die Dichten wurden über den "Umweg" über $\zeta$ bestimmt.
+
 \end{document}
