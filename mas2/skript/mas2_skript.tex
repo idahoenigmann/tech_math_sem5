@@ -1,0 +1,1057 @@
+\documentclass[]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[many]{tcolorbox}
+
+\newtheorem{theorem}{Satz}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{corollary}{Folgerung}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Def}
+\newtheorem*{remark}{Beberkung}
+\newtheorem*{example}{Beispiel}
+
+\tcolorboxenvironment{theorem}{
+	colback=blue!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\tcolorboxenvironment{lemma}{
+	colback=yellow!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\tcolorboxenvironment{definition}{
+	colback=green!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\tcolorboxenvironment{definition*}{
+	colback=green!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+%opening
+\title{Maß- und Wahrscheinlichkeitstheorie Skript Felsenstein W2022}
+\author{Ida Hönigmann}
+
+\begin{document}
+
+\maketitle
+
+\section{Produkträume und Maße}
+Auf dem kartesischen Produkt von Grundmengen
+\begin{align*}
+	\Omega = \bigtimes_{i=1}^{n}\Omega_i
+\end{align*}
+wird eine Produkt-(Sigma)Algebra konstruiert, wobei $(\Omega_i, \mathcal{A}_i)$ Messräume sind. Es soll $(\Omega_i, \mathcal{A}_i)$ in $(\Omega, \mathcal{A})$ eingebettet werden.
+
+\begin{definition*}[Projektion]
+	\begin{align*}
+		\pi_i : \Omega \mapsto \Omega_i \text{ mit } \pi_i(\omega_1,...,\omega_n)=\omega_i
+	\end{align*}
+\end{definition*}
+Die Produktalgebra wird von den Projektionen erzeugt.
+
+\begin{definition}[Produktalgebra]
+	\begin{align*}
+		\mathcal{A} := \bigotimes_{i=1}^{n}\mathcal{A}_i := \sigma(\pi_1,...,\pi_n)\\
+		\text{d.h. } \pi_1^{-1}(A_1) \cap \pi_2^{-1}(A_2) \cap ... \cap \pi_n^{-1}(A_n) \text{ für } A_i \in \mathcal{A}_i
+	\end{align*}
+	erzeugen diese Algebra (bzw. $A_1\times A_2\times ...\times A_n$).
+\end{definition}
+
+Wenn $\mathcal{A}_i = \sigma(\mathcal{E}_i)$ erzeugt wird von $\mathcal{E}_i$, wird $\bigotimes\mathcal{A}_i$ von $\bigtimes\mathcal{E}_i$ erzeugt.
+
+\begin{theorem}[1.PR]
+	$\mathcal{A}_i=\sigma(\mathcal{E}_i)$ mit $\mathcal{E}_i\subset 2^{\Omega_i}$. $\Omega_i$ sei aus $\mathcal{E}_i$ monoton erreichbar ($E_{i,k} \nearrow \Omega_i$)\footnote{Man kann fordern, dass $\Omega_i \in \mathcal{E}_i$, dann ist es erfüllt.}.
+	\begin{align*}
+		\mathcal{E} = \{\bigtimes_{i=1}^{n}E_i, E_i\in\mathcal{E}_i\}
+	\end{align*}
+	Dann gilt
+	\begin{align*}
+		\bigotimes_{i=1}^{n}\mathcal{A}_i = \sigma(\mathcal{E}).
+	\end{align*}
+\end{theorem}
+
+\begin{proof}[Beweis Satz 1.PR]
+$\sigma(\mathcal{E})$ ist die kleinste Sigma-Algebra, sodass die Projektionen messbar sind: $\tilde{\mathcal{A}}$ sei Sigma-Algebra auf $\Omega = \bigtimes_i \Omega_i$.
+
+$\pi_i$ ist $\tilde{\mathcal{A}}-\mathcal{A}_i$ messbar $\iff \sigma(\mathcal{E}) \subseteq \tilde{\mathcal{A}}$.
+
+$\implies$: Alle $\pi_i$ seien $\tilde{\mathcal{A}}-\mathcal{A}_i$ messbar, d.h. $\pi_i^{-1}(\mathcal{E}_i) \subseteq \tilde{\mathcal{A}}$, wobei für $E_i \in \mathcal{E}_i$
+\begin{align*}
+	\pi_i^{-1}(E_i) = \Omega_1\times\Omega_2\times ...\times E_i\times\Omega_{i+1}\times ...\times\Omega_n
+\end{align*}
+Da
+\begin{align*}
+	\underbrace{\bigtimes_{i=1}^{n}E_i}_{\in \mathcal{E}} = \bigcap_{i=1}^{n}\pi_i^{-1}(E_i) \subseteq \tilde{\mathcal{A}} \implies \sigma(\mathcal{E}) \subseteq \tilde{\mathcal{A}}.
+\end{align*}
+
+$\impliedby$: Es gelte $\sigma(\mathcal{E}) \subseteq \tilde{\mathcal{A}}$.
+Jedes $\Omega_i$ ist aus $\mathcal{E}_i$ monoton erreichbar mit $E_{i,k}\nearrow \Omega_i, k\to\infty$.
+\begin{align*}
+	F_k = E_{1,k}\times E_{2,k}\times ... \times E_i \times ... \times E_{n,k} \nearrow \pi_i^{-1}(E_i) \\
+	\lim F_k = \bigcup_{k=1}^{\infty}F_k = \pi_i^{-1}(E_i) \in \sigma(\mathcal{E}) \subset \tilde{\mathcal{A}}
+\end{align*}
+Urbild vom Erzeuger in $\tilde{\mathcal{A}}$, $\pi_i^{-1}(\mathcal{E}_i)\subseteq \tilde{\mathcal{A}} \forall i$, alle $\pi_i$ sind $\tilde{\mathcal{A}}-\mathcal{A}_i$ messbar.
+
+Alle Projektionen $\sigma(\mathcal{E})$ messbar, also $\sigma(\pi_1,...,\pi_n) \subset \sigma(\mathcal{E})$. Nach obigem setze $\tilde{\mathcal{A}}=\sigma(\pi_1,...,\pi_n) \implies \sigma(\mathcal{E}) \subseteq \sigma(\pi_1,...,\pi_n)$ also $\sigma(\mathcal{E}) = \sigma(\pi_1,...,\pi_n)$.
+\end{proof}
+
+\begin{remark}
+	$\{A_1\times ...\times A_n | A_i \in \mathcal{A}_i\}$ ist keine Sigma-Algebra, da nicht Vereinigungs-stabil.
+\end{remark}
+
+Die komponentenweise Behandlung im Produktraum ist anwendbar auf n-dim. Funktionen.
+
+\begin{corollary}
+	\begin{align*}
+		f_i:\Omega_0 &\mapsto \Omega_i, f=(f_1,...,f_n) =: \otimes_i f_i\\
+		f: \Omega_0 &\mapsto \bigtimes_i\Omega_i = \Omega
+	\end{align*}
+	Dann gilt:
+	\begin{align*}
+		f \text{ ist } (\Omega_0,\mathcal{A}_0) \mapsto \underbrace{\bigotimes_{i=1}^{n}(\Omega_i, \mathcal{A}_i)}_{\text{Produktraum}}  \text{ messbar } \iff f_i \mathcal{A}_0-\mathcal{A}_i \text{ messbar}
+	\end{align*}
+\end{corollary}
+\begin{proof}[Beweis Folgerung]
+	$\implies$: Da $f_i=\pi_i\circ f$ und $\pi_i \otimes_j \mathcal{A}_j-\mathcal{A}_i$ messbar ist $f_i$ als Verkettung messbar.
+	
+	$\impliedby$: $A \in \otimes\mathcal{A}_i$ Menge aus der Produktalgebra mit $A = \times_{i=1}^{n}A_i \leftarrow$ erzeugen $\otimes_{i=1}^{n} \mathcal{A}_i$.
+	\begin{align*}
+		f^{-1}(A) = \bigcap_{i=1}^{n}f_i^{-1}(A_i) \in \mathcal{A}_0
+	\end{align*}
+	Diese Rechtecke erzeugen $\sigma(f) = \sigma(f_1,...,f_n) \subseteq \mathcal{A}_0$ also ist $f \mathcal{A}_0-\otimes\mathcal{A}_i$ messbar.
+\end{proof}
+
+Anwendung auf Borel-Algebra: $\mathcal{B}^k=\otimes_{i=1}^k\mathcal{B}$ erzeugt von den Rechtecken $\times_i (a_i,b_i]$. Die Lebesgue-Mengen werden nicht von den Produkten erzeugt: $\otimes_{i=1}^k\mathcal{L} \subsetneq \mathcal{L}_k$.
+
+Nicht alle Nullmengen von $\mathcal{B}^k$ sind durch die Produkte mit allen Nullmengen erzeugbar.
+
+\begin{definition*}[Schnitt]
+	Besondere Mengen (für Integralberechnungen) sind die Schnitte:
+	\begin{align*}
+		A \in \mathcal{A} = \mathcal{A}_1 \otimes \mathcal{A}_2\\
+		A_{x_1} := \{x_2 \in \Omega_2| (x_1,x_2) \in A\}\\
+		A_{x_2} := \{x_1 \in \Omega_1| (x_1,x_2) \in A\}
+	\end{align*}
+\end{definition*}
+
+Die Schnitte sind messbar.
+\begin{theorem}[2.PR]
+	$A \in \mathcal{A}_1\otimes\mathcal{A}_2$ messbar bez. Produktalgebra, dann ist $A_{x_1}\in\mathcal{A}_2$ und $A_{x_2}\in\mathcal{A}_1$ für alle $x_1$ bzw. $x_2$.
+\end{theorem}
+
+\begin{proof}
+	$x_1$ sei fest. Betrachte $\mathcal{M} = \{A\subseteq \Omega_1\times\Omega_2|A_{x_1}\in\mathcal{A}_2\}$. $\mathcal{M}$ ist Sigma-Algebra: $\Omega \in \mathcal{M}$, $(A_{x_1})^c = (A^c)_{x_1}$ und $\cup A_{x_i,1}=(\cup A_i)_{x_1}$.
+	
+	Für die Erzeuger Mengen $A_1\times A_2 \in \mathcal{E}$ mit $A_i \in \mathcal{A}_i$
+	\begin{align*}
+		(A_1\times A_2)_{x_1} = \begin{cases}
+									A_2, & x_1 \in A_1\\
+									\emptyset, & x_1 \notin A_1
+								\end{cases}
+	\end{align*}
+	also $(A_1\times A_2)_{x_1} \in \mathcal{A}_2$, $\mathcal{E} \subseteq \mathcal{M}$ und $\sigma(\mathcal{E}) = \mathcal{A}_1 \otimes \mathcal{A}_2 \subseteq \mathcal{M}$, alle Mengen, alle $x_1$ erfüllen die Messbarkeit-Bedingungen.
+\end{proof}
+
+Die Abbildungen $x_1 \mapsto \mu_2(A_{x_1})$ sind messbare Abbildungen.
+
+\begin{theorem}[3.PR]
+	$\mathcal{A}=\mathcal{A}_1\otimes\mathcal{A}_2$, auf $\mathcal{A}_2$ sei $\mu_2$ ein sigma-endliches Maß auf $(\Omega_2,\mathcal{A}_2,\mu_2)$. Dann ist $x_1 \mapsto \mu_2(A_{x_1})$ eine $\mathcal{A}_1$ messbare Abbildung (entsprechendes gilt auch für $x_2 \mapsto \mu_1(A_{x_2})$).
+\end{theorem}
+\begin{proof}
+	Für ein $A\in\mathcal{A}$ sei $f_A(x_1)=\mu_2(Ax_1)$
+	\begin{enumerate}
+		\item $\mu_2$ sei endlich. Betrachte $\mathcal{D}=\{E\in\mathcal{A}|f_E ist \mathcal{A}_1 \text{ Borel-messbar} (\mathbb{R}^+,\mathcal{B}^+)\}$
+		
+		$\mathcal{D}$ ist ein Dynkin-System:
+		\begin{itemize}
+			\item $\Omega \in \mathcal{D}$, da $\Omega_{x_1}=\Omega_2 \in \mathcal{A}_2 \forall x_1 : f_\Omega \equiv \mu_2(\Omega_2)$ konstant
+			
+			\item $A\subseteq\mathcal{B}$ und $f_A,f_B$ messbar
+			
+			$A_{x_1} \subseteq B_{x_1}$ und $\mu_2(B_{x_1}\setminus A_{x_1}) = \mu_2(B_{x_1}) - \mu_2(A_{x_1}) = f_B(x_1) - f_A(x_1)$ ist messbar als Differenz messbarer Funktionen.
+			
+			\item $A_i \in \mathcal{A}$ und disjunkt, $B=\bigcup_{i}A_i$
+			
+			Wenn $A_i \in \mathcal{D}$, $B_{x_1} = \bigcup A_{i,x_1}$
+			\begin{align*}
+				\mu_2(B_{x_1}) = f_B(x_1) = \sum_i f_{A_i}(x_1) = \mu_2(\bigcup A_{x_1})
+			\end{align*}
+			Eine abzählbare Summe messbarer Funktionen ist messbar (Darstellung jeder messbarer Funk $f=\sum_j c_j 1_{c_j}$).
+		\end{itemize}
+	
+		Jede Menge aus $\mathcal{E}=\{A_1\times A_2 | A_i \in \mathcal{A_i}\}$ (dem Erzeuger von $\mathcal{A}$) ist auch in $\mathcal{D}$, weil $f_{A_1\times A_2}(x_1) = \mu_2((A_1\times A_2)_{x_1}) = \mu_2(A_2) 1_{A_1}(x_1)$. $c1$ ist messbar.
+		
+		$\mathcal{E}$ ist ein durchschnitt-stabiler Erzeuger und $\mathcal{E}\subseteq\mathcal{D}\subseteq\mathcal{A}=\sigma(\mathcal{E})$ also $\mathcal{A}=\mathcal{D}$, alle solchen Funktionen sind messbar bez. $\mathcal{A_1}$.
+		
+		\item Ist $\mu_2$ sigma-endlich, es gibt eine Folge $A_{2,i}\nearrow\Omega_2$ mit endlichem Maß, daher auch eine disjunkte Folge ($D_n$), die eine Zerlegung von $\Omega_2$ sind und $\mu_2(B) = \mu_2(\bigcup_n(D_n\cap B)) = \sum_n \mu_2(B\cap D_n)$.
+		\begin{align*}
+			f_B(x_1) = \mu_2(B_{x_1}) = \sum_n \underbrace{\mu_2(B_{x_1} \cap D_n)}_{<\infty} = \sum_n f_{(B_{x_1}\cap D_n)}(x_1)
+		\end{align*}
+		also Summe messbarer Funktionen.
+	\end{enumerate}
+\end{proof}
+
+Mit diesen Funktionen wird das Produktmaß erklärt.
+\begin{definition*}[Produktmaß]
+	\begin{align*}
+		\mu\left(\bigtimes_{i=1}^k A_i\right) = \prod_{i=1}^{k}\mu_i(A_i)
+	\end{align*}
+	Wenn $\Omega = \Omega_1^k$ mit $\mu_i = \mu$ gilt
+	\begin{align*}
+		\mu\left(\bigtimes_{i=1}^k A_i\right) = \prod_{i=1}^{k}\mu(A_i).
+	\end{align*}
+\end{definition*}
+
+Dieses Maß ist eindeutig definiert, wenn $\mu_1$, $\mu_2$ sigma-endlich sind, dann sind die Funktionen $f_B(x_1)$ bzw. $f_B(x_2)$ die ''Dichten'' bezüglich den Randmaßen $\mu_1$ bzw. $\mu_2$. $\mu_1$, $\mu_2$ werden auch als marginale Maße bezeichnet.
+
+\begin{theorem}[4.PR]
+	\begin{enumerate}
+		\item $\mu_2$ sei sigma-endlich. Dann definiert
+		\begin{align*}
+			\mu(A) = \int_{\Omega_1}\mu_2(A_{x_1})d\mu_1(x_1)
+		\end{align*}
+		das Produktmaß auf $(\Omega, \mathcal{A})$.
+		
+		\item Sind beide Maße $\mu_1$,$\mu_2$ sigma-endlich, dann ist $\mu$ eindeutig und
+		\begin{align*}
+			\mu(A) = \int_{\Omega_1}\mu_2(A_{x_1})d\mu_1(x_1) = \int_{\Omega_2}\mu_1(A_{x_2})d\mu_2(x_2)
+		\end{align*}
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	$f_A(x_1)=\mu_2(A_{x_1})$ ist eine $\mathcal{A}_1$-messbare Funktion $\forall A$ und durch die Additivität $f_{\cup A_i} = \sum f_{A_i}$ ist $\mu$ ein Maß auf $(\Omega, \mathcal{A})$.
+	
+	Für $A=A_1\times A_2$ gilt
+	\begin{align*}
+		\mu(A_1\times A_2) = \int_{\Omega_1} \underbrace{\mu_2((A_1\times A_2)_{x_1})}_{\mu_2(A_2) 1_{A_1}(x_1)} d\mu_1 = \mu_2(A_2) \underbrace{\int_{A_1} d\mu_1}_{\mu_1(A_1)}
+	\end{align*}
+	ist Produktmaß.
+	
+	$\mu$ ist auf dem (durchschnitts-stabilen) Erzeuger definiert, da die Maße sigma-endlich sind, ist $\mu$ eindeutig (Eindeutigkeitssatz). Vice versa gelten alle Gleichungen analog bez. $\mu_2$.
+\end{proof}
+
+\begin{example}
+	Insbesonders bei endlichem Maß anwendbar. $X$,$Y$ stochastische Größen, dann wird eindeutig eine zweidim. Verteilung auf $\mathbb{R}^2$ durch $P[(X,Y)\in A\times B] := P[X\in A] P[Y \in B]$ Produktverteilung.
+\end{example}
+
+Verallgemeinerung der Maße von Schnitten ist die Schnittfunktion.
+\begin{definition}[Schnittfunktion]
+	\begin{align*}
+		f:\Omega_1\times\Omega_2 \mapsto\Omega' \text{ Dann heißt }\\
+		x_2 \mapsto f_{x_1}(x_2) = f(x_1,x_2) \text{ $x_1$-Schnitt}\\
+		x_1 \mapsto f_{x_2}(x_1) = f(x_1,x_2) \text{ $x_2$-Schnitt}\\
+	\end{align*}
+	von f. (messbare Funktion $\Omega_1\times\Omega_2 \to (\Omega', \mathcal{A}')$).
+\end{definition}
+
+\begin{theorem}[5.PR]
+	$f$ sei messbar $(\Omega, \mathcal{A}) \mapsto (\Omega', \mathcal{A}')$.
+	Die Schnittfunktionen sind messbar:
+	\begin{align*}
+		f_{x_1} \text{ ist messbar } (\Omega_2,\mathcal{A}_2) \mapsto (\Omega', \mathcal{A}')\\
+		f_{x_2} \text{ ist messbar } (\Omega_1,\mathcal{A}_1) \mapsto (\Omega', \mathcal{A}')
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	$A'\in\mathcal{A}'$
+	\begin{align*}
+		f_{x_1}^{-1}(A') = \{x_2\in\Omega_2 | f(x_1,x_2) \in A'\} = \{x_2\in \Omega_2 | (x_1,x_2) \in f^{-1}(A')\} = (\underbrace{f^{-1}(A')}_{\text{ mb } \in \mathcal{A}})_{x_1}
+	\end{align*}
+	jede Schnittmenge ist messbar.
+	
+	Analog für $f_{x_2}^{-1}(A') \in \mathcal{A}_1$.
+\end{proof}
+
+Mit den Funktionenschnitten lässt sich auch ein mehrdim. Integral "zerteilen".
+
+\begin{theorem}[6.PR Satz von Fubini (-Tonelli)]
+	Produktraum $(\Omega,\mathcal{A}, \mu) = \otimes_i (\Omega_i, \mathcal{A}_i, \mu_i)$, $f$ messbar $\Omega \mapsto \mathbb{R}$, $\mu_i$ sigma-endlich.
+	Das zweidimensionale Integral von $f$ ist aufspaltbar
+	\begin{align*}
+		\int f d\mu = \int_{\Omega_1}\left(\int_{\Omega_2}f_{x_1}(x_2) d\mu_2\right)d\mu_1 = \int_{\Omega_2}\left(\int_{\Omega_1}f_{x_2}(x_1) d\mu_1\right)d\mu_2
+	\end{align*}
+	wenn eine der folgenden Bedingungen gilt:
+	\begin{enumerate}
+		\item $f\geq 0$: Dann ist $x_2\mapsto \phi_2(x_2) = \int_{\Omega_1}f_{x_2}d\mu_1$ messbar $\mathcal{A}_2$ und $x_1\mapsto \phi_1(x_1) = \int_{\Omega_2}f_{x_1}d\mu_2$ messbar $\mathcal{A}_1$
+		\item $f$ ist integrierbar, $\int f d\mu < \infty$: Dann sind $f_{x_1}$ $\mu_2$-integrierbar $[\mu_1]$ f.ü. und $f_{x_2}$ $\mu_1$-integrierbar $[\mu_2]$ f.ü.
+		\item $\int_{\Omega_1}\int_{\Omega_2}|f_{x_1}|d\mu_2 d\mu_1 < \infty$ oder $\int_{\Omega_2}\int_{\Omega_1}|f_{x_2}|d\mu_1 d\mu_2 < \infty$: Daraus folgt $f$ integrierbar.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item $f \geq 0:$ 4 Schritte des Integralaufbaus
+		
+		$f = 1_A, A \in \mathcal{A}$
+		\begin{align*}
+			x_2 \mapsto \phi_2(x_2) = \int_{\Omega_1} \underbrace{(1_A)_{x_2}}_{1_{A_{x_2}}} d\mu_1 = \mu_1(A_{x_2})
+		\end{align*}
+	
+		$\phi_2$ ist messbar (laut Satz PR5) und nach Satz PR7 gilt
+		\begin{align*}
+			\int f d\mu = \mu(A) = \int_{\Omega_2} \mu_1(A_{x_2}) d\mu_2(x_2) = \int_{\Omega_2} \phi_2 d\mu_2
+		\end{align*}
+	
+		Für einfache Funktionen $f = \sum_{i=1}^{n}\alpha_i 1_{A_i}$ ergibt sich das aus der Linearität:
+		\begin{align*}
+			f_{x_2} = \sum \alpha_i 1_{(A_i)_{x_2}}(x_1)
+		\end{align*}
+	
+		Schritt 3: $f_2\nearrow f, f_n$... einfache Funktionen, dann gilt $(f_n)_{x_2}\nearrow f_{x_2}$ (wieder aus der Darstellung $f=\sum_{i=1}^{\infty}\alpha_i 1_{A_i}$ + monotone Konvergenz ablesbar)
+		
+		\item $f$ integrierbar, betrachte Positiv- und Negativteil
+		\begin{align*}
+			max(0,f)_{x_2} = max(0, f_{x_2}) = (f^+)_{x_2}\\
+			\text{also } (f^+)_{x_2} = (f_{x_2})^+ \text{ und } f_{x_2}^- = (f^-)_{x_2} \text{ mit } |f|_{x_2} = |f_{x_2}|
+		\end{align*}
+	
+		Wegen $\int |f| d\mu < \infty$ gilt wegen oben für $|f|$:
+		\begin{align*}
+			\int |f| d\mu = \int_{\Omega_1} \int_{\Omega_2} |f|_{x_1} d\mu_2 d\mu_1 = \int_{\Omega_1} \underbrace{\int_{\Omega_2} |f_{x_1}| d\mu_2}_{\phi_1} d\mu_1 < \infty
+		\end{align*}
+	
+		Daher muss $\phi_1$ integrierbar sein (wie auch $\phi_2$). Integrierbarkeit erfordert auch $(f^+), (f^-)$ integrierbar sind, aufgespalten $f = f^+-f^-$ und $f_{x_i} = f_{x_i}^+ - f_{x_i}^-$. Nach 1. für $f^+, f^-$ getrennt ergibt
+		\begin{align*}
+			\int f d\mu = \int f^+ - \int f^- = \int_{\Omega_1} \int_{\Omega_2} f_{x_1}^+ d\mu_2 d\mu_1 - \int\int f^- d\mu_2 d\mu_1
+		\end{align*}
+	
+		\item impliziert $\int_{\Omega_2} f_{x_1}^+ d\mu_2 < \infty, \int_{\Omega_2} f_{x_1}^- d\mu_2 < \infty$ und somit $f$ integrierbar und 2.
+	\end{enumerate}
+\end{proof}
+
+Durch Iteration gilt die Fubini-Schnitt Konstruktion auch für mehrdimensionale $k\in\mathbb{N}$ Integrale:
+
+Wenn $f:\Omega\mapsto\mathbb{R}$ messbar mit $\Omega=\Omega_1\times ...\times\Omega_n$
+\begin{align*}
+	\int f d\mu = \int_{\Omega_1}\left(\int_{\Omega_2\times ...\times\Omega_n} f_{x_1} d\mu_2\otimes ...\otimes \mu_k\right) d\mu_1(x_1)
+\end{align*}
+
+Viele Folgerungen: Doppelreihen-Satz $\sum_i\sum_j a_{ij} = \sum_j\sum_i a_{ij}$ Kriterien für Konvergenz
+
+\begin{corollary}[Maße mit Dichten bezüglich dem Produktmaß]
+	$\Omega = \Omega_1\times\Omega_2$, $\mathcal{A}=\mathcal{A}_1\otimes\mathcal{A}_2$,  $\mu=\mu_1\otimes\mu_2$
+	
+	$\nu$ sei absolut stetig bzgl. $\mu$ ($\nu \ll \mu$), es existiert ein $f=\frac{d\nu}{d\mu}\geq 0$ mit $\nu(A)=\int_A f d\mu$ ($f$ integrierbar)
+	
+	$\mu$ sei sigma-endlich, $\nu$ erzeugt ein $\nu_1 \ll \mu_1$ auf $(\Omega_1, \mathcal{A}_1)$ und ein $\nu_2 \ll \mu_2$ auf ($\Omega_2, \mathcal{A}_2$) mit den Dichten $\phi_1, \phi_2$.
+	\begin{align*}
+		A \in \mathcal{A}_1: \nu_1(A_1) = \int_{A_1}\phi_1(x_1)d\mu_1 = \int_{A_1} \int_{\Omega_2} f_{x_1}(x_2) d\mu_2 d\mu_1
+	\end{align*}
+\end{corollary}
+
+\begin{example}
+	2 dim SG mit Gleichverteilung auf dem Einheitskreis $P[(X,Y)\in K] = 1$. Dichte $f$ bezgl. $\lambda^2 = \lambda_1\otimes\lambda_1$. $f(x,y)=\frac{1}{\pi}1_K$.
+	\begin{align*}
+		\phi_1(x)=\int f_X(y)d\lambda = \int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}\frac{1}{\pi} d\lambda(y) = \frac{2\sqrt{1-x^2}}{\pi}
+	\end{align*}
+	(Symmetrie: $\phi_2(y) = \frac{2\sqrt{1-y^2}}{\pi}$)
+	
+	Randverteilung $\nu_1$ $P[X\in A] = \int_A \frac{2}{\pi}\sqrt{1-y^2} d\lambda(y)$
+	
+	$\nu$ ist nicht das Produktmaß $\nu \neq \nu_1 \otimes \nu_2$ außer $f(x,y)=f_1(x)f_2(y)$.
+\end{example}
+
+\begin{definition*}[Ordinatenmenge, Graph]
+	Die Punkte unter einer positiven Funktion $f\geq 0$ heißt Ordinatenmenge $O_f=\{(x,y)|0\leq <\leq f(x)\}$ und der Graph ist $\Gamma_f=\{(x,f(x))|x\in\Omega\}$.
+\end{definition*}
+
+Für sigma-endliches Maß $\mu$ und $f$ messbar, dann ist $O_f$ eine bezüglich $\mathcal{A}\otimes\mathcal{B}$ messbare Menge und $\int f d\mu = (\mu \otimes \lambda)(O_f)$. Der Graph ist eine Nullmenge, $(\mu \otimes \lambda)(\Gamma_f) =0$
+
+\subsection{$\infty$-dim. Produkträume}
+Die Konstruktion der $\infty$-dim. Produkt-Messräume ist der endl. dim. Konstruktion entsprechend. $I$ sei Index-Menge,
+\begin{align*}
+	\otimes_{i\in I}\mathcal{A}_i := \sigma(\pi_i, i\in I) && \pi_i ... \text{ Projektion auf } \Omega_i
+\end{align*}
+beispielsweise $\otimes_{i\in I}\mathcal{B}$ auf $\Omega=\mathbb{R}^I$ (Funktionenraum).
+
+\begin{definition*}[Zylinder,Pfeiler]
+	$Z \subseteq \Omega^I$ heißt Zylinder, wenn $Z=\pi_j^{-1}(C)=C\times\Omega^{j^C}$ wobei $J\subseteq I$ eine endliche Teilindexmenge ist und $C$ die endlich dim. Basis des Zylinders ist;
+	und Pfeiler, wenn $C$ ein Rechteck $\times_{i \in J}A_i$ ist.
+\end{definition*}
+
+Auf den Pfeilern lässt sich das n-dim. Produktmaß erklären. $P^n(C)=\pi_{j\in J}P(A_j)$
+
+Im abzählbar unendlichen Fall ist die Vorgangsweise ähnlich, wie im endl. dim. Fall:
+
+\begin{theorem}[7.PR]
+	$X_i$ sei eine Folge von SGn auf $(\Omega_i,\mathcal{A}_i)$ mit gegebener gemeinsamer Verteilung
+	\begin{align*}
+		P_i(A) = P[X_j\in A_j, j\leq i, X_i \in A]
+	\end{align*}
+	für $A_j\in\mathcal{A}_j$ und $A\in\mathcal{A}_i$. D.h. die gemeinsame Verteilung von $(X_1,...,X_n)$ sind auf $(\times_i\Omega_i, \otimes_i\mathcal{A}_i)$ mit
+	\begin{align*}
+		P[(X_1,...,X_n)\in A_n, X_i \in \mathbb{R}, i>n] = P[(X_1,...,X_n) \in A_n]
+	\end{align*}
+	also für Zylinder $Z = \pi_{1,...,n}^{-1}(C_n)$, $C_n \in \otimes_i\mathcal{A}_i$ gilt $P[Z]=P_n(Cn)$.
+	
+	Wenn diese Wahrscheinlichkeitsverteilung verträglich sind, d.h. die Randverteilungen (bzw. alle Teilmengen endl.) eindeutig sind, lässt sich obiges Prinzip verallgemeinern.
+\end{theorem}
+
+\begin{theorem}[8.PR Satz von Kolmogoroff]
+	$(\Omega_i,\mathcal{A}_i), i\in I$ sei eine Familie von Messräumen und $P_j$ sind endl. dim. Verteilungen auf $(\mathbb{R}^J, \mathcal{B}_{|J|}), J \subset I, J$ endlich. Diese Verteilungen seien verträglich ($P_j=P_k\pi_{k,j}^{-1}, J \subset K, K$ ebenfalls endlich).
+	
+	Dann existiert ein eindeutiges Maß $P$ auf $(\mathbb{R}^I, \mathcal{B}_I=\otimes_{i\in I}\mathcal{B})$ mit genau diesen Randverteilungen ($P(A)=P_J(\pi_j^{-1}(A)), A \in \otimes_{i\in J}\mathcal{A}_i$).
+\end{theorem}
+
+Das Produktmaß $\mu_1\otimes\mu_2$ auf $\mathcal{A}_1\otimes\mathcal{A}_2$ muss nicht vollständig sein, wenn $(\Omega_i,\mathcal{A}_i,\mu_i), i=1,2$ vollständige Maßräume sind.
+
+\begin{example}
+	$(\mathbb{R}^2,\mathcal{L}_2,\lambda_2)$ ist ein vollständiger Maßraum. $\lambda_2(\mathbb{R}\times\{1\})=0$ und für beliebiges $A\subseteq\mathbb{R} \lambda_2(A\times\{1\})=0$. Wenn $A\notin\mathcal{L}$, dann sollte aber trotzdem der Schnitt von $A\times\{1\}$, $(A\times\{1\})_1=A\in \mathcal{L}$ messbar sein, das ist ein Widerspruch. Es folgt also $\mathcal{L}\otimes\mathcal{L}\neq\mathcal{L}_2$.
+\end{example}
+
+\begin{theorem}[9.PR]
+	$(\Omega_i,\mathcal{A}_i,\mu_i), i=1,2$ seinen sigma-endliche Maßräume. Wenn die messbaren Funktionen $f_i:(\Omega_i,\mathcal{A}:i)\rightarrow(\mathbb{R},\mathcal{B})$ entweder
+	\begin{itemize}
+		\item $f_i\geq 0$ oder
+		\item $f_i$ ist integrierbar, $i=1,2$
+	\end{itemize}
+	ist, dann gilt
+	\begin{align*}
+		\int f_1 \cdot f_2 d\mu_1\otimes d\mu_2 = \int f_1 d\mu_1 \cdot \int f_2 d\mu_2
+	\end{align*}
+	Im 2. Fall ist $f_1\cdot f_2$ auf $(\Omega_1\times\Omega_2, \mathcal{A}_1\otimes\mathcal{A}_2,\mu_1\otimes\mu_2)$ integrierbar.
+\end{theorem}
+
+\begin{proof}
+	Eigentlich klar, da $(f_1\cdot f_2)_{x_1} = f_1(x_1)\cdot f_2(.)$ $\mathcal{A}_2$ messbar ist und nach Fubini
+	\begin{align*}
+		\int f_1 \cdot f_2 d\mu_1\otimes d\mu_2 = \int_{\Omega_1}\int_{\Omega_2} f_1(x_1) f_2(x_2) d\mu_2(x_2) d\mu_1 = \int_{\Omega_1}\left(f_1(x_1) \int_{\Omega_2} f_2(x_2) d\mu_2(x_2) \right) = \int f_1 d\mu_1 \cdot \int f_2 d\mu_2 
+	\end{align*}
+	Genauso gilt $\int |f_1f_2| d\mu_1\otimes d\mu_2 = \int |f_1| d\mu_1 \int |f_2| d\mu_2$ und wenn die rechte Seite endlich ist, gilt $f_1\cdot f_2 \in \mathcal{L}_1$ bezüglich dem Produktraum.
+\end{proof}
+
+Die Betrachtung unabhängiger SGn $X_i, i=1,...,k$ erfolgt bequemer auf dem Produktraum. Auch wenn alle $\Omega_i=\Omega$, also alle SGn auf dem selben Raum definiert sind, übersiedelt man für die Erklärung der gemeinsamen Verteilung auf den Produktraum.
+
+Wenn $X=(X_1,...,X_k)$ ein Vektor unabhängiger SGn $X_i$ ist, gilt
+\begin{align*}
+	PX^{-1} = PX_1^{-1}\otimes ...\otimes PX_k^{-1}.
+\end{align*}
+Wenn $PX^{-1}$ ein Wahrscheinlichkeitsmaß mit Dichte ist, dann gilt
+\begin{align*}
+	PX^{-1}(A) = \int_A f_X d\lambda_k = \int_A f(x_1,...,x_k) d\lambda(x_1)...d\lambda(x_k)
+\end{align*}
+und die Randverteilung von $X_i$ ist mit Dichte
+\begin{align*}
+	PX_i^{-1}(A_i) = \int_{A_i\times\mathbb{R}^{k-1}} f_X d\lambda_k = \int_{A_i}\left(\int_\mathbb{R}...\int_\mathbb{R} f_X d\lambda ... d\lambda \right) d\lambda
+\end{align*}
+und wieder erhält man die Randdichte
+\begin{align*}
+	f_i(x_i) = \int_\mathbb{R} ...\int_\mathbb{R} f(x_1,...,x_k) d\lambda(x_1) ... d\lambda(x_{i-1}) d\lambda(x_{i+1}) ... d\lambda(x_k)
+\end{align*}
+(Das ist nicht neu, aber jetzt wird kein Umweg über das Riemann-Integral benötigt.)
+
+Wenn die $X_i$ unabhängig sind ist die gemeinsame Dichte
+\begin{align*}
+	f_X(x_1,...,x_k) = \prod_{i=1}^{k}f_i(x_i).
+\end{align*}
+Nach dem letzten Satz gilt für integrierbare $f$ und $g$ und unabhängige $X$ und $Y$
+\begin{align*}
+	\mathbb{E}f(X)g(Y) = \mathbb{E}f(X)\cdot\mathbb{E}g(Y)
+\end{align*}
+d.h. auch $\mathbb{E}XY = \mathbb{E}X \mathbb{E}Y$ und die SGn $X$ und $Y$ sind unkorreliert.
+
+Die Umkehrung gilt natürlich nicht, da Unkorreliertheit nur bedeutet, dass es keinen linearen Zusammenhang gibt.
+
+Wenn $Y=c$ f.s., dann sind $X$,$Y$ unabhängig, wenn $\mathbb{E}XY = \mathbb{E}X\mathbb{E}Y$, dass dann automatisch gilt. Auch wenn $X\sim A_{p_1}$ (Alternativ-verteilt) und $Y\sim A_{p_2}$ und
+\begin{align*}
+	\mathbb{E}XY = \mathbb{E}X\mathbb{E}Y = 0(1-p_1p_2) + 1p_1p_2 = p_1p_2
+\end{align*}
+d.h. $P(X=1)P(Y=1)=p_1p_2$ und $X$ und $Y$ sind unabhängig.
+
+Ansonsten ist nur bei Normalverteilung kein Unterschied zwischen Unkorreliertheit und Unabhängigkeit.
+
+\begin{example}
+	$(X,Y)\sim \mathcal{N}(\mu_x,\mu_y,\sigma_x^2,\sigma_y^2,\rho)$ o.B.d.A $\mu_x=\mu_y = 0$
+	
+	Die gemainsame Dichte zerfällt (siehe EI24)
+	\begin{align*}
+		f(x,y) = \underbrace{\frac{1}{\sqrt{2\pi}\sigma_x} exp\left(-\frac{1}{2}\left(\frac{x}{\sigma_x}\right)^2\right)}_{f_1(x)} \cdot \underbrace{\frac{1}{\sqrt{2\pi}\sigma_x} \frac{\sigma_x}{\sigma_y\sqrt{1-\rho^2}} exp\left(-\frac{1}{2}\left(\frac{\sigma_x^2(y-m)^2}{(1-\rho^2)\sigma_y^2}\right)^2\right)}_{f_2(x,y)}
+	\end{align*}
+	mit $m=\rho x \frac{\sigma_y}{\sigma_x}$ d.h.
+	\begin{align*}
+		\mathbb{E}XY = \int\int xyf(x,y)d\lambda_2 = \int\underbrace{\int y f_2(x,y) dy}_m xf_1(x) dx = \int m x f_1(x) dx = \rho \int x^2 f_1(x) dx = \rho \frac{\sigma_y}{\sigma_x}\sigma_x^2 = \rho\sigma_x\sigma_y
+	\end{align*}
+	$X$,$Y$ sind unkorreliert $\iff \rho = 0$, dann ist $f(x,y) = f_1(x)\cdot \Phi(\frac{y}{\sigma_y})$ ($\Phi$ Dichte der $\mathcal{N}(0,1)$) und sind $X$,$Y$ unabhängig.
+\end{example}
+
+Zwei Normalverteilungen können nur linear abhängen. Ansonsten kann sogar eine vollständige Abhängigkeit (nicht linear) bei unkorrelierten SGn vorliegen.
+
+\begin{example}
+	$X\sim U_{-1,1}, Y = X^2$. Dann gilt $\mathbb{E}X=0$ und $\mathbb{E}XY = \mathbb{E}X^3 = 0$ und $X$ und $Y$ sind unkorreliert.
+\end{example}
+
+Nur wenn für alle integrierbaren $f$,$g$ $f(X)$ und $g(Y)$ unkorreliert sind, dann sind $X$ und $Y$ unabhängig.
+
+Der Satz von Fubini ist ein wichtiges Werkzeug auch um bekannte Sätze der Integrationstheorie zu verallgemeinern, wie beispielsweise die partielle Integration.
+
+\begin{theorem}[10.PR]
+	$\mu_F$ und $\mu_G$ seinen Lebesgue-Stieltes Maße mit $F$ bzw. $G$ als Verteilungsfunktionen. $G_-(x)=\lim_{\tilde{x}\nearrow x}G(\tilde{x})$ ist der linksseitige Grenzwert von $G$. Dann gilt
+	\begin{align*}
+		\int_{(a,b]}Fd\mu_G + \int_{(a,b]}G_-d\mu_F = F(b)G(b)-F(a)G(a)
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	in der Übung.
+	
+	Wenn $F$ und $G$ stetig differenzierbar sind, dann gilt $d\mu_G = G'd\lambda$ und $d\mu_F = F'd\lambda$ und
+	\begin{align*}
+		\int_{(a,b]} F\cdot G' d\lambda + \int_{(a,b]} G\cdot F' d\lambda = F(b)G(b)-F(a)G(a)
+	\end{align*}
+	und in der üblichen Schreibweise für Stammfunktionen $\int FG' = FG - \int F'G$
+\end{proof}
+
+Mit dem Hauptsatz der Diff- u. Integrationstheorie lässt sich auch die bedingte Verteilung auf stetige Verteilungen erweitern.
+
+Für diskrete SGn $X$,$Y$ (beispielsweise auf $\mathbb{N}$ verteilt) ist
+\begin{align*}
+	P[X=k|Y=l] = \frac{P[X=k,Y=l]}{P[Y=l]}, k,l\in\mathbb{N}
+\end{align*}
+die Punktwahrscheinlichkeit $p_k$ der bedingten Verteilung $X|Y=l$.
+
+Besitzt $X$ eine stetig differenzierbare VF $F$ mit $F'=f_X$ als Dichte, gilt
+\begin{align*}
+	\lim\limits_{\triangle\rightarrow0}\frac{F(x+\triangle)-F(x)}{\triangle} = f_X(x) \text{ oder}\\
+	\frac{P[X\in[x-\triangle,x]]}{\triangle} \rightarrow f_X(x) \text{ für } \triangle\rightarrow0 \text{ oder}\\
+	P[X\in[x-\triangle,x]] \sim f_X(x)\triangle
+\end{align*}
+
+Mit dieser "infidezimalen Wahrscheinlichkeit" als Dichte erhält man, wenn auch $Y$ die Dichte $f_Y$ hat,
+\begin{align*}
+	P[X\in[x-\triangle,x]|Y\in[y-\triangle,y]] = \frac{P[X\in[x-\triangle,x], Y\in[y-\triangle,y]]}{P[Y\in[y-\triangle,y]]} =\\
+	\frac{\int_{x-\triangle}^{x}\int_{y-\triangle}^{y} f_{X,Y}(s,t) ds dt}{\int_{[y-\triangle,y]}f_Y(t) d\lambda(t)}\sim \frac{f_{X,Y}(x,y)\triangle^2}{f_Y(y)\triangle} = \frac{f_{X,Y}(x,y)\triangle}{f_Y(y)}
+\end{align*}
+
+\begin{definition}[bedingte Dichte]
+	$X:\Omega\rightarrow\mathbb{R}$ und $Y:\Omega\rightarrow\mathbb{R}$ sind SGn mit Dichte $f(x,y)$. $f_X$, $f_Y$ sind die Randdichten von $X$ und $Y$. Dann heißt für $y$ mit $f_Y(y)>0$
+	\begin{align*}
+		f(x|y) := \frac{f(x,y)}{f_Y(y)}
+	\end{align*}
+	die bedingte Dichte von $X$ bedingt durch $Y=y$. $f(x|y)$ ist $PY^{-1}_-$ f.s. definiert.
+\end{definition}
+
+Da für festes $y$
+\begin{align*}
+	\int_\mathbb{R} f(x|y) d\lambda(x) = \frac{\int_\mathbb{R} f(x,y) d\lambda(x)}{\int_\mathbb{R} f(x,y) d\lambda(x)} = 1 
+\end{align*}
+und $f(x|y)\geq 0$ ist $f(.|y)$ eine Wahrscheinlichkeitsdichte und tatsächlich eine Verteilung festgelegt.
+
+Wenn $X|Y=y PY^{-1}$-f.s. einen endlichen Erwartungswert besitzt, dann heißt die Funktion
+\begin{align*}
+	y\mapsto \mathbb{E}[X|Y=y] = \int x f(x|y) d\lambda(x)
+\end{align*} 
+bedingter Erwartungswert. Dann ist $h(Y):=\mathbb{E}[X|Y]$ eine $PY^{-1}$-f.s. messbare Funktion. $h(.)$ heißt auch Regressionsfunktion. $h(Y)$ ist als Prognose von $X$ nach der Beobachtung von $Y$ zu verstehen.
+
+\begin{example}
+	$(X,Y)$ sei bivariat normalverteilt $(X,Y)\sim\mathcal{N}(\mu_x,\mu_y,\sigma_x^2,\sigma_y^2, \rho)$. Die Darstellung der bivariaten Normalverteilungsdichte (PR18) führt auf die bedingte Dichte
+	\begin{align*}
+		f(x|y) = \frac{1}{\sqrt{2\pi v}}exp\left(-\frac{1}{2}\left(\frac{x-m}{v}\right)^2\right)\\
+		\text{mit } m = \mu_x + \rho\frac{\sigma_x}{\sigma_y}(y-\mu_y) \text{ und } v^2 = \sigma_x^2(1-\rho^2)
+	\end{align*}
+	d.h. $X|Y\sim\mathcal{N}(m,v^2)$.
+	
+	Die Regressionsfunktion ist linear
+	\begin{align*}
+		\mathbb{E}[X|Y] = \mu_x + \rho \frac{\sigma_x}{\sigma_y}(y-\mu_y)
+	\end{align*}
+	Auch diese Eigenschaft charakterisiert die Normalverteilung.
+\end{example}
+
+Für die Regressionsfunktion $H(Y):=\mathbb{E}[X|Y]$ gilt bei Normalverteilung $\mathbb{E}H(Y)=\mu_x$. Das ist generell der Fall:
+\begin{align*}
+	\mathbb{E}H(Y) = \int\mathbb{E}[X|Y=y]dPY^{-1} = \int\int x f(x|y) dx f_Y(y) dy\\
+	= \int\int x \underbrace{f(x|y)f_Y(y)}_{f(x,y)} dy dx =	\int\int x f(x,y) dy dx = \int x f_X(x) dx = \mathbb{E}X.
+\end{align*}
+Die mittlere Prognose entspricht dem unbedingten Erwartungswert.
+
+\subsection{Faltung von Maßen}
+\begin{definition}[Faltungsmaß]
+	$\mu_1,\mu_2$ sind sigma-endliche Maße auf $(\mathbb{R}, \mathcal{B})$. Das Faltungsmaß ist durch
+	\begin{align*}
+		\mu_1*\mu_2 (A) = \int \mu_1(A-y) \mu_2(dy)
+	\end{align*}
+	definiert.
+	
+	Das $\mu_1 * \mu_2$ tatsächlich ein Maß ist, ergibt sich daraus, dass es das von der Summe $S=X_1+X_2$ erzeugte Maß ist. D.h. $\mu_1 * \mu_2 = (\mu_1 \otimes \mu_2)S^{-1}$
+\end{definition}
+
+\begin{proof}
+	$S^{-1}(A) = \{(x,y)\in \mathbb{R}^2: x+y\in A\}$, wobei $A \in \mathcal{B}$. Der Schnitt von $S^{-1}(A)$ ist $S^{-1}(A)_y = \{x|x\in A-y\} = A-y$
+	
+	Die Darstellung des Produktmaßes mittels Schnitten wie zuvor,
+	\begin{align*}
+		\mu_1\otimes\mu_2(B) = \int \mu_1(B_y) d\mu_2(y), B \in \mathcal{A}_1 \otimes \mathcal{A}_2
+	\end{align*}
+	ergibt
+	\begin{align*}
+		\mu_1 * \mu_2(S^{-1}(A)) = \int \mu_1(A-y) d\mu_2(y) \text{ und }\\
+		(\mu_1\otimes\mu_2)S^{-1} = \mu_1 * \mu_2.
+	\end{align*}
+	Es ist auch in die andere "Richtung" darstellbar: $\mu_1 * \mu_2 = \int \mu_2(A-x) d\mu_1(dx)$
+\end{proof}
+
+Neben der Kommutativität $\mu_1 * \mu_2 = \mu_2 * \mu_1$ besitzt die Faltung noch folgende Eigenschaften:
+\begin{itemize}
+	\item $\mu_i, i=1,2,3$ sind sigma-endliche Maße auf $(\mathbb{R}, \mathcal{B})$
+	
+	\begin{align*}
+		(\mu_1*\mu_2)* \mu_3 = \mu_1 * (\mu_2 * \mu_3)
+	\end{align*}
+	\begin{proof}
+		$A \in \mathcal{B}_2$
+		\begin{align*}
+			(\mu_1 * \mu_2) * \mu_3(A) = \int \mu_1 * \mu_2 (A-z) d\mu_3(z) = \int\left(\int \mu_2(A-z-x) d\mu_1(x)\right) d\mu_3 = \\
+			\int\int \mu_2(A-z-x) d\mu_3(z) d\mu_1 = \int \mu_2 * \mu_3 (A-x) d\mu_1(x) = (\mu_2 * \mu_3) * \mu_1(A) = \mu_1 * (\mu_2 * \mu_3) (A)
+		\end{align*}
+	\end{proof}
+
+	\item $\mu_1(\mathbb{R}) = \mu_2(\mathbb{R}) = 1 \implies \mu_1 * \mu_2(\mathbb{R}) = 1$
+	
+	\begin{proof}
+		Da $\mathbb{R}-y=\mathbb{R} \forall y\in\mathbb{R}$ gilt
+		\begin{align*}
+			\mu_1 * \mu_2 (\mathbb{R}) = \int \mu_2(\mathbb{R}-x) d\mu_1(x) = \int \mu_2(\mathbb{R}) d\mu_1(x) = \mu_2(\mathbb{R}) \cdot \mu_1(\mathbb{R}) = 1
+		\end{align*}
+		
+		Die Faltung von Wahrscheinlichkeitsmaßen ist auch ein Wahrscheinlichkeitsmaß.
+	\end{proof}
+	
+	Sind $\mu_1 = PX_1^{-1}$ und $\mu_2=PX_2^{-1}$ von SGn $X_1$ bzw. $X_2$ induziert, dann ist $\mu_1 * \mu_2 = PX_1^{-1} * PX_2^{-1} = P(X_1+X_2)^{-1}$ das von $X_1,X_2$ induzierte Maß, vorausgesetzt $X_1,X_2$ sind unabhängig, also für $X=(X_1,X_2), PX = PX_1^{-1} \otimes PX_2^{-1}$.
+	
+	\item Es existiert auch ein neutrales Element der Faltung $\mu_0$ mit $\mu_0 * \mu = \mu = \mu * \mu_0$.
+	
+	\begin{proof}
+		Für $\mu_0 = \delta_0$, d.h. $\delta_0(A) = 1_A(0)$ gilt
+		\begin{align*}
+			\mu_0 * \mu(A) = \int \mu_0(A-x) d\mu(x) = \int \underbrace{1_{A-x}(0)}_{1_A(x)} d\mu(x) = \int 1_A(x) d\mu(x) = \mu(A).
+		\end{align*}
+	\end{proof}
+\end{itemize}
+
+Die Faltung bildet eine kommutative Halbgruppe.
+
+Die bereits vorher erklärte Faltung von messbaren Funktionen hängt erwartungsgemäß mit der Faltung von Maßen zusammen. Bei Maßen mit Dichten ist die Dichte der Faltung genau die Faltung der Dichten.
+
+\begin{theorem}[11.PR]
+	$\mu_1,\mu_2$ seien Maße mit Dichten bezüglich $\lambda$: $\mu_1 = \int f_1 d\lambda$ und $\mu_2 = \int f_2d\lambda$ und $f_1,f_2$ sind reellwertig.
+	
+	Dann ist
+	\begin{align*}
+		\mu_1 * \mu_2(A) = \int_A\left(\int_\mathbb{R} f_1(s-y) f_2(y) d\lambda(y) \right) d\lambda(s)
+	\end{align*}
+	 also die Dichte von $\mu_1 * \mu_2$ ist die Faltung der Dichten $f_1 * f_2$.
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		\mu_1 * \mu_2 (A) = \int_{\mathbb{R}} \mu_1(A-y) d\mu_2(y) = \int_{\mathbb{R}} \int_{A-y} f_1(x) d\lambda(x) f_2(y) d\lambda(y)
+	\end{align*}
+	Die Transformation $T_y(x) = x-y$ ist als lineare Transformation für $\lambda$ translationsinvariant. Für jedes $y$ gilt
+	\begin{align*}
+		\lambda T_y^{-1}(.) = \lambda(T_y^{-1}(.)) = \lambda(.)
+	\end{align*}
+	Das innere Integral ist nach dem Transformationssatz
+	\begin{align*}
+		\int_{A-y} f_1(x) d\lambda = \int_{T_y(A)} f_1 d\lambda = \int_A f_1\circ T_y(s) d\lambda(s)
+	\end{align*}
+	und mit dem Satz von Fubini ergibt sich
+	\begin{align*}
+		\mu_1 * \mu_2 (A) = \int_{\mathbb{R}} \left(\int_A f_1(s-y) d\lambda(s) \right) f_2(y) d\lambda(y) = \int_A \underbrace{\int_{\mathbb{R}} f_1(s-y) f_2(y) d\lambda(y)}_{f_1 * f_2} d\lambda(s)
+	\end{align*}
+	Analog gilt natürlich auch
+	\begin{align*}
+		\mu_1 * \mu_2 (A) = \int_A \left(\int f_2(s-x) f_1(x) d\lambda(x) \right) d\lambda(s).
+	\end{align*}
+\end{proof}
+
+Damit wurde die Faltung im stetigen Fall auf die Faltungsdichte zurückgeführt. Analog werden diskrete Maße gefaltet.
+
+\begin{theorem}[12.PR]
+	$\mu_i, i=1,2$ sind diskrete Maße auf $(\mathbb{R}, \mathcal{B})$ mit Trägermenge $D_i$ (abzählbar). Dann ist $\mu_1 * \mu_2$ diskret verteilt mit der Trägermenge $D = D_1 + D_2 = \{s|s=x+y, x\in D_1, y\in D_2\}$ und für $s\in \mathbb{R}$ gilt
+	\begin{align*}
+		\mu_1 * \mu_2(s) = \sum_{y \in D_2} \mu_1(\{s-y\})\mu_2(\{y\})
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		\mu_1 * \mu_2 (A) = \int_{D_2} \mu_1(A-y) d\mu_2(y) = \sum_{y\in D_2} \mu_1(A-y)\mu_2(\{y\})
+	\end{align*}
+	Die Trägermenge von $\mu_1 * \mu_2$ ist $D$, da $D^c-y \subseteq D_1^c$ für $y\in D_2$ und $\mu_1(D_1^c)=0$ gilt
+	\begin{align*}
+		\mu_1 * \mu_2 (D^c) = \sum_{y \in D_2} \underbrace{\mu_1(D^c-y)}_{=0}\mu_2(\{y\})\\
+		\implies \mu_1 * \mu_2 (D^c) = 0
+	\end{align*}
+	$\mu_1 * \mu_2(A) = \mu_1 * \mu_2 (A\cap D)$ und für $s\in D$ gilt
+	\begin{align*}
+		\mu_1 * \mu_2 (\{s\}) = \sum_{y \in D_2} \mu_1(\{s-y\})\mu_2(\{y\})
+	\end{align*}
+	oder mit vertauschten $\mu_i, i=1,2$
+	\begin{align*}
+		\mu_1 * \mu_2 (\{s\}) = \sum_{x \in D_1} \mu_2(\{s-x\}) \mu_1(\{x\})
+	\end{align*}
+\end{proof}
+
+Für stochastischen Größen und die entsprechenden induzierten Wahrscheinlichkeitsmaße wurde diese diskrete Faltung bereits erklärt, o.B.d.A sei $X$ auf $\mathbb{N}$ diskret verteilt, genauso wie $Y$, dann ist
+\begin{align*}
+	P(X+Y=k) = \sum_{m\geq 0} P(X=k-m) P(Y=m)
+\end{align*}
+wenn $X$,$Y$ unabhängig sind, bzw.
+\begin{align*}
+	P(X+Y=k) = \sum_{m\geq 0} P(X=k-m|Y=m) P(Y=m)
+\end{align*}
+wenn $X$,$Y$ nicht unabhängig sind.
+
+Mit der bedingten Dichte gilt auch im stetigen Fall für die Dichte von $X+Y=:S$ bei abhängigen $X$ und $Y$
+\begin{align*}
+	f_S(s) = \int f(s-t|Y=t) f_Y(t) d\lambda(t)
+\end{align*}
+wobei $f(x|y)$ die Dichte der bedingten Verteilung von $X|Y$ bezeichnet. Auch hier können die marginalen Dichten getauscht werden, d.h. mit $g(y|x)$ als bedingte Dichte $Y|X$
+\begin{align*}
+	f_S(s) = \int g(s-x|X=x) f_X(x) d\lambda(x).
+\end{align*}
+
+Für die Binomialverteilung wurde die Faltung bereits durchgeführt.
+
+\begin{example}[Faltung negativer Binomialverteilung]
+	$X$ ist $NegB_{k,p}$, wenn $X$ die Anzahl der Fehlversuche ($\backsimeq 0$) bis zum k-ten Erfolg ($\backsimeq 1$) bei unabhängigen $0-1$ Versuchen mit Erfolgswahrscheinlichkeit $p$.
+	\begin{align*}
+		P(X=m)=\binom{m+k-1}{k-1}p^k(1-p)^m
+	\end{align*}
+	Die geometrische Verteilung $G_p$ ist ein Spezialfall, $G_p=NegB_{1,p}$ (Variante 2 der geometrischen Verteilung ist hier gemeint).
+	\begin{align*}
+		X_i\sim G_p: P(X_i=m)=p(1-p)^m, m\in\mathbb{N}
+	\end{align*}
+
+	Die Faltung zweier $G_p$ heißt
+	\begin{align*}
+		P(X_1+X_2=m)=\sum_{l=0}^{m}p(1-p)^{m-l}p(1-p)^l = (m+1)p^2(1-p)^m = \binom{m+2-1}{2-1}p^2(1-p)^m
+	\end{align*}
+	daher $X_1+X_2\sim NegB_{2,p}$.
+	
+	Genauso ergibt die Faltung $NegB_{k,p}*G_p=:\mu$
+	\begin{align*}
+		\mu(\{m\}) = \sum_{i=0}^{m}\binom{i+k-1}{k-1}p^k(1-p)^ip(1-p)^{m-i} = p^{k+1}(1-p)^m\sum_{i=0}^{m}\binom{i+k-1}{k-1} = p^{k+1}(1-p)^m\binom{k+m}{k}
+	\end{align*}
+	Mit dem Pascalschen Dreieck $\binom{n+1}{k} = \binom{n}{k-1}\binom{n}{k}$ und Induktion kann gezeigt werden, dass $\sum_{i=0}^{m}\binom{i+k-1}{k-1} = \binom{k+m}{k}$.
+	
+	Somit ist $NegB_{k,p} * G_p = NegB_{k+1,p}$. Mit Induktion gilt daher sofort $NegB_{k,p}*NegB_{\tilde{k},p} = NegB_{k+\tilde{k},p}$.
+	
+	Die Summe unabhängiger $NegB$-Verteilungen (mit gleichem $p$) ist wieder negativ Binomialverteilt.
+	
+	Bei verschiedenen $p$ ist die Summe nicht nach einer $NegB$ verteilt.
+\end{example}
+
+Die Faltung eines (absolut) stetigen Maßes und eines diskreten Maßes ergibt wieder ein Maß mit Dichte.
+
+\begin{theorem}[13.PR]
+	$\mu$ sei ein Maß mit Dichte $f$ bez. $\lambda$. $\mu$ daher $\mu \ll\lambda$ und $\nu$ sei ein diskretes Maß mit Trägermenge $D$ (abzählbar) auf $(\mathbb{R},\mathcal{B})$. Dann ist $\mu * \nu \ll \lambda$ und
+	\begin{align*}
+		\mu * \nu (A) = \int_A \underbrace{\sum_{k\in D} f(x-k)\nu(\{k\})}_{\text{ Dichte von }\mu * \nu} d\lambda(x).
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	Da $\mu \ll \lambda$ gilt für eine Nullmenge $N$, $\lambda(N) = 0$ auch $\mu(N) = 0$. Wegen der Translationsinvarianz $\lambda(N-s) = 0$ für alle $s \in \mathbb{R}$, daher auch
+	\begin{align*}
+		\mu(N-s)=0 \text{ und } \mu * \nu (N) = \int \mu(N-s) \nu(ds) = 0\\
+		\implies \mu * \nu \ll \lambda.
+	\end{align*}
+
+	Sei $A = (-\infty, t], t\in \mathbb{R}$, dann gilt
+	\begin{align*}
+		\mu * \nu (A) = \int \sum_{k \leq t-s, k\in D} \nu(\{k\}) f(s) d\lambda(s) = \int \sum_{k\in D} \nu(\{k\}) 1_{(-\infty, t]}(k+s) f(s) d\lambda(s) = \\
+		\sum_{k\in D} \nu(k) \int 1_{(-\infty,t]}(x) f(x-k) d\lambda(x) = \int_{(-\infty,t]} \sum_{k\in D} f(x-k) \nu(k) d\lambda(x)
+	\end{align*}
+	Die Aussage gilt daher für Intervalle. Wegen des Fortsetzungssatzes gilt sie auch für jedes $A \in \mathcal{B}$.
+\end{proof}
+\begin{remark}
+	Bei mehr als 2 Maßen genügt ein Maß $\mu_i \ll \lambda$.
+\end{remark}
+\begin{example}
+	$\mu$ sei eine Exponentialverteilung $E_{x_1}$ mit Dichte $f(s)=e^{-s}1_{(0,\inf)}(s)$. $\nu$ entspreche einer Geometrischen Verteilung $G_{\frac{1}{2}}$ (Version 1). $\nu(\{k\}) = \frac{1}{2^k}, k\geq 1$.
+	
+	Die Lebesgue-Dichte des Faltungsmaßes ist
+	\begin{align*}
+		h(x) = \sum_{k\geq 1}\frac{1}{2^k} e^{-(x-k)} 1_{(0,\infty)}(x-k) = e^{-(x-1)}\frac{(\frac{e}{2})^{\lfloor x\rfloor} - 1}{e-2}
+	\end{align*}
+	was einer stückweisen (auf $[n,n+1)$) gewichteten Exponentialfunktion (Verteiliung) entspricht.
+\end{example}
+
+Die Faltung kann auch mit der Verteilungsfunktion durchgeführt werden:
+
+$X$ besitzt $F$ als Verteilungsfunktion $Y$ hat $G$ als VF, $X$ und $Y$ unabhängig. Die Verteilungsfunktion von $X+Y$ ist
+\begin{align*}
+	H(t) = \int F(t-s) dG(s) = \int G(t-s) dF(s)
+\end{align*}
+(siehe Übung).
+
+Wie im letzten Beispiel ist $H(.)$ bis auf eine Nullmenge differenzierbar, wenn $F$ und $G$ differenzierbar mit Dichten $F'=f$ und $G'=g$ sind. Die (stückweise) differenzierbar VF $H$ ergibt die Dichte aus Satz 11.PR.
+\begin{align*}
+	\frac{dH}{dx}(s) = \int \frac{dF}{dx}(s-t)\frac{dG}{dx}(t) d\lambda(t).
+\end{align*}
+
+Natürlich wird auch die Verteilung der Differenz $X-Y$ unabhängiger Sgn $X,Y$ mit der Faltung von $X$ und $-Y$ bestimmt.
+
+Wenn Dichten existieren ist die Dichte von $X-Y$ $h(t)=\inf f_X(s) f_Y(s-t) d\lambda(s)$. Die Wahrscheinlichkeit für $X \leq Y$ kann auch mit der FaltungsVF für $X-Y$ berechnet werden.
+
+\begin{lemma}
+	$X,Y$ SGn mit VF $F_X,F_Y$ und Dichten $f_X,f_Y$. Wenn $X$ u.a. $Y$, dann ist
+	\begin{align*}
+		P[X\leq Y] = \int_\mathbb{R} F_X(t)f_Y(t) d\lambda(t).
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	\begin{align*}
+		P[X\leq Y] = \int_{\{x\leq y\}} f(x,y) d\lambda_2 = \int_\mathbb{R} \int_{(-\infty,Y]} f_X(x) f_Y(y) d\lambda_2(x,y) = \int_\mathbb{R} F_X(y)f_Y(y) d\lambda(y)
+	\end{align*}
+\end{proof}
+\begin{example}
+	$X,Y$ unabhängige Exponentialverteilungen mit Raten $\lambda_1,\lambda_2$, d.h. $X\sim E_{x_{\lambda_1}}, Y \sim E_{x_{\lambda_2}}$.
+	\begin{align*}
+		P(X\leq Y) = \int_{\mathbb{R}^+} (1-e^{-\lambda_1y})\lambda_2 e^{-\lambda_2y}d\lambda(y) = 1 - \frac{\lambda_2}{\lambda_1+\lambda_2} = \frac{\lambda_1}{\lambda_1 + \lambda_2}
+	\end{align*}
+	Anteil der Raten von $X$.
+\end{example}
+
+\section{Signierte Maße und Zerlegungen}
+
+Die Summe von Maßen ist wieder ein Maß, die Differenz von Maßen ist eine zumindest sigma-additive Mengenfunktion.
+
+\begin{definition}[signiertes Maß]
+	Die Mengenfunktion $\nu$ ist ein signiertes Maß, wenn auf $(\Omega, \mathcal{A})$ gilt $\nu:\mathcal{A} \rightarrow (-\infty, \infty]$ oder $[-\infty, \infty)$ mit $\nu(\emptyset) = 0$ und für disjunkte $A_i \in \mathcal{A}$ ist $\nu(\bigcup_{i=1}^{\infty}A_i) = \sum_{i=1}^{\infty}\nu(A_i)$.
+\end{definition}
+
+Viele Eigenschaften von Maßen lassen sich auf signierte Maße übertragen, allerdings ein Integral über ein signiertes Maß macht Schwierigkeiten.
+Es stellt sich aber heraus, dass signierte Maße sich als Differenz zweier Maße darstellen lässt. Das und vieles folgende wäre sofort klar, wenn es für $\nu$ eine Dichte $f:\Omega\rightarrow\mathbb{R}$ bezüglich eines Maßes $\mu$ gibt $\nu(A) = \int_A f d\mu$, was auch $\nu \ll \mu$ zur Folge hat.
+
+\begin{align*}
+	\nu(A) = \int_A f^+ - f^- d\mu = \underbrace{\int_A f^+ d\mu}_{\mu_1} - \underbrace{\int_A f^- d\mu}_{\mu_2}
+\end{align*}
+
+Für $A \subseteq [f^+>0]$ ist eine Menge mit $\nu(A)\geq 0$ und auch jede Teilmenge $B \subseteq A$ erfüllt $\nu(B)\geq 0$.
+
+\begin{definition}[positive Menge, negative Menge]
+	$(\Omega, \mathcal{A}, \nu)$ sei signierter Maßraum. $A^+$ heißt positive Menge bez. $\nu$, wenn $\forall B \subseteq A^+: \nu(B)\geq 0$ erfüllt, $A^-$ ist $\nu$-negative Menge, wenn $\nu(B)\leq 0$ für $B \subseteq A^-$.
+\end{definition}
+
+Negative Mengen eines signierten Maßraumes bilden einen sigma-Ring (Bezeichnung $\mathcal{A}^-$). $\mathcal{A}^-$ ist $\cap$-stabil und $\triangle$-stabil. Die Monotonie folgt aus der Stetigkeit von signierten Maßen.
+
+Sie Maße sind signierte Maße stetig von unten. Die monoton wachsende Folge $A_n\nearrow A$ wird wieder mit disjunkten Teilmengen dargestellt, $A = \bigcup_{n=1}^{\infty}A_n = A_1 \cup (A_2\setminus A_1) \dots$.
+
+Bei der Stetigkeit von oben wird noch $|\nu(A_{n_0})| < \infty$ für ein $n_0$ (damit für $n\geq n_0$) verlangt.
+
+\begin{definition}[Hahn-Zerlegung]
+	Eine Hahn-Zerlegung von $\Omega$ besteht aus $\{P,P^c\}$, wobei $P$ eine positive und $P^c$ eine negative Menge ist.
+\end{definition}
+
+\begin{theorem}[1.SZ]
+	Jeder signierte Maßraum $(\Omega, \mathcal{A}, \nu)$ besitzt eine Hahn Zerlegung von $\Omega$.
+\end{theorem}
+
+\begin{proof}
+	Sei $\nu: \mathcal{A}\rightarrow (-\infty, \infty]$. $\mathcal{A}^-$ das System der negativen Mengen. Sei $c:=\inf_{B\in\mathcal{A}'}\nu(B)$ daher gibt es eine Folge $B_n$ mit $\nu(B_n) < c + \frac{1}{n}$ und $B_n \in \mathcal{A}'$.
+	
+	$N:=\bigcup_n B_n$ ist eine negative Menge. Sei $P:=N^c$.
+	
+	Angenommen $P$ enthält eine negative Menge $B$ mit $\nu(B) < 0$, dann wäre $\nu(B\cup N) = \underbrace{\nu(B)}_{<0}+\nu(N) < c$ also $c$ nicht das Infimum.
+	
+	Demnach ist für jedes $B \subseteq P$ und $\nu(B) < 0$.
+	\begin{align*}
+		\mathcal{E}_1 := \sup\{\nu(M) | M \subseteq B\} > 0
+	\end{align*}
+
+	Es gibt ein $M_1 \subseteq B$ mit $\frac{\mathcal{E}_1}{2} \leq \nu(M_1) \neq \mathcal{E}_1$.
+	
+	Daher $\nu(B\setminus M_1) = \nu(B) - \nu(M_1) < \nu(B) < 0$. Auch $B\setminus M_1 \notin \mathcal{A}^-$, daher gibt es ein $M_2$ mit $\nu(B \setminus M_1 \setminus M_2) < 0$.
+	
+	Mit Induktion gibt es also eine Folge disjunkter Mengen $M_n \subseteq B$ mit $\nu(B\setminus \bigcup_{i=1}^{n}M_i) < 0$.
+	
+	Betrachte $D = B\setminus\bigcup_{i=1}^{\infty} M_i \implies B = \bigcup M_i \cup D$.
+	
+	Für $M_i$ gilt $\nu(M_i) > 0$ und $\nu(B) = \sum_i \nu(M_i) + \nu(D)$, daher $0 \leq \sum \nu(M_i) < \infty$ und $\nu(D) < 0$.
+	
+	Somit muss $\nu(M_i) \rightarrow 0$ und für $C \subseteq D \subseteq B \setminus \bigcup_{i=1}^{n} M_i$ jede Teilmenge $C$ erfüllt $\nu(C) \leq \mathcal{E}_n$ mit $\mathcal{E}_n \rightarrow 0 \implies \nu(C) \leq 0$.
+	
+	$D$ ist eine negative Menge mit $\nu(D) < 0$. Da $D \subseteq P = N^c$ wäre $N \cup D$ eine negative Menge mit $\nu(N \cup D) < \nu(N) = 0$. Damit kann $c = \inf_{B\in\mathcal{A}^-}\nu(B)$ nicht stimmen, die Annahme $\nu(B) < 0$ hält nicht, $P$ ist positive Menge.
+\end{proof}
+
+Hahn-Zerlegungen sind nicht eindeutig, für $\nu(.) = \inf_. f d\lambda$ kann der Trennungspunk gewählt werden. Aber die symmetrische Differenz positiver Mengen ist eine Nullmenge:
+
+Sei $\{P_1,P_1^c\}$ und $\{P_2, P_2^c\}$ jeweils eine Hahn-Zerlegung von $\Omega$. Dann gilt für $A \subseteq P_1 \setminus P_2$, dass $\nu(A) \geq 0$ ($A \subseteq P_1$) und $\nu(A) \leq 0$ ($A \subseteq P_2^c$), also $\nu(A) = 0$.
+
+\begin{definition}[Jordan-Zerlegung]
+	Eine Jordan-Zerlegung des signierten Maßes $\nu$ bilden Maße $\mu_1, \mu_2$ mit
+	\begin{align*}
+		\nu = \mu_1 - \mu_2,
+	\end{align*}
+	wobei $\mu_1,\mu_2$ singulär zueinander sind,
+	\begin{align*}
+		\mu_1 \perp \mu_2 \text{ d.h. } \exists M \text{ mit } \mu_1(M) = \mu_2(M^c) = 0.
+	\end{align*}
+\end{definition}
+
+Die Singularität führt auf folgende Minimaleigenschaft der Jordan-Zerlegung.
+
+Ist $\nu^+,\nu^-$ eine Jordanzerlegung von $\nu = \nu^+ - \nu^-$ und $\nu = \mu_1 - \mu_2$ für beliebige Maße $\mu_1,\mu_2$, dann gilt $\nu^+(A) \leq \mu_1(A)$ und $\nu^-(A) \leq \mu_2(A)$ für alle $A \in \mathcal{A}$.
+
+Mit obiger Trennungsmenge $M$ gilt
+\begin{align*}
+	\nu^+(A) = \underbrace{\nu^+(A\cap M)}_{=0} + \nu^+(A \cap M^c) = \nu^+(A \cap M^c) = \nu(A \cap M^c)\\
+	\nu^-(A) = \nu^-(A \cap M) + \underbrace{\nu^-(A \cap M^c)}_{=0} = \nu^-(A \cap M) = - \nu(A \cap M)\\
+	\implies \nu^+(A) = \mu_1(A \cap M^c) - \mu_2(A \cap M^c) \leq \mu_1(A)\\
+	\nu^-(A) = \mu_2(A\cap M) - \mu_1(A \cap M) \leq \mu_2(A)
+\end{align*}
+
+Mit der Hahn-Zerlegung findet man auch eine Jordan-Zerlegung.
+
+\begin{theorem}[2.SZ Jordan'scher Zerlegungssatz]
+	Jedes signierte Maß $\nu$ besitzt eine eindeutige Jordan-Zerlegung $\nu = \mu_1 - \mu_2$.
+\end{theorem}
+\begin{proof}
+	Aus der Hahn-Zerlegung $\Omega = P \cup P^c$ erhält man mit
+	\begin{align*}
+		\mu_1(A) = \nu(A \cap P) \text{ und } \mu_2(A) = - \nu(A \cap P^c)
+	\end{align*}
+	zwei singuläre Maße. Die Eindeutigkeit folgt aus der Minimaleigenschaft.
+	
+	Sei $\nu = \nu^+ - \nu^-$ mit singulären Maßen $\nu^+,\nu^-$, dann gilt $\nu^+ \leq \mu_1 \land \nu^- \leq \mu_2$ und $\mu_1 \leq \nu^+ \land \mu_2 \leq \nu^-$.
+\end{proof}
+
+\begin{definition*}[Totalvariation]
+	Durch $\mu_1 + \mu_2$ aus der Jordan-Zerlegung entsteht ein Maß, der Variation bzw. Totalvariation mit der Bezeichnung $|\nu| = \mu_1 + \mu_2$ genannt wird. Die Rechtfertigung der Bezeichnung gilt.
+\end{definition*}
+
+\begin{lemma}
+	Für das signierte Maß $\nu$ gilt
+	\begin{align*}
+		\forall A \in \mathcal{A}: |\nu(A)| \leq |\nu|(A).
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	Die Aussage folgt sofort aus
+	\begin{align*}
+		|\nu(A)| = |\mu_1(A) - \mu_2(A)| \leq |\mu_1(A)| + |\mu_2(A)| = |\nu|(A).
+	\end{align*}
+\end{proof}
+
+Die Zerlegungssätze für signierte Maße werden für sigma-endliche Maße konkretisiert.
+
+\begin{definition}[Lebesgue-Zerlegung]
+	$\nu$ und $\mu$ seinen sigma-endliche Maße auf $(\Omega, \mathcal{A})$. Eine Lebesgue-Zerlegung von $\nu$ besteht aus Maßen $\nu_c,\nu_s$, sodass
+	\begin{align*}
+		\nu = \nu_c + \nu_s && \text{ und } && \nu_c \ll \mu && \text{ und } &&
+		\nu_s \perp \mu
+	\end{align*}
+	also $\nu_c$ absolut stetig bezüglich $\mu$ und $\nu_s$ singulär zu $\mu$ ist.
+\end{definition}
+
+$\nu$ ist in Bezug auf $\mu$ in einen stetigen und einen singulären Anteil zerlegt.
+
+Die zentrale Aussage ist, dass eine Lebesgue-Zerlegung für sigma-endliche Maße immer existiert und eindeutig ist. Für den Beweis können verschiedene Wege genommen werden. Eine Möglichkeit ist die Verwendung des Satzes von Riesz.
+
+\begin{theorem}[Darstellungssatz von Riesz-Frechet]
+	$(V,<.,.>)$ sei ein Hilbertraum und $H:V\rightarrow\mathbb{R}$ eine reellwertige Abbildung. Dann sind folgende Aussagen äquivalent:
+	\begin{itemize}
+		\item $H$ ist stetig und linear
+		\item $\exists a \in V$ mit $H(x) = <x,a>$ und $a$ ist eindeutig bestimmt.
+	\end{itemize}
+\end{theorem}
+
+Der Hilbertraum hier ist $\mathcal{L}_2(\mu)$ (also die quadratisch integrierbaren Funktionen) mit $<f,g> = \int fg d\mu$.
+
+Die Abbildung $H: \mathcal{L}^2(\mu) \rightarrow \mathbb{R}$ ist also genau dann stetig und linear, wenn es ein $f \in \mathcal{L}_2(\mu)$ gibt mit $H(g) = \int gf d\mu \forall g \in \mathcal{L}_2$.
+
+\begin{theorem}[3.SZ Zerlegungssatz von Lebesgue]
+	Ein sigma-endliches Maß $\nu$ auf dem sigma-endlichen Maßraum $(\Omega, \mathcal{A}, \mu)$ hat eine eindeutige Lebesgue Zerlegung.
+\end{theorem}
+
+\begin{theorem}[4.SZ Satz von Radon-Nikodym]
+	Für sigma-endliche Maße $\mu,\nu$ gilt $\nu \ll \mu \iff \nu$ ist Maß mit Dichte, d.h.
+	\begin{align*}
+		\nu(A) = \int_A f d\mu
+	\end{align*}
+	mit f.ü. eindeutiger Dichte $f \geq 0$; $f = \frac{d\nu}{d\mu}$.
+\end{theorem}
+\begin{proof}[Satz 3 und 4]
+	TODO
+\end{proof}
+
+Der Satz von Radon-Nikodym ist damit auch gezeigt, da wenn $\nu \ll \mu$ wird $\nu_s \equiv 0$ in der Lebesgue-Zerlegung gesetzt.
+
+\begin{example}
+	$\mu_i, i=1,2$ seinen Poissonverteilungen mit Raten $\lambda_i > 0$
+	\begin{align*}
+		\mu_1(\{k\}) = \frac{\lambda_1^k}{k!} e^{-\lambda_1}, k \in \mathbb{N}
+	\end{align*}
+
+	$\mu_1 \ll \mu_2$ und $\mu_2 \ll \mu_1$, da $\mu_i(\{k\})>0 \forall k \in \mathbb{N}$.
+	\begin{align*}
+		\mu_2(\{k\}) = \left(\frac{\lambda_2}{\lambda_1}\right)^k e^{\lambda_1 - \lambda_2} \mu_1(\{k\}) \\
+		\text{also } \frac{d\mu_2}{d\mu_1} = \left(\frac{\lambda_2}{\lambda_1}\right)^k e^{\lambda_1 - \lambda_2} \text{ und}\\
+		\mu_2(A) = \sum_{k\in A} \left(\frac{\lambda_2}{\lambda_1}\right)^k e^{\lambda_1 - \lambda_2} \mu_1(\{k\})
+	\end{align*}
+\end{example}
+
+\begin{definition}[Äquivalenz]
+	Die Maße $\mu_1, \mu_2$ heißen äquivalent ($\mu_1 \approx \mu_2$), wenn $\mu_1 \ll \mu_2$ und $\mu_2 \ll \mu_1$.
+\end{definition}
+
+\begin{lemma}
+	Die sigma-endlichen Maße $\mu_1$ und $\mu_2$ seinen äquivalent $\mu_1 \approx \mu_2$. Dann gilt für die RN-Dichten
+	\begin{align*}
+		\frac{d\mu_1}{d\mu_2} = \left(\frac{d\mu_2}{d\mu_1}\right)^{-1} \mu_1\text{-f.ü.}
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	Da $\mu_1 \ll \mu_2 \ll \mu_1$ ergibt die Anwendung der Kettenregel mit $\mu_2 = f_2 \cdot \mu_1$
+	\begin{align*}
+		\mu_1(A) = \int_A f_1 d\mu_2 = \int_A \underbrace{f_1}_{\frac{d\mu_1}{d\mu_2}} \underbrace{f_2}_{\frac{d\mu_2}{d\mu_1}} d\mu_1
+	\end{align*}
+	Da $\mu_1(A) = \int_A 1d\mu_1$ und die RN-Dichte f.ü. eindeutig ist, gilt $\mu_1$-f.ü.
+	\begin{align*}
+		\frac{d\mu_1}{d\mu_2} \frac{d\mu_2}{d\mu_1} = 1 \implies \frac{d\mu_1}{d\mu_2} = \left(\frac{d\mu_2}{d\mu_1}\right)^{-1}
+	\end{align*}
+	("Kehrwert und Ableitung sind vertauschbar.")
+\end{proof}
+
+Ein einfaches Beispiel zeigt, dass die (sigma-)Endlichkeit der Maße unverzichtbar ist.
+
+\begin{example}
+	$\mathcal{A}=\{\Omega,\emptyset\}$, $\mu_1(\emptyset) = 0 = \mu_2(\emptyset)$ und $\mu_1(\Omega) = 1, \mu_2(\Omega) = \infty$. $\mu_1 \approx \mu_2$
+	\begin{align*}
+		\mu_1(\Omega) = \int_\Omega f d\mu_2
+	\end{align*}
+	ist für keine messbare Funktion $f \geq 0$ möglich.
+\end{example}
+
+Im obigem Beispiel (Poissonverteilung) waren $\mu_i \ll \zeta$ (Zählmaß) und die Dichten wurden über den "Umweg" über $\zeta$ bestimmt.
+
+\end{document}
