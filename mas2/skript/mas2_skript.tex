@@ -1001,7 +1001,66 @@ Die Abbildung $H: \mathcal{L}^2(\mu) \rightarrow \mathbb{R}$ ist also genau dann
 	mit f.ü. eindeutiger Dichte $f \geq 0$; $f = \frac{d\nu}{d\mu}$.
 \end{theorem}
 \begin{proof}[Satz 3 und 4]
-	TODO
+	Da beide Maße als sigma-endlich vorausgesetzt werden, kann (wie üblich) sich auf den endlichen Fall beschränken. Sei für das Maß $\gamma := \mu + \nu$.
+	
+	$\gamma(\Omega) < \infty$. Für $f,g \in \mathcal{L}^2(\gamma)$ gilt
+	\begin{align*}
+		\int |f-g| d\nu \leq \int |f-g| d\mu \leq (1+\gamma(\Omega)) ||f-g||_{2} \text{ (Norm auf } \mathcal{L}^2(\gamma) \text{)}
+	\end{align*}
+	Das bedeutet $h \rightarrow \int h d\nu$ ist eine stetige Abbildung $\mathcal{L}_2(\gamma) \mapsto \mathbb{R}$ und natürlich auch eine lineare Abbildung.
+	
+	Nach dem Satz von Riesz-Frechet existiert ein $g \in \mathcal{L}_2(\gamma)$ mit
+	\begin{align*}
+		\text{(1) } \int h d\nu = \int hg d\gamma \forall h \in \mathcal{L}_2(\gamma) \text{ oder} \\
+		\text{(2) } \int \tilde{h}(1-g) d\gamma = \int \tilde{h} d\mu \forall \tilde{h} \in \mathcal{L}_2(\gamma).
+	\end{align*}
+	
+	Betrachtet man $h=1_{[g<0]}$ so gilt
+	\begin{align*}
+		0 \leq \underbrace{\nu([g<0])}_{=0} = \int h d\nu = \int 1_{[g<0]}g d\gamma \leq 0\\
+		\text{da, } \underbrace{\int 1_{g<0} g \nu}_{=0} + \underbrace{\int 1_{g<0} g \mu}_{=0}
+	\end{align*}
+	Das erste Integral ist über eine Nullmenge und das Zweite weil: Wäre $\mu[g < 0] > 0$, dann wäre das Integral $< 0$.
+	
+	Betrachtet man $\tilde{h} = 1_[g>1]$ ist genauso
+	\begin{align*}
+		\mu([g>1]) = \int 1_{[g>1]} (1-g) d\gamma \leq 0
+	\end{align*}
+	und $g\leq 1$ $\gamma$-f.ü.
+	
+	Es gilt $\gamma$-f.ü. $0 \leq g \leq 1$ und $\tilde{\gamma} := (1-g)\gamma$ ist ein Maß mit Dichte $(1-g)$, $\tilde{\gamma}(A) = \int_A (1-g) d\gamma$.
+	
+	Für jedes $h \geq 0$ existiert eine Folge $h_n \in \mathcal{L}_2(\tilde{\gamma})$ mit $h_n \nearrow h$ (beispielsweise sind Treppenfunktionen aus $\mathcal{L}^2$). Nach dem Satz von der monotonen Konvergenz gilt
+	
+	\begin{align*}
+		\int h d\tilde{\gamma} = \int \lim h_n d\tilde{\gamma} = \lim \int h_n d\tilde{\gamma} \overbrace{=}^{\text{wegen (2)}} \lim \int h_n d\mu = \int h d\mu.
+	\end{align*}
+	
+	Also gilt für alle $h \geq 0$ (1) und (2),
+	\begin{align*}
+		\int h(1-g) d\gamma = \int h d\mu
+	\end{align*}
+
+	Sei $E=[g=1]$ und $h=1_E$, dann folgt $\int h d\mu = 0 \implies \mu([g=1]) = 0$.
+	
+	Seien die (Spur-)Maße
+	\begin{align*}
+		\nu_c(A) = \nu(A\setminus E) && \text{ und } && \nu_s(A) = \nu(A \cap E)
+	\end{align*}
+	
+	Offensichtlich ist $\nu = \nu_c + \nu_s$ und die Maße sind singulär aufeinander, und $\nu_s \perp \mu$ da $\mu(E) = 0$ und $\nu_s(E^c) = 0$.
+	
+	Sei $A$ eine $\mu$-Nullmenge $\mu(A)=0$, dann genügt $A \cap E = \emptyset$ anzunehmen da $\mu(e) = 0$, dh. $\int_A (1-g) d(\mu + \nu) = 0$ (nach 2), da $1-g > 0$ auf $A$ ist $\mu(A) + \nu(A) = 0 \implies \nu(A) = 0$ und auch $\nu_c(A) = 0$.
+	
+	Daher ist $\nu_c \ll \mu$.
+	
+	Es bleibt noch die Dichte zu finden, sei 
+	\begin{align*}
+		&f := \frac{g}{1-g} 1_{E^c}. \\
+		&\int_A f d\mu \overbrace{=}^{\text{wegen (2)}} \int_A 1_{E^c} g d(\mu + \nu) \overbrace{=}^{wegen (1)} \int 1_A 1_{E^c} d\nu = \nu(A\setminus E) = \nu_c(A)
+	\end{align*}
+	und die Dichte ist $f$.
+	
 \end{proof}
 
 Der Satz von Radon-Nikodym ist damit auch gezeigt, da wenn $\nu \ll \mu$ wird $\nu_s \equiv 0$ in der Lebesgue-Zerlegung gesetzt.
@@ -1053,5 +1112,196 @@ Ein einfaches Beispiel zeigt, dass die (sigma-)Endlichkeit der Maße unverzichtb
 \end{example}
 
 Im obigem Beispiel (Poissonverteilung) waren $\mu_i \ll \zeta$ (Zählmaß) und die Dichten wurden über den "Umweg" über $\zeta$ bestimmt.
+
+\section{Dichten und absolute Stetigkeit}
+
+Lebesgue-Stieltjes Maße auf $(\mathbb{R}, \mathcal{B})$ besitzen eine Verteilungsfunktion $F$ von $\mu$. Angenommen $F$ ist überall stetig differenzierbar, dann gilt
+\begin{align*}
+	\frac{dF}{dx} = \frac{d}{dx} \mu((-\infty,x]) = f \text{ und}\\
+	\mu((-\infty,x]) = \int_{-\infty}^{\infty} f(t) dt.
+\end{align*}
+Nach dem Hauptsatz der Differenzial- und Integralrechnung gilt
+\begin{align*}
+	f = \frac{dF}{dx}
+\end{align*}
+und die Dichte entspricht der Ableitung der Verteilungsfunktion.
+
+Im Gegensatz zu den vorigen (Existenz-)Sätzen zu Dichten, besteht jetzt eine einfache Möglichkeit eine Dichte (bezüglich $\lambda$) zu finden.
+
+Für eine Verallgemeinerung des obigen Prinzips, wird die stetige Differenzierbarkeit gegen schwächere Eigenschaften der Dichten gewechselt.
+
+\begin{definition}[Beschränkte Variation]
+	$f:[a,b]\rightarrow \mathbb{R}$ ist von beschränkter Variation mit Schranke $M$, wenn für jede endliche Partition des Intervalls, $a=x_0<x_1<...<x_n=b$
+	\begin{align*}
+		\sum_{i=1}^{n} |f(x_i) - f(x_{i-1}) | \leq M
+	\end{align*}
+\end{definition}
+\begin{definition}[Totalvariation]
+	Die Totalvariation von $f$ ist
+	\begin{align*}
+		V_a^b f := \sup \left\{ \sum_{i=1}^{n} |f(x_i) - f(x_{i-1}) |, n \in \mathbb{N} \right\}
+	\end{align*}
+	wobei das Supremum über alle solche Partitionen gebildet wird. Die Menge $BV(a,b)$ beherbergt alle $f$ von beschränkter Variation auf $[a,b]$.
+\end{definition}
+
+\begin{example}
+	$f(x) = x \sin(1/x)$ mit $f(0) = 0$ ist auf $[0,1]$ stetig, aber nicht von beschränkter Variation. Sei die Partition definiert durch
+	\begin{align*}
+		x_i = \left( \frac{\pi}{2} (1+2i) \right)^{-1}, i=1,2,...
+	\end{align*}
+	womit
+	\begin{align*}
+		|f(x_i) - f(x_{i-1})| \geq \frac{1}{\pi (i+\frac{3}{2})}.
+	\end{align*}
+	Die rechte Seite ist nicht summierbar, für jedes $M$ existiert eine Anzahl $n$ mit $\sum^n |f(x_i) - f(x_{i-1})| > M$.
+\end{example}
+\begin{lemma}
+	Wenn $f \in BV(a,b)$ und $a<c<b$ gilt
+	\begin{align*}
+		V_a^c f + V_c^b f = V_a^b f
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	Für eine beliebige Partition mit $n$ Parametern des Intervalls $(a,b)$ sei $s(a,b) := \sum |f(x_i) - f(x_{i-1})|$ mit $x_0=a$, $x_n=b$.
+	
+	Ist $c$ ein Punkt von $a=x_0 < ... < x_n = b$ gilt
+	\begin{align*}
+		s(a,c) + s(c,b) \leq V_a^b f
+	\end{align*}
+	da die Partitionen von $(a,c)$ und $(c,b)$ beliebig waren, gilt auch
+	\begin{align*}
+		V_a^c f + V_c^b f \leq V_a^b f
+	\end{align*}
+
+	Ist $c$ kein Punkt und $x_i < c < x_i+1$
+	\begin{align*}
+		s(a,b) \leq s(a,x_j) + |f(x_{j+1}) - f(c)| + |f(c) - f(x_j)| + s(x_{j+1}, b).
+	\end{align*}
+	Auch das gilt für beliebige Partitionen, somit $V_a^b f \leq V_a^c f + V_c^b f$
+\end{proof}
+\begin{lemma}
+	$f\in BV(a,b)$ dann sind auf $(a,b)$
+	\begin{align*}
+		x \rightarrow V_a^x f \text{ und } x \rightarrow V_a^x f - f(x)
+	\end{align*}
+	monoton wachsende Funktionen.
+\end{lemma}
+\begin{proof}
+	$V(x) := V_a^x f$. Für $y > x$ gilt nach vorigem Lemma $V_a^y f = V_a^x f + V_x^y f$, d.h. $V(.)$ ist wachsend.
+	\begin{align*}
+		f(y) - f(x) \leq |f(y) - f(x)| \leq V_x^y f = V_a^y f - V_a^x f\\
+		\implies V_a^x f - f(x) \leq V_a^y f - f(y)
+	\end{align*}
+\end{proof}
+
+Die Darstellung von Funktionen mit beschränkter Variation durch monotone Funktionen ist auch eine Charakterisierung.
+\begin{theorem}[1.DS]
+	$f \in BV(a,b)$ genau dann, wenn $f=v-w$ mit monoton wachsenden Funktionen $v,w$.
+\end{theorem}
+\begin{proof}
+	Es ist nur mehr $\impliedby$ zu zeigen.
+	
+	Sei $f=v-w$
+	\begin{align*}
+		\sum |f(x_i) - f(x_{i-1})| = \sum |v(x_i) - v(x_{i-1}) + w(x_{i-1}) - w(x_i)| \leq \sum |v(x_i) - v(x_{i-1})| + \sum |w(x_i) - w(x_{i-1})|.
+	\end{align*}
+	Da jede monotone Funktion von beschränkter Variation ist, gilt
+	\begin{align*}
+		\sum |f(x_i) - f(x_{i-1})| \leq V_a^bv + V_a^b w < \infty.
+	\end{align*}
+\end{proof}
+
+Eine monotone Funktion hat nur höchstens abzählbar viele Unstetigkeitsstellen. $f:[a,b]\mapsto\mathbb{R}$ monoton steigend, d.h. $f_-(x) \leq f(x) \leq f_+(x)$ (also jeweils der linksseitige bzw. rechtsseitige Grenzwert).
+
+Jede Unstetigkeitsstelle $x_0$ erzeugt ein Intervall $(f_-(x_0), f_+(x_0))$, diese Intervalle sind eindeutig und disjunkt, wovon es nur höchstens abzählbar viele geben kann.
+
+Eine Funktion beschränkter Variation, $f \in BV(a,b)$ ist stetig $\lambda$-f.ü.
+
+Wenn $f\in BV(a,b)$ mit $f=F-G$ und $F,G$ monoton wachsend, dann kann $F,G$ an der Unstetigkeitsstellen durch den rechtsseitigen Grenzwert ersetzt werden.
+
+$F_+,G_+$ sind dann Verteilungsfunktionen von Lebesgue-Stieltjes Maßen.
+\begin{align*}
+	f_+ := F_+ - G_+ = f \lambda\text{-f.ü.}
+\end{align*}
+
+$f_+,f$ ist als Verteilungsfunktionen eines signierten LS-Maßes zu verstehen.
+
+Eine Verteilungsfunktion $F$ ist zerlegbar in $F=F_s + F_d$, wobei $F_s$ stetig ist und $F_d$ eine Verteilungsfunktion eines diskreten Maßes ist. (Abzählbare Trägermenge $\{x_i\}_{i\in I}$ mit $\mu(\{x_i\})> 0$).
+
+Der stetige Anteil ($F_s$) lässt sich weiter zerlegen. Dazu betrachten wir absolut stetige Funktionen.
+
+\begin{definition}[absolut stetig]
+	Die Funktion $f:[a,b] \rightarrow \mathbb{R}$ heißt absolut stetig, wenn zu beliebigem $\epsilon>0$ ein $\delta > 0$ existiert, sodass aus $\sum_{i=1}^{n} (b_i - a_i) < \delta$ folgt $\sum_{i=1}^{n} |f(b_i) - f(a_i)| < \epsilon$. Dabei sind $(a_i,b_i)$ disjunkte Teilintervalle von $[a,b]$, die Anzahl der Intervalle ist $n$ (beliebig).
+\end{definition}
+
+Solche absolut stetigen Funktionen liegen "zwischen" stetig differenzierbaren und gleichmäßig stetigen Funktionen.
+
+Wenn $f\in C^1[a,b]$, dann ist $f$ absolut stetig, da
+\begin{align*}
+	|f(b_i) - f(a_i)| \leq \sum_{x\in (a,b)} |f'(x)| (b_i - a_i), a_i < b_i
+\end{align*}
+
+\begin{lemma}
+	$f$ sei auf $[a,b]$ absolut stetig. Dann ist $f$ gleichmäßig stetig und $f\in BV[a,b]$.
+\end{lemma}
+\begin{proof}
+	Nach Voraussetzung existiert zu $\epsilon > 0$ ein $\delta > 0$ sodass aus $(b-a)< \delta \implies |f(b)-f(a)| < \epsilon$ egal was $a,b$ ist. Damit ist $f$ gleichmäßig stetig.
+	
+	Für eine Partition $a=x_0 < x_1 < ... < x_n = b$ mit $(x_i - x_{i-1}) < \delta \forall i$ gilt für jede endliche Partition $(a_i,b_i)$ des Intervalls $(x_{i-1},x_i)$
+	\begin{align*}
+		\sum_{i=1}^{m} |f(b_i) - f(a_i)| \leq V_{x_{i-1}}^{x_i} f < \epsilon
+	\end{align*}
+	nach Voraussetzung der absoluten Stetigkeit.
+	
+	$V_a^b f$ ist additiv, also
+	\begin{align*}
+		V_a^b f = \sum_{i=1}^{n} V_{x_{i-1}}^{x_i} < n \epsilon
+	\end{align*}
+	daher ist $V_a^b f$ endlich.
+\end{proof}
+
+Absolute Stetigkeit ist stärker als gleichmäßige Stetigkeit, aber glm. Stetigkeit ist nicht hinreichend. Lipschitz Stetigkeit wiederum ist hinreichend.
+
+Wenn $f \in C^1[a,b]$, also stetig differenzierbar ist, dann ist $f$ absolut stetig.
+
+Für $a_i, b_i \in [a,b]$ und $\sup_{x \in [a,b]} |f'(x)| < \infty$ ist
+\begin{align*}
+	|f(b_i) - f(a_i)| \leq \sup_{x \in [a,b]} |f'(x)| |b_i - a_i|
+\end{align*}
+und daher ist $f$ absolut stetig.
+
+Im folgenden soll geklärt werden, wie weit die komfortable Situation einer stetig differenzierbaren Verteilungsfunktion mit daraus folgender Maßdichte auf absolut stetige Verteilungsfunktionen übertragen werden kann. Damit könnte dann auch die Dichte eines Maßes $\mu$ mit $\mu \ll \lambda$ bestimmt werden.
+
+Für eine absolut stetige Funktion diene eine Verteilungsfunktion eines signierten Maßes als Vorlage. Das rechtfertigt folgender Satz.
+
+\begin{theorem}[2.DS]
+	$f:[a,b]\rightarrow\mathbb{R}$ ist absolut stetig. Dann ist $f = F-G$, wobei beide Funktionen $F,G$ monoton wachsend und absolut stetig sind.
+\end{theorem}
+\begin{proof}
+	Zunächst wird gezeigt, dass $x \rightarrow V_a^x f$ eine absolut stetige Funktion ist.
+	
+	Für $\epsilon > 0$ existiert ein $\delta$, sodass eine Partition $P = \{(a_i,b_i)|i=1,...,n\}$ disjunkter Intervalle mit $\sum (b_i - a_i) < \delta$ existiert, sodass $\sum_{i=1}^{n} |f(b_i) - f(a_i)| < \epsilon$.
+	
+	Wird jedes einzelne Intervall $(a_i, b_i)$ wieder zerlegt, $a_i \leq a_{i_0} < ... < a_{i_{m_i}} = b_i$, ist
+	\begin{align*}
+		\sum_{i=1}^{n} \sum_{j=1}^{m_i} (a_{i_j} - a_{i_{j-1}}) = \sum_{i=1}^{n} b_i - a_i < \delta
+	\end{align*}
+	und nach Voraussetzung
+	\begin{align*}
+		\sum_{i=1}^{n} \underbrace{\sum_{j=1}^{m_i} |f(a_{i_j}) - f(a_{i_{j-1}})}_{=V_{a_{i-1}}^{a_i}} < \epsilon
+	\end{align*}
+
+	Da die Zerlegung von $(a_i,b_i)$ beliebig war, ist auch
+	\begin{align*}
+		\sum_{i=1}^{n} \sup \left\{\sum_{j=1}^{m_i} |f(a_{i_j}) - f({a_{i_{j-1}}})| \big| a_i = a_{i_0} < ... < a_{i_{m_i}} = b_i\right\} = \sum_{i=1}^{n} V_{a_i}^{b_i} f = \sum_{i=1}^{n} \underbrace{|V_a^{b_i}f - V_a^{a_i} f|}_{=V_{a_i}^{b_i} f} < \epsilon
+	\end{align*}
+	also $v(x)=V_a^x f$ ist absolut stetig. Dann ist auch $v(x)-f(x)$ absolut stetig (als Summe von absolut stetigen Funktionen) Nach vorigem Lemma sind $v(.)$ und $v(.)-f(.)$ beide monoton wachsend.
+\end{proof}
+
+Die Bezeichnung "absolut stetig" für Maße $\mu \ll \lambda$ kommt von einer der gleichmäßigen Stetigkeit entsprechenden Eigenschaft für Funktionen.
+
+\begin{theorem}[3.DS]
+	content...
+\end{theorem}
 
 \end{document}
