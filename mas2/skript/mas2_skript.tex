@@ -1301,7 +1301,116 @@ Für eine absolut stetige Funktion diene eine Verteilungsfunktion eines signiert
 Die Bezeichnung "absolut stetig" für Maße $\mu \ll \lambda$ kommt von einer der gleichmäßigen Stetigkeit entsprechenden Eigenschaft für Funktionen.
 
 \begin{theorem}[3.DS]
-	content...
+	$\mu$ sei ein LS-Maß auf $(\mathbb{R}, \mathcal{B})$ mit Verteilungsfunktion $F$. $[a,b] \subseteq \mathbb{R}$.
+	
+	$\mu \ll \lambda$ ist äquivalent mit:
+	\begin{enumerate}
+		\item $\epsilon,\delta$-Kriterium: Zu $\epsilon > 0$ existiert ein $\delta > 0$, sodass aus $\lambda(A)< \delta \implies \mu(A) < \epsilon$, wenn $\mu$ endlich ist, $A \in \mathcal{B}$.
+		
+		\item $F|_{[a,b]}$ ist Verteilungsfunktion von $\mu$ auf $([a,b], \mathcal{B}|_{[a,b]})$ ist absolut stetig.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Wenn das $\epsilon,\delta$ Kriterium gilt und $\lambda(A)=0$ aber $\mu(A)>0$, dann ist für $\epsilon = \frac{\mu(A)}{2}$, zwar $\lambda(A) < \delta$ für alle $\delta > 0$ aber es gilt nicht $\mu(A) < \epsilon$.
+		
+		Es sei $\mu \ll \lambda$. Da $\mu$ endlich ist (und daher natürlich sigma-endlich) existiert eine RN-Dichte $f$ mit $\mu(A) = \int_A f d\lambda$.
+		
+		Da $\mu$ endlich $\lambda([f=\infty])=0$ $\lambda([f>m])\rightarrow 0$ für $m \rightarrow \infty$. Mit $\Omega = [a,b]$ folgt
+		\begin{align*}
+			\int_{\Omega} f 1_{[f>m]} d\lambda \rightarrow 0
+		\end{align*}
+		wegen der Stetigkeit von oben des Maßes $\mu$. Für $\epsilon > 0$ wähle $m$ mit
+		\begin{align*}
+			\int_{\Omega} f 1_{[f>m]} d\lambda < \frac{\epsilon}{2}
+		\end{align*}
+		und $\delta < \frac{\epsilon}{2m}$, dann gilt
+		\begin{align*}
+			\mu(A) = \int_A f 1_{[f>m]} d\lambda + \int_A f 1_{[f\leq m]} d\lambda \leq \frac{\epsilon}{2} + m \lambda(A) \text{, wenn}\\
+			\lambda(A) < \delta \implies \mu(A) < \epsilon.
+		\end{align*}
+	
+		Bemerkung: Teil 1) gilt für beliebige (endliche) Maße $\mu,\nu$ mit $\mu \ll \nu$.
+		
+		\item Wenn $\mu \ll \lambda$ gilt nach dem $\epsilon,\delta$ Kriterium für $A=\bigcup_{i=1}^{n} (a_i,b_i]$ mit $\lambda(A) = \sum_{i=1}^{n} (b_i - a_i) < \delta$
+		\begin{align*}
+			\mu(A) = \sum_{i=1}^{n} F(b_i) - F(a_i) = \sum |F(b_i) - F(a_i)| < \epsilon
+		\end{align*}
+		und $F$ ist absolut stetig.
+		
+		Sei $F$ absolut stetig und $A \in \mathcal{B} \cap [a,b]$.
+		
+		$\lambda$ ist (auch) das äußere Maß, somit gilt
+		\begin{align*}
+			\lambda(A) = \inf \left\{ \sum_{i=1}^{\infty} (b_i - a_i) \big| A \subseteq \bigcup_{i=1}^{\infty} (a_i,b_i] \right\}
+		\end{align*}
+		Sei $A=N$ eine $\lambda$-Nullmenge, $\lambda(N)=0$, dann existieren disjunkte Intervalle $(a_i,b_i]$ mit $N \subseteq \bigcup_i (a_i,b_i]$ und $\sum_i (b_i-a_i) < \delta$
+	
+		Für jede endliche Auswahl gilt $\sum_{i=1}^{n} (b_i - a_i) < \delta$ und nach Voraussetzung
+		\begin{align*}
+			\sum_{i=1}^{n}F(b_i) - F(a_i) < \epsilon
+		\end{align*}
+		für jedes $\epsilon > 0$. Das bedeutet
+		\begin{align*}
+			\mu(N) \leq \mu\left(\bigcup_{i=1}^{\infty} (a_i,b_i]\right) \leq \sum_{i=1}^{n} |F(b_i) - F(a_i)| < \epsilon
+		\end{align*}
+		$N$ ist auch eine $\mu$-Nullmenge.
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}[4.DS]
+	Eine Funktion $F:[a,b]\rightarrow \mathbb{R}$ besitzt genau dann eine Integraldarstellung
+	\begin{align*}
+		F(x) = \int_{(a,x]} f d\lambda + c, x \in [a,b]
+	\end{align*}
+	mit $f \in \mathcal{L}_1(\lambda|_{[a,b]})$, wenn $F$ absolut stetig ist.
+\end{theorem}
+\begin{proof}
+	$F$ als Verteilungsfunktion eines signierten Maßes aufgefasst erklärt den Zusammenhang:
+	
+	Ist $F$ absolut stetig, so existieren monoton wachsende Funktionen $G,H$ mit $F=G-H$ und beide $G,H$ sind absolut stetig.
+	
+	Die zugehörigen LS-Maße seien $\mu_G,\mu_H$ und beide $\mu_G \ll \lambda, \mu_H \ll \lambda$ mit RN-Dichten
+	\begin{align*}
+		g:=\frac{d\mu_G}{d\lambda} \text{ und } h := \frac{d\mu_H}{d\lambda} \text{, somit ist}\\
+		F(x) - F(a) = \mu_G((a,x]) - \mu_H((a,x]) - F(a)\\
+		\implies F(x) = F(a) + \int_{(a,x]} g-h d\lambda
+	\end{align*}
+
+	Besitzt $F$ die Integraldarstellung mit $f$
+	\begin{align*}
+		F(x) = F(a) + \int_{(a,x]} f d\lambda
+	\end{align*}
+	dann ist $f^+$ die Dichte des Maßes $\mu_G$, $f^-$ die von $H$ und $\mu_G \ll \lambda, \mu_G \ll \lambda$. Die Verteilungsfunktionen beider Maße $G,H$ sind absolut stetig.
+	
+	Für $x \in (a,b]$ ist
+	\begin{align*}
+		F(x) = G(x) - G(a) - (H(x) - H(a))
+	\end{align*}
+	und $F$ ist die Differenz zweier absolut stetigen Funktionen und auch absolut stetig.
+\end{proof}
+
+Für die Klärung, in wie weit die Integraldarstellung mit der Ableitung $f=F'$ gelingt wird zuerst die Lebesgue-Zerlegung von $\mu$ bezüglich $\lambda$ untersucht
+\begin{align*}
+	\mu = \mu_c + \mu_s, \mu_s \perp \lambda, \mu_c \ll \lambda
+\end{align*}
+Für folgenden Satz, der den Zusammenhang zwischen Nullmengen und Ableitung angibt, wird ein Hilfssatz benötigt.
+
+\begin{lemma}
+	$A \in \mathcal{B}|_{[a,b]}$ für ein endliches Intervall $[a,b]$ und $\mu$ sei ein endliches Maß auf $\mathcal{B}|_{[a,b]}$.
+	
+	Wenn $\mu(A) = 0$, dann ist für $n \in \mathbb{N}$
+	\begin{align*}
+		\lambda\left( x\in A \big| \bar{\lim_{h \searrow 0}} \frac{\mu((x-h,x+h])}{2h} > \frac{1}{n} \right) = 0
+	\end{align*}
+\end{lemma}
+
+\begin{proof}
+	ohne Beweis. Der Beweis ist eine Folgerung des Überdeckungslemmas von Vitali, Deteils findet man in Elstrodt, "Maß- und Integrationstheorie".
+\end{proof}
+
+\begin{theorem}[5.DS]
+	TODO
 \end{theorem}
 
 \end{document}
