@@ -1410,7 +1410,255 @@ Für folgenden Satz, der den Zusammenhang zwischen Nullmengen und Ableitung angi
 \end{proof}
 
 \begin{theorem}[5.DS]
-	TODO
+	$\mu$ sei ein endliches Maß auf $\mathcal{B}|_{[a,b]}$ mit Verteilungsfunktion $F(x)=\mu([a,x])$. Wenn $\mu(A)=0$, dann ist $F'=0$ $\lambda$-f.ü. auf $A$.
 \end{theorem}
+\begin{proof}
+	$F$ ist wachsend, $F'=0$ bedeutet
+	\begin{align*}
+		\frac{F(x+h)-F(x-h)}{2h} = \frac{\mu((x-h,x+h])}{2h} \rightarrow 0
+	\end{align*}
+	wenn $h\rightarrow0$ für $\lambda$-f.ü. Punkte $x\in A$.
+	
+	Wir zeigen
+	\begin{align}
+		\label{5DS_1}
+		\bar{\lim\limits_{h\rightarrow0}} \frac{\mu(x-h,x+h]}{2h} = \bar{\lim\limits_{k\rightarrow\infty}} \frac{\mu(x-\frac{1}{k}, x+\frac{1}{k})}{\frac{2}{k}}
+	\end{align}
+	sonst könnte die Menge
+	\begin{align*}
+		A_n := \left\{ x\in A \big| \bar{\lim\limits_{h\searrow0}} \frac{\mu(x-h,x+h]}{2h} > \frac{1}{n} \right\}
+	\end{align*}
+	nicht unbedingt messbar sein, $A_n \in \mathcal{B}$.
+	
+	(\ref{5DS_1}) gilt, da für $\frac{1}{k+1} < h \leq \frac{1}{k}$
+	\begin{align*}
+		\frac{\mu(x-\frac{1}{k+1}, x+\frac{1}{k+1}]}{\frac{1}{k+1}} \frac{\frac{1}{k+1}}{\frac{1}{k}} \leq \frac{\mu(x-h,x+h]}{h} \leq \frac{\mu(x-\frac{1}{k}, x+\frac{1}{k}]}{\frac{1}{k}} \frac{\frac{1}{k}}{\frac{1}{k+1}}
+	\end{align*}
+
+	Für $k\rightarrow\infty$ gilt mit $\frac{k+1}{k}\rightarrow 1$ auch (\ref{5DS_1}) ($\bar{\lim}$ von abzählbaren Funktionen ist messbar).
+	
+	Nach vorigem Lemma ist $\lambda(A_n) = 0$ und daher auch der Grenzwert $n \rightarrow \infty$, also
+	\begin{align*}
+		\lambda\left(\bigcup_{n=1}^{\infty} A_n \right) = 0
+	\end{align*}
+	und $F'=0$ $\lambda$-f.ü.
+\end{proof}
+
+\begin{theorem}[6.DS]
+	$\mu$ sei ein endliches Maß auf $([a,b], \mathcal{B}|_{[a,b]})$ und singulär zu $\lambda$, $\mu \perp \lambda$. Die Verteilungsfunktion $F_\mu$ von $\mu$ erfüllt $F'=0$ $\lambda$-f.ü. auf $[a,b]$.
+\end{theorem}
+\begin{proof}
+	Wenn $\mu \perp \lambda$ existiert ein $A \in \mathcal{B}|_{[a,b]}$ mit $\mu(A) = 0$ und $\lambda(A^c) = 0$. Nach Satz 5.DS gilt $F'=0$ $\lambda$-f.ü. auf $A$. Da $\lambda(A^c) = 0$ gilt das auch auf $[a,b]$ $\lambda$-f.ü.
+\end{proof}
+
+\begin{example}
+	Wir haben die Cantor-Menge
+	\begin{align*}
+		C = \{ x \in [0,1] | x = \sum_{i=1}^{\infty} \frac{x_i}{3^i}, x_i = 0 \lor 2 \}
+	\end{align*}
+	bereits behandelt, mit $\lambda(C) = 0$ und die Funktion für $x \in C$
+	\begin{align*}
+		F_C(x) = \sum_{i=1}^{\infty} \frac{\frac{x_i}{2}}{2^i}
+	\end{align*}
+	bzw. die Fortsetzung auf $[0,1]$
+	\begin{align*}
+		\tilde{F_C}(x) = \begin{cases}
+			F_C(x) & x \in C\\
+			\sup \{F_C(y) | y \in C, y \leq x\} & x \notin C
+		\end{cases}
+	\end{align*}
+	diskutiert. $\tilde{F_C}$ ist monoton und stetig. Daher gehört $\tilde{F_C}$ als Verteilungsfunktion zu einem Maß (sogar einem Wahrscheinlichkeitsmaß).
+	
+	Die Verteilung heißt Cantor-Verteilung.
+	
+	$\tilde{F_C}$ ist eine stetige Verteilungsfunktion eines zu $\lambda$ singulären Maßes (Der Vollständigkeit wegen sei $\tilde{F_C}(x) = 0, x \leq 0$ und $\tilde{F_C}(x) = 1, x > 1$).
+\end{example}
+
+Die bisherigen Sätze sind für Verteilungsfunktionen auf endlichen Intervallen formuliert. Durch Erweiterung auf $\mathbb{R}$ (stückweise Verknüpfung) bleiben die Aussagen für VF bzw. LS-Maße auf $(\mathbb{R}, \mathcal{B})$ erhalten.
+
+So ist beispielsweise die VF $F$ eines LS-Maßes $\mu$ auf jeder $\mu$-Nullmenge differenzierbar ($\lambda$-f.ü.) und $F' = 0$ $\lambda$-f.ü.
+
+Zur Klärung, ob $F'$ die Dichte des LS-Maßes ist, betrachten wir die einseitigen Ableitungen.
+\begin{align*}
+	\text{rechtsseitig } \begin{cases}
+		\delta^r f(x) := \lim\limits_{n\rightarrow\infty} \sup_{x < y < x + 1/n} \frac{f(y)-f(x)}{y-x} \\
+		\delta_r f(x) := \lim\limits_{n\rightarrow\infty} \inf_{x < y < x + 1/n} \frac{f(y)-f(x)}{y-x}
+	\end{cases}\\
+	\text{linksseitig } \begin{cases}
+		\delta^l f(x) := \lim\limits_{n\rightarrow\infty} \inf_{x - 1/n < y < x} \frac{f(y)-f(x)}{y-x} \\
+		\delta_l f(x) := \lim\limits_{n\rightarrow\infty} \sup_{x - 1/n < y < x} \frac{f(y)-f(x)}{y-x}
+	\end{cases}
+\end{align*}
+
+\begin{theorem}[7.DS]
+	Für das LS-Maß $\mu$ mit $\mu \ll \lambda$ gilt $F' = \frac{d\mu}{d\lambda}$ $\lambda$-f.ü, wobei $F$ die VF von $\mu$ ist.
+\end{theorem}
+\begin{proof}
+	Es sei $\bar{\delta F}$ die "obere" Ableitung $\bar{\delta F} = \max (\delta^r F, \delta^l F)$.
+	
+	Die Menge $[\bar{\delta F} > \frac{d\mu}{d\lambda}]$ soll eine $\lambda$-Nullmenge sein, d.h. für alle $q\in \mathbb{Q}$ soll
+	\begin{align*}
+		\lambda [\bar{\delta F} > q > \frac{d\mu}{d\lambda}] = 0
+	\end{align*}
+	sein.
+	
+	Dazu betrachten wir
+	\begin{align*}
+		\nu(A) := \int_{A\cap [\frac{d\mu}{d\lambda} \geq q]} \left(\frac{d\mu}{d\lambda} - q\right) d\lambda
+	\end{align*}
+
+	$\nu$ ist ein LS-Maß und $\nu(\frac{d\mu}{d\lambda} < q) = 0$.
+	Nach Satz 5.DS gilt für die VF $F_\nu$ von $\nu$
+	\begin{align*}
+		F_\nu' = 0 \text{ auf } [\frac{d\mu}{d\lambda} < q] \text{ } \lambda\text{-f.ü.}
+	\end{align*}
+	Das signierte Maß $\gamma$ erfüllt
+	\begin{align*}
+		\gamma(A) := \mu(A) - \lambda(A) = \int_A \left(\frac{d\mu}{d\lambda} - q\right) d\lambda \leq \int_{A\cap [\frac{d\mu}{d\lambda} \geq q]} (\frac{d\mu}{d\lambda} - q) d\lambda = \nu(A)
+	\end{align*}
+
+	Daher folgt für $x,y \in \mathbb{R}$
+	\begin{align*}
+		\gamma((\min(x,y), \max(x,y)]) = \mu((\min, \max]) - \lambda(\min, \max) q\\
+		\implies \frac{F(y)-F(x)}{y-x} - q \leq \frac{F_\nu(y) - F_\nu(x)}{y-x}\\
+		\implies \bar{\delta F} - q \leq F_\nu' = 0 \text{ auf } [\frac{d\mu}{d\lambda} < q]\\
+		\text{d.h. } \lambda\left( \frac{d\mu}{d\lambda} < q < \bar{\delta F} \right) = 0
+	\end{align*}
+	
+	Dieselbe Vorgangsweise für die "untere" Ableitung angewandt auf $\bar{\delta (-F)}$ liefert
+	\begin{align*}
+		\lambda \left( \underline{\delta F} < \frac{d\mu}{d\lambda} \right) = 0\\
+		\implies F' = \frac{d\mu}{d\lambda} \lambda\text{-f.ü.}
+	\end{align*}
+\end{proof}
+
+Die VF $F$ eines beliebigen LS-Maßes $\mu$ auf $(\mathbb{R}, \mathcal{B})$ wurde bereits in eine stetige VF $F_0$ und eine diskrete VF $F_d$ zerlegt. Nach der Lebesgue-Zerlegung des Maßes $\mu_0$ (von $F_0$ erzeugt) $\mu_0 = \mu_c + \mu_s$ $\mu_c \ll \lambda$ und $\mu_s \perp \lambda$ mit VFen $F = F_c + F_s + F_d$.
+
+Die vorigen Ergebnisse zusammengefasst bedeutet, $F$ ist $\lambda$-f.ü. differenzierbar
+\begin{align*}
+	F' = \underbrace{F_c'}_{=\frac{d\mu}{d\lambda}} + \underbrace{F_s'}_{=0} + (F_d') \lambda\text{-f.ü.}
+\end{align*}
+
+Ein LS-Maß $\mu$ mit $F$ für das $F'=0$ $\lambda$-f.ü. gilt, ist zu $\lambda$ singulär. Das folgt daraus, dass der absolut stetige Teil $\mu_c$ die Dichte $F' = \frac{d\mu_c}{d\lambda}$ $\lambda$-f.ü. besitzt.
+\begin{align*}
+	\mu_c(A) = \int_A \underbrace{\frac{d\mu_c}{d\lambda}}_{=0 \lambda\text{-f.ü.}} d\lambda = 0
+\end{align*}
+
+Aus der Zerlegung ergibt sich, dass für jede monoton wachsende Funktion
+\begin{align*}
+	\underbrace{F(b)-F(a)}_{\mu(a,b]} \geq \underbrace{\int_{[a,b]} F' d\lambda}_{\mu_c([a,b])}
+\end{align*}
+gilt und $F$ ist $\lambda$-f.ü. differenzierbar.
+
+Wenn $F$ keine VF ist (also nicht rechtsstetig), wird $F$ an den Unstetigkeitsstellen (sind höchstens abzählbar viele) geändert, ohne dass sich bezüglich $\lambda$ etwas ändert, ($F'$ $\lambda$-f.ü. oder $\int F' d\lambda$ etc).
+
+Damit sind aber auch Funktionen von beschränkter Variation $\lambda$-f.ü. differenzierbar, da sie als Differenz monoton wachsender Funktionen darstellbar ist.
+
+Die Aussagen zusammen ergeben
+\begin{theorem}[8.DS (Satz von Lebesgue für Differenzierbarkeit)]
+	$F:[a,b]\rightarrow\mathbb{R}$ sei von beschränkter Variation. Dann ist $F$ $\lambda$-f.ü. differenzierbar.
+	
+	Ist $F$ monoton steigend, dann ist $F$ $\lambda$-f.ü. differenzierbar und
+	\begin{align*}
+		F(b)-F(a) \geq \int_{[a,b]} F' d\lambda
+	\end{align*}
+\end{theorem}
+
+Die einzelnen Ergebnisse dieses Abschnitts münden in der Formulierung des Hauptsatzes der Differential- und Integralrechung. Die gewohnte Form des Hauptsatzes für das Riemann-Integral wird die absolute Stetigkeit nicht benötigt, dagegen gilt der Hauptsatz für $\mathcal{L}_1$-Funktionen in folgender Form.
+
+\begin{theorem}[9.DS (Hauptsatz der DI-Rechnung für das Lebesgue-Integral)]
+	$f:[a,b]\rightarrow\mathbb{R}$ sei $\in \mathcal{L}_1$, also $\lambda$-integrierbar. Dann ist
+	\begin{align*}
+		F(x) := \int_{[a,x]} f d\lambda
+	\end{align*}
+	absolut stetig und $\lambda$-f.ü. differenzierbar mit $F'=f$ $\lambda$-f.ü.
+	
+	Ist $F:[a,b]\rightarrow\mathbb{R}$ absolut stetig, dann existiert $\lambda$-f.ü. $F'$ mit
+	\begin{align*}
+		F(x)-F(a) = \int_{[a,x]} F' d\lambda, x\in [a,b]
+	\end{align*}
+\end{theorem}
+
+\begin{proof}
+	$F$ kann zerlegt werden in
+	\begin{align*}
+		F(x) = F_1(x) - F_2(x) = \int_{[a,x]} f^+ d\lambda - \int_{[a,x]} f^- d\lambda
+	\end{align*}
+	$F_1,F_2$ sind monoton und $\mu^+(A) = \int_A f^+ d\lambda$ ist absolut stetig bezüglich $\lambda$ und $F_1' = \frac{d\mu^+}{d\lambda} = f^+$ genauso mit $f^-$.
+	
+	Ist $F$ absolut stetig, dann ist das (signierte) Maß absolut stetig mit $F'=\frac{d\mu}{d\lambda}$ und $\int_A F' d\lambda = \int_A \frac{d\mu}{d\lambda} d\lambda = \mu(A)$ mit $A=[a,x]$ ergibt den Hauptsatz.
+\end{proof}
+
+\subsection{Weitere Eigenschaften der Dichten}
+Im folgenden seien die behandelten Maße als sigma-endlich angenommen.
+\begin{itemize}
+	\item Wenn $\nu_i \ll \mu, i=1,...,n$, dann ist $\tau := \sum_{i=1}^{n}\nu_i$ ein sigma-endliches Maß, $\tau \ll \mu$ und die Dichte ist auch die Summe
+	\begin{align*}
+		\frac{d\tau}{d\mu} = \sum_{i=1}^{n} \frac{d\nu_i}{d\mu} \mu\text{-f.ü.}
+	\end{align*}
+
+	\item $T$ sei $\Omega\rightarrow\Omega'$ und $\mathcal{A}/\mathcal{A}'$ messbar. Wenn $\nu \ll \mu$, dann sind die induzierten Maße $\nu^T$ und $\mu^T$ auf $(\Omega', \mathcal{A}')$ auch $\nu^T \ll \mu^T$ absolut stetig.
+	
+	Da für $B \in \mathcal{A}'$ mit $\mu^T(B) = 0$
+	\begin{align*}
+		\mu^T(B) = \mu(T^{-1}(B)) = 0 \implies \nu(T^{-1}(B)) = 0.
+	\end{align*}
+	$\mu^T,\nu^T$ sind auch endlich, da für $B_n\nearrow\Omega'$ und $\mu,\nu$ endlich sind.
+	
+	Es kann aber die Dichte $\frac{d\nu^T}{d\mu^T}$ keinerlei Verwandtschaft zu $\frac{d\nu}{d\mu}$ haben. Das hängt davon ab, in wieweit $T$ Nullmengen in Nullmengen abbildet.
+	
+	\item $\mu$ auf $(\mathbb{R}, \mathcal{B})$ sei $\mu \ll \lambda$ und $T$ eine messbare (sogar monotone) Abbildung. Dann ist $\mu^T$ i.a. nicht mehr $\mu^T \ll \lambda$ absolut stetig.
+	
+	Betrachtet man beispielsweise die Cantor-Funktion $F_C:C\rightarrow[0,1]$ bzw. $F_C^{-1}:[0,1]\rightarrow C$
+	\begin{align*}
+		\lambda^{F_C^{-1}}(C) = \lambda([0,1]) = 1 \text{ aber } \lambda(C) = 0.
+	\end{align*}
+
+	\item Allgemein werden Nullmengen nicht von bijektiven Transformationen erhalten.
+	
+	\begin{example}
+		$\Omega=\{1,2\}, \mathcal{A}=2^\Omega, T(x)=3-x, T:\Omega\rightarrow\Omega$ bijektiv, sei $\mu({1})=1, \mu({2}) = 0$, dann ist $A=\{2\}$ eine Nullmenge, aber $\mu^T(A)=\mu(T^{-1}(\{2\}))=\mu({1})=1$
+	\end{example}
+
+	Für bijektive Abbildungen $T:(\Omega,\mathcal{A})\rightarrow(\Omega', \mathcal{A}')$ kann die Dichte dargestellt werden.
+	
+	Genauer muss $T$ nur eine "Links-Inverse" haben. Es existiere ein $\tilde{T}:(\Omega',\mathcal{A}')\rightarrow(\Omega,\mathcal{A})$ mit $\tilde{T}\circ T = id_\Omega$, also $id_\Omega(\omega)=\omega, \omega\in \Omega$. Dann kann mit dem allgemeinen Transformationssatz die Dichte von $\nu^T$ bzw. $\mu^T$ bestimmt werden.
+\end{itemize}
+
+\begin{theorem}[10.DS]
+	$\nu,\mu$ sind sigma-endlich und $\nu \ll \mu$. $T:\Omega\rightarrow\Omega'$ besitzt ein $\tilde{T}$ mit $\tilde{T}\circ T = id_{\Omega}$ dann gilt $\nu^T \ll \mu^T$ mit der Dichte
+	\begin{align*}
+		\frac{d\nu^T}{d\mu^T} = \frac{d\nu}{d\mu} \circ \tilde{T} \mu^T\text{-f.ü.}
+	\end{align*}
+\end{theorem}
+
+\begin{proof}
+	$\nu^T \ll \mu^T$ ist klar. $T$ ist injektiv, wenn $T(x) = T(y) \implies x = \tilde{T}\circ T(x) = \tilde{T}\circ T(y) = y$.
+	
+	$\frac{d\nu}{d\mu} = f$, dann gilt für $B' \in \mathcal{A}'$
+	\begin{align*}
+		\nu^T(B') = \nu(T^{-1}(B')) = \int_{T^{-1}(B')} f d\mu = \int 1_{T^{-1}(B')}(\omega) f(\omega) d\mu = \int 1_{B'}(T(\omega)) f \circ \tilde{T} \circ T(\omega) d\mu(\omega)
+	\end{align*}
+	nach dem Transformationssatz
+	\begin{align*}
+		= \int 1_{B'} (\omega') f\circ \tilde{T}(\omega') d\mu^T
+	\end{align*}
+	Also ist $\frac{d\nu^T}{d\mu^T} = f \circ \tilde{T}$
+\end{proof}
+
+Betrachtet man Maße $\mu \ll \lambda$, dann ist auch $\mu^T \ll \lambda$, wenn $T$ $\lambda$-Nullmengen immer in $\lambda$-Nullmengen abbildet.
+
+Sei $T:\mathbb{R}\rightarrow\mathbb{R}$ bijektiv und differenzierbar ($\lambda$-f.ü.) und auch $T^{-1}$ ist $\lambda$-f.ü. differenzierbar $T' \neq 0$ $\lambda$-f.ü. und $T^{-1} \neq 0$. $T$ sei wachsend
+\begin{align*}
+	\lambda^T((a,b]) = \lambda((T^{-1}(a), T^{-1}(b)]) = \int_{[T^{-1}(a),T^{-1}(b)]} d\lambda
+\end{align*}
+
+Auf $(a,b]$ sei $T'\neq 0, T^{-1'} \neq 0$, dann ist
+\begin{align*}
+	\lambda^T(a,b] = \int 1_{(T^{-1}(a),T^{-1}(b)]} d\lambda (s=T(\omega)) = \int 1_{(a,b]}(s) |T^{-1'}(s)| d\lambda(s)
+\end{align*}
+d.h. die Dichte von $\lambda^T$ ist $|T^{-1'}(s)|=\frac{d\lambda^T}{d\lambda}$.
+
+Die Bestimmung der Dichte einer Transformation einer stochastischen Größe $Y=T(X)$, wobei die Verteilung von $X$, $P^X \ll \lambda$ mit $F_X$ als Verteilungsfunktion, erfolgt über die Verteilungsfunktion von $X$.
 
 \end{document}
