@@ -1659,6 +1659,180 @@ Auf $(a,b]$ sei $T'\neq 0, T^{-1'} \neq 0$, dann ist
 \end{align*}
 d.h. die Dichte von $\lambda^T$ ist $|T^{-1'}(s)|=\frac{d\lambda^T}{d\lambda}$.
 
-Die Bestimmung der Dichte einer Transformation einer stochastischen Größe $Y=T(X)$, wobei die Verteilung von $X$, $P^X \ll \lambda$ mit $F_X$ als Verteilungsfunktion, erfolgt über die Verteilungsfunktion von $X$.
+Die Bestimmung der Dichte einer Transformation einer stochastischen Größe $Y=T(X)$, wobei die Verteilung von $X$, $P^X \ll \lambda$ mit $F_X$ als Verteilungsfunktion, erfolgt über die Verteilungsfunktion von $X$. $T$ sei wieder differenzierbar mit $T'\neq 0$ (auf $[a,b]$) und wachsend.
+\begin{align*}
+	F_Y(y) = P[Y \in (-\infty, y]] = P[T(X) \in (-\infty, y]] = P[X \in (-\infty, T^{-1}(y))] = F_X(T^{-1}(y))
+\end{align*}
+und die Dichte von $Y$ ist $\lambda$-f.ü.
+\begin{align*}
+	f_Y(y) = f_X(T^{-1}(y)) |T^{-1'}(y)|
+\end{align*}
+
+Diese beiden Beispiele für die Bestimmung von Dichten können auf $\mathbb{R}^k$ verallgemeinert werden.
+
+$T:\mathbb{R}^k\rightarrow\mathbb{R}^k$ sei ein Diffeomorphismus, also $T$ ist bijektiv und die Jakobi-Determinanten
+\begin{align*}
+	\left| det \left( \frac{\delta T_i}{\delta x_j}(x) \right)\right| \neq 0, x\in\mathbb{R}^k \text{ und}\\
+	\left| det \left( \frac{\delta T'_i}{\delta y_j}(y) \right)\right| \neq 0, y\in\mathbb{R}^k
+\end{align*}
+dann ist $\lambda^T \ll \lambda$ (hier ist $\lambda = \lambda_k$ das k-dimensionale Lebesgue-Maß) und die Dichte ist
+\begin{align*}
+	\frac{d\lambda_k^T}{d\lambda_k} = \left| det \left( \frac{\delta T_i^{-1}}{\delta y_j}\right)(y)\right|.
+\end{align*}
+
+Wenn $X\in \mathbb{R}^k$ eine SG mit $P^X \ll \lambda_k$ und Dichte $\frac{dP^X}{d\lambda_k} = f_X$, $T$ sei bijektiv, diffbar und $|det T^{-1}| \neq 0$, dann gilt für $Y=T\circ X$ $P^Y \ll \lambda_k$ mit der Dichte
+\begin{align*}
+	f_Y(y) = f_X(T^{-1}(y)) \left| det \left( \frac{\delta T_i^{-1}}{\delta y_j} \right) (y) \right|.
+\end{align*}
+
+\subsubsection{Stückweise Anwendung}
+$\mathbb{R}^k = \bigcup_{i=1}^{n} B_i$ und $\underbrace{T|_{B_i}}_{T_i}$ hat obige Eigenschaften.
+\begin{align*}
+	|J_i^{-1}| := \left| det \frac{\delta T_i^{-1}}{\delta x_j} \right| \neq 0 \text{ auf } B_i \text{ für}\\
+	T := \sum_{i=1}^{n} T_i 1_{B_i} \text{ ist die Dichte von } Y=T\circ X\\
+	f_Y(y) = \sum_{i=1}^{n} f(T_i^{-1}) |J_i^{-1}|
+\end{align*}
+
+\subsection{Illustrative Beispiele}
+\begin{enumerate}
+	\item \begin{align*}
+		\mu = \xi_\mathbb{N}, X \sim B_{N,p} = \nu, \nu(k) = P[X=k] = \binom{N}{k} p^k (1-p)^{N-k}, k\leq N\\
+		T : x \mapsto N-x, x \leq N, (Tx=x, x\geq N)\\
+		Y=T\circ X = N-X\\
+		P[Y=y] = P[T(X)=y] = P[N-X=y] = P[X=N-y] = \nu(N-y) = \underbrace{\binom{N}{N-y}}_{\binom{N}{y}} P^{N-y} (1-p)^y\\
+		Y \sim B_{N,1-p} \text{ (Anzahl der "0")}
+	\end{align*}
+
+	\item \begin{align*}
+		X \sim \mathcal{N}_k(\mu, \Sigma), f_X(x) = \frac{1}{(2\pi)^{k/2} \sqrt{det \Sigma}} exp\{-1/2 (x-\mu)^T \Sigma ^{-1}(x-\mu)\}\\
+		A \text{ reguläre Matrix, } Y=AX, f_Y(y) = f_X(A^{-1}y) |A^{-1}|\\
+		f_Y(y) = \frac{1}{(2\pi)^{k/2} \sqrt{det \Sigma}} exp\{-1/2 \underbrace{(A^{-1}y - A^{-1}A\mu)^T \Sigma^{-1}( )}_{(y-A\mu)^T \underbrace{(A^{-1}\Sigma^{-1}A^{-1})}_{(A\Sigma A^T)^{-1} = \tilde{\Sigma}}^{-1}(y-A\mu)} \}|A^{-1}|\\
+		\text{Wegen } \frac{|A^{-1}|}{\sqrt{det \Sigma}} = \frac{1}{\sqrt{(det A)^2 det\Sigma}} = \frac{1}{\sqrt{det \tilde{\Sigma}}}\\
+		Y \sim \mathcal{N}(A\mu, A\Sigma A^T)
+	\end{align*}
+
+	\item $X\sim \mathcal{N}(\mu, \sigma^2)$, $Y=e^X$ log-Normalverteilung, $X=\log(Y)$
+	\begin{align*}
+		f_Y(y) = \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2} \left( \frac{log Y - \mu}{\sigma^2} \right)} \frac{1}{|y|}, y \geq 0
+	\end{align*}
+
+	\item $(X_1,X_2)$ u.a. exponential
+	\begin{align*}
+		f(x_1,x_2) = e^{-x_1-x_2}, x_1,x_2 \geq 0\\
+		Y = \binom{x_1^2+x_2^2}{x_1} = T \circ X, y_1 = x_1^2 + x_2^2, y_2 = x_1, x_1 = y_2, x_2 = \sqrt{y_1 - y_2^2}, y_1 \geq y_2^2\\
+		|J| = \left| \begin{matrix}
+			2x_1 & 2x_2\\
+			1 & 0
+		\end{matrix} \right| = |-2x_2| = 2|x_2|\\
+		|J^{-1}| = \frac{1}{2x_2} = \frac{1}{2\sqrt{y_1 - y_2^2}}\\
+		\text{Dichte von }Y: f_Y(y) = e^{-y_2 -\sqrt{y_1-y_2^2}}\frac{1}{2\sqrt{y_1-y_2^2}} \text{ für } y_1 > y_2^2 \geq 0
+	\end{align*}
+
+	\item $X \sim \mathcal{N}(0,1)$, $Y=X^2$ stückweise invertierbar auf $\mathbb{R}^+$
+	\begin{align*}
+		T_1^{-1}(y) = \sqrt{y}, y\geq 0, B_1 = (0, \infty)\\
+		T_2^{-1}(y) = -\sqrt{y}, y < 0, B_2 = (-\infty, 0]\\
+		\text{allgemein gilt dann} f_Y(y) = f_X(\sqrt{y}) \left| \frac{1}{2\sqrt{y}} \right| + f_X(-\sqrt{y}) \left| - \frac{1}{2\sqrt{y}} \right|\\
+		\text{bei symmetrischer Dichte von $X$, also } f_X(\sqrt{y}) = f_X(-\sqrt{y})\\
+		f_Y(y) = \frac{1}{\sqrt{y}} f_X(\sqrt{y})\\
+		\mathcal{N}(0,1) \text{ für } f_X: f_Y(y) = \frac{1}{\sqrt{2\pi}} e^{-\frac{(\sqrt{y})^2}{2}} \frac{1}{\sqrt{y}} \sim \gamma(\frac{1}{2}, \frac{1}{2})\\
+		\chi^2 \text{-Verteilung mit Freiheitsgrad 1}
+	\end{align*}
+\end{enumerate}
+
+\section{$L_p$-Räume}
+Der Raum der integrierbaren Funktionen bilden einen Vektorraum $\mathcal{L}(\mu)$ (genauer $(\mathcal{L}(\mu), +, \mathbb{R})$) mit $||f|| = \int |f| d\mu$ sogar einen normierten Raum, also einen metrischen Raum, wenn man $f=g [\mu]$ als gleich ansieht.
+
+\begin{definition*}[Pseudonorm, Pseudometrik]
+	$||.||$ bildet eine Pseudonorm (=Halbnorm), es gilt also
+	\begin{align*}
+		||\alpha f|| = |\alpha| ||f||\\
+		||f+g|| \leq ||f|| + ||g|| \text{$\triangle$-Ungleichung (damit bereits $||f|| \geq 0$ und $||0|| = 0$)} 
+	\end{align*}
+	Norm: $||f||=0 \implies f=0$ Das ist vorläufig nicht erfüllt.
+	
+	$||.||$ führt zu einer Pseudometrik, also $d(x,y) := ||y-x||$ mit
+	\begin{align*}
+		d(x,y) = d(y,x); d(x,x)=0; \text{ und } d(x,y) \leq d(x,z) + d(z,y)
+	\end{align*}
+	Metrik: $d(x,y)=0 \iff x=y$
+\end{definition*}
+
+Die Funktionenräume der p-fach integrierbaren Funktionen bilden wesentliche, abstrakte Funktionenräume deren Analyse wichtig ist (besonders $L_2$).
+
+\begin{definition}[p-fach integrierbar]
+	$f$ heißt p-fach integrierbar für $1\leq p < \infty$ wenn
+	\begin{align*}
+		||f||_p := \left( \int |f|^p d\mu \right)^{1/p} < \infty
+	\end{align*}
+\end{definition}
+
+Raum: $\mathcal{L}^p(\mu)$
+
+Wenn $f=g[\mu]$ als gleich angesehen wird, bildet dieser Raum einen normierten Vektorraum.
+
+Wenn eine Funktion beschränkt ist, dann ist auch
+\begin{align*}
+	\int |f|^p d\mu < \infty \forall p \geq 1
+\end{align*}
+
+Es sei daher $||f||_\infty := \inf\{K\geq 0 | \mu(|f|>k)=0\} = ess\sup |f|$ essentielles Supremum.
+
+$||f||_\infty$ bildet genauso eine Pseudonorm.
+
+Eine Norm (bzw. Metrik) entsteht durch Übergang zum Quotientenraum. Es sei
+\begin{align*}
+	\mathcal{N} := \{f \text{ messbar und } f = 0 [\mu] \text{ f.ü.}\}
+\end{align*}
+
+\begin{definition}[Lp-Raum]
+	\begin{align*}
+		L^p(\Omega, \mathcal{A}, \mu) := \mathcal{L}^p(\mu) / \mathcal{N} = \{\bar{f} = f + g; f\in\mathcal{L}^p, g \in \mathcal{N}\}
+	\end{align*}
+\end{definition}	
+$L^p$ enthält die Repräsentanten und alle Elemente aus einer Klasse haben die gleiche Norm: $||f||_p = ||g||_p$, wenn $f=g[\mu]$.
+
+Um zu zeigen, dass $L^p(\mu)$ wirklich ein normierter Vektorraum ist, benötigen wir noch die $\triangle$-Ungleichung, die gleich folgt.
+
+Die Norm (bzw. Metrik) ergibt eine Konvergenz Definition im $L^p$.
+
+\begin{definition}[Konvergenz im p-ten Mittel]
+	$f_i$ sei eine Folge in $\mathcal{L}^p(\mu)$.
+	\begin{align*}
+		f_n \rightarrow^{L^p} f \text{ wenn } ||f_n - f||_p \rightarrow 0, n\rightarrow \infty.
+	\end{align*}
+\end{definition}
+
+Für SG $X$ in einem W-Raum $(\Omega, \mathcal{A}, P)$ heißt
+\begin{align*}
+	&\int X dp = \mathbb{E} X \text{ Erwartung}\\
+	\text{und } &\int X^k dP = \mathbb{E}X^k \text{ k-tes Moment}\\
+	\text{sowie falls } \mathbb{E}X < \infty \text{: } &\mathbb{E}|X-\mathbb{E}X|^k \text{ k-tes zentrales Moment}
+\end{align*}
+
+Besondere Rolle spielt das 2. zentrale Moment: 
+\begin{align*}
+	\text{Varianz } \mathbb{E}(X-\mathbb{E}X)^2 \text{ und } ||X-\mathbb{E}X||_2 \text{ Streuung}
+\end{align*}
+
+\begin{example}
+	content...
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
