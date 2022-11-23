@@ -1816,22 +1816,74 @@ Besondere Rolle spielt das 2. zentrale Moment:
 \end{align*}
 
 \begin{example}
-	content...
+	$X\sim \mathcal{N}(\mu, \sigma^2)$ Normalverteilung besitzt alle Momente, da
+	\begin{align*}
+		\forall p: \mathbb{E}X^p = \int_{-\infty}^{\infty} x^p \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2}} dx < \infty
+	\end{align*}
 \end{example}
 
+\begin{definition*}
+	Die Folge von SG $X_i$ konvergiert gegen $X$ im p-ten Mittel, wenn $\mathbb{E}|X_n - X|^p \rightarrow 0$.
+	
+	Schreibweise: $X_n \rightarrow^{L^p} X$.
+\end{definition*}
 
+Aus der Konvergenz der Integrale folgt natürlich i.a. nicht, dass die Funktionen konvergieren $[\mu]$.
 
+\begin{example}
+	$X_n$ ... SG mit Wahrscheinlichkeitsmaß $P[X_n=0]=1-\frac{1}{n^{p+1}} = 1 - P[X=n]$ auf $\{0,n\}$. Es sei $X_0 \sim \delta_0$. Dann gilt
+	\begin{align*}
+		\mathbb{E}|X_n - X_0|^p = n^p \frac{1}{n^{p+1}} = \frac{1}{n} \rightarrow 0 \implies X_n \rightarrow^{L^p} X_0
+	\end{align*}
+	Aber $limsup X_n = \infty$ also $X_n \nrightarrow X_0$ $P$-f.s. $\lim X_n$ existiert nicht.
+\end{example}
 
+Auch, wenn die Funktionen beschränkt sind, muss nicht $f_n \rightarrow^{L^p} f$ folgen.
+\begin{example}
+	\begin{enumerate}
+		\item $f_n := 1_[a_n,b_n]$ mit $a_n = \frac{n - \lfloor \sqrt{n} \rfloor^2}{2 \lfloor \sqrt{n} \rfloor + 1}$ und $b_n = \frac{n + 1 - \lfloor \sqrt{n} \rfloor^2}{2 \lfloor \sqrt{n} \rfloor + 1}$ bildet eine Folge auf $([0,1], \mathcal{B}|_{[0,1]}, \lambda|_{[0,1]})$ die nicht punktweise ($\lambda$-f.ü.) konvergiert.
+		
+		Da $b_n - a_n = \frac{1}{2\lfloor \sqrt{n} \rfloor + 1} \rightarrow 0$ gilt $||f_n - 0||_p \rightarrow 0 \forall p \geq 1$.
+		
+		Dass die Umkehrung zwischen punktweiser und $L_p$-Konvergenz auch nicht uneingeschränkt gilt, scheint überraschender zu sein.
+		
+		\item $f_n := \frac{1}{n^{1/p}}1_{[0,n]}$ konvergiert glm. $f_n \rightarrow 0$ aber
+		\begin{align*}
+			\int f_n^p d\lambda = \frac{1}{n} \int_{[0,n]} d\lambda = 1\\
+			||f_n||_p \nrightarrow ||f_0||_p, f_0=0
+		\end{align*}
+	\end{enumerate}	
+\end{example}
 
+In dem letzten Beispiel war $||f_n||_p \rightarrow ||f_0||$ nicht erfüllt.
 
+Fügt man weitere Bedingungen ein, dann kann Äquivalenz zwischen $||f_n-f||_p \rightarrow 0$ und $f_n \rightarrow f \mu$-f.ü. erreicht werden.
 
+In Beispiel 2) ist die Folge konvergent auch konvergent im Maß
+\begin{align*}
+	\lambda(|f_n-f_0| > \epsilon) = 0
+\end{align*}
+wenn für $\epsilon > 0 n$ gewählt wird, sodass $\frac{1}{n^{1/p}} < \epsilon \implies n > (\frac{1}{\epsilon})^p$.
 
+Konvergenz im Maß garantiert nicht $L_p$-Konvergenz. Die Umkehrung gilt.
 
+\begin{theorem}[1.LP]
+	Für $1\leq p \leq \infty$ gelte $f_n \rightarrow^{L_p} f; ||f_n-f||_p\rightarrow 0$, dann gilt $\forall \epsilon > 0: \lim\limits_{n\rightarrow\infty} \mu(|f_n-f| > \epsilon) = 0, f_n \rightarrow^\mu f$
+\end{theorem}
+\begin{proof}
+	Folgt unmittelbar aus der Markov-Ungleichung (Satz 1.UG) mit $\phi(x)=|x|^p$
+	\begin{align*}
+		\mu(|f_n-f|>\epsilon) \leq \frac{\int |f_n - f|^p d\mu}{\epsilon^p} = \frac{||f_n - f||_p^p}{\epsilon^p}
+	\end{align*}
+\end{proof}
 
+\begin{definition*}[vollständig]
+	Ein metrischer Raum $M$ heißt vollständig, wenn jede Cauchy-Folge konvergiert, d.h. Cauchy-Folge: $x_n \in M: \forall \epsilon > 0 \exists N_\epsilon \forall m,n \geq N_\epsilon: d(x_m, x_n) < \epsilon$ hat Grenzwert $x_0 \in M$.
+\end{definition*}
 
+$L^p$-Raum für $1\leq p \leq \infty$ ist vollständig (folgt später).
 
-
-
+\subsection{Wichtige Ungleichungen für p-integrierbare Funktionen}
 
 
 
