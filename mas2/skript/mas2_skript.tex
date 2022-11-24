@@ -1884,6 +1884,113 @@ Konvergenz im Maß garantiert nicht $L_p$-Konvergenz. Die Umkehrung gilt.
 $L^p$-Raum für $1\leq p \leq \infty$ ist vollständig (folgt später).
 
 \subsection{Wichtige Ungleichungen für p-integrierbare Funktionen}
+\begin{lemma}
+	$p,q \in (1,\infty)$ und $\frac{1}{p}+\frac{1}{q} = 1$ (zueinander konjugiert) für $x,y\geq 0$ gilt $xy \leq \frac{x^p}{p} + \frac{y^q}{q}$.
+\end{lemma}
+
+\begin{proof}
+	$f(x):= \frac{x^p}{p} + \frac{y^q}{q} - xy$; $f'=x^{p-1}-y$; $f''=(p-1)x^{p-2} \geq 0$ konvex mit Minimierung in $x_0=y^{\frac{1}{p-1}}$ da $\frac{p}{p-1}=q$ gilt $x_0^p = y^q$ und $f(x_0)=0 \implies f(x)\geq 0$
+\end{proof}
+
+\begin{theorem}[Allgemeinerer Satz von Young (Young'sche Ungleichung)]
+	$f:\mathbb{R}^+ \rightarrow \mathbb{R}^+$, $f(0)=0$, strikt monoton, $f(x)\rightarrow\infty, x\rightarrow\infty$, $f$ stetig diffbar, also Umkehrfunktion $f^{-1}=g$. Mit den Stammfunktionen $F(x)=\int_{0}^{x}f(t)dt$, $G(y)=\int_{0}^{y}g(t)dt$ gilt $xy \leq F(x) + G(y)$.
+\end{theorem}
+
+Siehe Skizze. Spezialfall $p=q=2: xy \leq \frac{x^2}{2} + \frac{y^2}{2} \iff (x-y)^2 \geq 0$
+
+\begin{theorem}[Hölder'sche Ungleichung]
+	Für $\frac{1}{p} + \frac{1}{q} = 1$ für $p \in [1, \infty]$ (wenn $p=1$ ist $q=\infty$) gilt für $f\in \mathcal{L}^p, g \in \mathcal{L}^q$ (oder rechte Seite $\infty$ möglich)
+	\begin{align*}
+		|| f\cdot g||_1 \leq ||f||_p \cdot ||g||_q
+	\end{align*}
+	und daher $f\cdot g \in \mathcal{L}^1$.
+\end{theorem}
+
+\begin{proof}
+	$p=1$ bzw. $p=\infty$ unmittelbar (UE)
+	
+	$p\in(1,\infty)$ Definiere $\tilde{f}:= \frac{|f|}{||f||_p}, \tilde{g}:= \frac{|g|}{||g||_q}$. Nach Young $\tilde{f}\tilde{g} \leq \frac{\tilde{f}^p}{p} + \frac{\tilde{g}^q}{q}$ eingesetzt ins Integral und Monotonie:
+	\begin{align*}
+		\int \tilde{f} \tilde{g} d\mu \leq \frac{1}{p} \frac{\int |f|^p d\mu}{||f||^p_p} + \frac{1}{q} \frac{\int |g|^q d\mu}{||g||^q_q} = 1\\
+		\implies \int |fg| d\mu \leq ||f||_p ||g||_q
+	\end{align*}
+\end{proof}
+
+Spezialfall: $f,g \in \mathcal{L}^2 \implies \int |fg| d\mu \leq ||f||_2 ||g||_2$.
+Für SG $X,Y$ bezüglich $(\Omega, \mathcal{A}, P)$ mit 2. Moment: $\mathbb{E}XY \leq \mathbb{E}|X||Y| \leq \sqrt{\mathbb{E}X^2 \mathbb{E}Y^2}$.
+
+\begin{theorem}[Minkowski-Ungleichung]
+	$f,g \in \mathcal{L}^p(\mu), 1 \leq p \leq \infty$ Dann gilt:
+	\begin{align*}
+		||f+g||_p \leq ||f||_p + ||g||_p
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	TODO
+\end{proof}
+
+Mit der Minkowski-Ungleichung ist jetzt $L^p$ ein Vektorraum ($f,g \in \mathcal{L}^p \implies f+g\in \mathcal{L}^p$) und $||f||_p$ eine Norm mit der Dreiecksungleichung.
+
+\begin{lemma}[Streuungsungleichung]
+	SG $X,Y \in \mathcal{L}^p$. $SD(X+Y) \leq SD(X) + SD(Y)$
+\end{lemma}
+
+Die Bezeichnung $L_\infty$ kann man aus folgendem Zusammenhang rechtfertigen:
+
+\begin{theorem}[2.LP]
+	$\mu$ ... endlich, dann gilt
+	\begin{align*}
+		\lim\limits_{p\rightarrow\infty} ||f||_p = ||f||_\infty
+	\end{align*}
+	(wenn $f$ nicht $p$-fach integrierbar ist, gilt $\infty$ auf beiden Seiten).
+\end{theorem}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+Für endliche Maße gelten spezielle Aussagen, wie etwa:
+
+\begin{theorem}[3.LP, Schachtelung der $L^p$-Räume]
+	$\mu$ sei endlich. $1\leq p \leq \tilde{p} \leq \infty$.
+	\begin{align*}
+		\mathcal{L}^{\tilde{p}}(\mu) \subset \mathcal{L}^p(\mu)
+	\end{align*}
+	Also auf $||f||_{\tilde{p}} < \infty$ folgt $||f||_p < \infty$.
+\end{theorem}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+Für sigma-endliche (aber nicht endliche) Maße gilt diese Schachtelung i.a. nicht. Es gibt sogar sigma-endliche Maße $\mu$, wo die umgedrehte Schachtelung gilt $\mathcal{L}^p(\mu) \subseteq \mathcal{L}^{\tilde{p}}(\mu)$.
+
+Weder die Schachtelung noch die Normkonvergenz gilt i.A. für nicht endliche Maße. Etwa $f=1$ ist für $\lambda$: $||f||_p = 1 \forall p \geq 1, ||f||_\infty = \infty$.
+
+Nach Satz 8.MS ist $L_\infty$ ein Banachraum. Die Vollständigkeit wird für alle $L_p$-Räume nachgewiesen.
+
+\begin{theorem}[4.LP, Satz von Riesz-Fischer]
+	Eine $L_p$ konvergente Folge $f_n \in \mathcal{L}_p, 1 \leq p \leq \infty$ mit Grenzfunktion $f$, $||f_n - f||_p \rightarrow 0$, führt auf $f \in \mathcal{L}_p$. $L_p(\Omega, \mathcal{A}, \mu)$ sind für jedes $p \geq 1$ Banachräume.
+\end{theorem}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+$L_p$-Räume sind Banachräume und $L_2$ ist sogar ein Hilbertraum mit $<f,g> := \int f\cdot g d\mu$.
+
+Es folgt sofort, dass Grenzwerte in $\mathcal{L}_p$ $\mu$-f.ü. eindeutig sein müssen,
+\begin{align*}
+	TODO Seite 13
+\end{align*}
+
+
+
+
+
+
+
+
 
 
 
