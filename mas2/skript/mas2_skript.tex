@@ -1981,8 +1981,144 @@ $L_p$-Räume sind Banachräume und $L_2$ ist sogar ein Hilbertraum mit $<f,g> :=
 
 Es folgt sofort, dass Grenzwerte in $\mathcal{L}_p$ $\mu$-f.ü. eindeutig sein müssen,
 \begin{align*}
-	TODO Seite 13
+	f_n \rightarrow^{L_p} f, f_n \rightarrow^{L_p} g : ||f-g||_p \leq ||f-f_n|| + ||f_n - g|| < \epsilon, n > n_\epsilon\\
+	\implies ||f-g||_p = 0, \int |f-g|^p d\mu = 0 \implies |f-g|=0 \implies f=g \mu\text{-f.ü.}
 \end{align*}
+
+Die Existenz einer Teilfolge, die konvergiert, wird sich oft als sehr nützlich erweisen.
+
+Das ist speziell für separable Räume (abzählbar dichte Teilmenge) der Fall.
+
+Sei $([0,1], \mathcal{A}, \lambda)$: $L_p$ separabel $p\geq 1$, $L_\infty$ nicht!
+
+\subsubsection{$L^p$ für $0<p<1$}
+TODO
+
+\subsection{Dualraum von $L_p$}
+Prinzipiell existiert zu einem normierten linearen Raum $(V, ||.||)$ der Vektorraum der linearen Funktionale $T:V\rightarrow\mathbb{R}, T(\alpha x + \beta y) = \alpha T(x) + \beta T(y)$, die auch stetig sind. Um die Stetigkeit definieren zu können, muss $V$ ein Banachraum sein.
+
+\begin{definition*}[Dualraum, beschränkt]
+	Der Dualraum $V'$ zu $V$ ist $V'=\{F | F:V\rightarrow\mathbb{R}, \text{ linear und stetig}\}$.
+	
+	Auch $V'$ wird durch $||T|| := \sup\{|T(x)| : ||x|| \leq 1\}$ zu einem Banachraum. $T$ heißt beschränkt, wenn $||T|| \leq C < \infty$.
+\end{definition*}
+
+$T$ ist genau dann linear und stetig, wenn $T$ linear und beschränkt ist. (UE)
+
+Wir haben den Satz von Riesz-Frechet für die Darstellung der Elemente von $V'$ bereits verwendet. Wenn $(V,<.,.>)$ ein Hilbertraum ist, dann hat $F\in V'$ eine eindeutige Darstellung durch ein $f\in V$ mit $F(v) = <v,f>$.
+
+Für Hilberträume können $V$ und $V'$ in dem Sinn identifiziert werden, dass eine Isometrie zwischen $V$ und $V'$ existiert.
+
+Für den Banachraum $(L^p, ||.||_p)$ kann eine solche Isometrie gefunden werden.
+
+\begin{lemma}
+	$1 \leq p \leq \infty$ Zu $f\in \mathcal{L}^p$ existiert eine Folge $t_n \in \mathcal{L}^p$ von Treppenfunktionen mit $||t_n||_p \leq ||f||_p \forall n$ und $\lim\limits_{n\rightarrow\infty}||f-t_n||_p = 0$.
+\end{lemma}
+\begin{proof}
+	TODO
+\end{proof}
+
+Zwischen $L^q$ und $(L^p)'$ sei die kanonische Abbildung
+\begin{align*}
+	K:L^q \rightarrow (L^p)' \text{ mit } K(f)(g) := \int f\cdot g d\mu, f\in L^q, g \in L^p
+\end{align*}
+
+$K$ ist eine lineare Abbildung.
+
+\begin{theorem}[8.LP]
+	Für $\frac{1}{p} + \frac{1}{q} = 1$ ist die kanonische Abbildung $K$ eine Isometrie, also $||K(f)||'_p = ||f||_q$
+\end{theorem}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+Die kanonische Abbildung liefert eine Isometrie und ist daher injektiv.
+
+Angenommen $f,g \in L^q$ und $f\neq g$ in $L^q$, d.h. $||f-g||_q \neq 0$.
+\begin{align*}
+	||K(f)-K(g)||'_p = ||K(f-g)||'_p = ||f-g||_q \neq 0\\
+	\implies ||K(f)-K(g)||'_p \neq 0 \text{ und } K(f) \neq K(g)
+\end{align*}
+$K(.)$ ist auch surjektiv, daher gilt:
+
+\begin{theorem}[9.LP]
+	$1\leq p < \infty$ mit $\frac{1}{p} + \frac{1}{q} = 1$.
+	
+	Dann ist $L^q$ isomorph zu $(L^p)'$, dem Dualraum von $L^p$. Man kann dann $(L^p)' \simeq L^q$ also $(L^p)'$ mit $L^q$ identifizieren.
+\end{theorem}
+
+ohne Beweis. Für den Nachweis der Surjektivität sei auf die Literatur (Buch der VO) verwiesen.
+
+\begin{example}
+	Wenn $\Omega = \mathbb{N}$ und $\mathcal{A}=2^\mathbb{N}, \mu = \zeta$ (Zählmaß), dann ist $L^p$ ein Folgenraum mit der Bezeichnung $l^p$. $(a_n)\in l^p$, wenn $\sum_{n=1}^{\infty}|a_n|^p < \infty$.
+	
+	Die kanonische Abbildung für $a \in L^q, b \in L^p, a=(a_n)_{n\in \mathbb{N}}, b = (b_n)_{n\in \mathbb{N}}$ ist
+	\begin{align*}
+		K(a)(b) = \sum_{i=1}^{\infty} a_i - b_i
+	\end{align*}
+	und entsprechend dem letzten Satz gilt auch $(l^p)' \simeq l^q$.
+	
+	Für endliches $\Omega$, etwa $\Omega = \{1,...,m\}$ und $a=(a_1,...,a_m)$ und $b=(b_1,...,b_m)$ ist auch $(L^\infty)' \simeq L^1$.
+	
+	Wenn $a\in l^\infty$ (endliche Folge ist immer beschränkt) und $b \in l^1$ (endliche Folge immer summierbar) existiert für jedes $b \in l^1$ auch ein $a\in l^\infty$ mit $K(a) \simeq b$.
+	
+	Im Allgemeinen gilt Satz 9.LP für $p = \infty$ nicht.
+\end{example}
+
+\begin{example}
+	$(\mathbb{N}, 2^\mathbb{N}, \zeta)$ und $l^p$ sei der Folgenraum. Die Teilmenge $(\hat{l}_\infty)$ der beschränkten Folgen $l_\infty$ (Spur) sei die Menge der konvergenten Folgen. Definiere für $(a_n) \in \hat{l}_\infty$
+	\begin{align*}
+		F((a_n)) = \lim\limits_{n\rightarrow\infty} a_n
+	\end{align*}
+	$F$ ist linear. $F$ ist auch stetig:
+	$a_{n_k} \rightarrow b_n, k\rightarrow\infty$, d.h. $\lim\sup_{k\rightarrow\infty} |a_{n_k}-b_n| = 0$. $(b_n)$ konvergent gegen $b_0$.
+	\begin{align*}
+		|a_{n_k} - b_0| \leq |a_{n_k} - b_n| + |b_n - b_0|\\
+		\lim\sup_k |a_{n_k} - b_0| \leq \lim\sup_k \underbrace{|a_{n_k} - b_n|}_{\rightarrow0} + \lim \underbrace{|b_n - b_0|}_{\rightarrow 0}\\
+		\lim_k F((a_{n_k})) = F((b_n))
+	\end{align*}
+
+	$F$ ist nur auf der Teilmenge definiert, kann bei Beibehaltung der Eigenschaften (linear, stetig) auf $l_\infty$ erweitert werden. Ein $(b_n) \in l_1$ kann es nicht geben, sodass $\sum a_n b_n = \lim a_n$ für $a_n \in l_1 \cap l_\infty$.
+\end{example}
+
+\subsection{Gleichmäßige Integrierbarkeit}
+Für die Konvergenz im $L_p$ werden zur punktweisen Konvergenz noch weitere strukturelle Eigenschaften der Familie von Funktionen aus $L_p$ benötigt. Ein Fall, wo aus $f_n \rightarrow f$ $\mu$-f.ü. doch $L_p$-Konvergenz folgt, ist gegeben, falls die Integrale $||f_n||_p$ konvergieren.
+
+\begin{theorem}[10.LP]
+	Für $1\leq p < \infty$ und die Folge $f_n \in L_p$ gelte $f_n \rightarrow f$ $\mu$-f.ü. und $||f_n||_p \rightarrow ||f||_p$ dann ist $f_n$ $L_p$-konvergent, $\lim\limits_{n\rightarrow\infty} ||f_n - f||_p = 0$
+\end{theorem}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+Für $p = \infty$ gilt obige Aussage auch für sigma-endliche Maße i.A. nicht.
+
+\begin{example}
+	TODO Seite 29
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
