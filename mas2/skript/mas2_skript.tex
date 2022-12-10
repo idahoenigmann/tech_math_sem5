@@ -2096,14 +2096,32 @@ Für die Konvergenz im $L_p$ werden zur punktweisen Konvergenz noch weitere stru
 Für $p = \infty$ gilt obige Aussage auch für sigma-endliche Maße i.A. nicht.
 
 \begin{example}
-	TODO Seite 29
+	$(\mathbb{N}, 2^\mathbb{N}, \zeta)$ mit dem (auf $\mathbb{N}$) sigma-endlichen Zählmaß $\zeta$. Sei $f_n = 1_{\{1,...,n\}}$, dann gilt $||f_n||_\infty = 1$ und $f_n \rightarrow f = 1$ auf $\mathbb{N}$ mit $||f||_\infty = 1$, aber $|f_n - f| = 1_{\{n+1,...\}}$ mit $||f_n - f||_\infty = 1 \nrightarrow 0$.
 \end{example}
 
+Dass für $p \in [1, \infty)$ die Umkehrung nicht ohne weiteres gilt, wurde im Beispiel A (LP 4) demonstriert. Dort war $||f_n - 0||_p \rightarrow 0$ für jedes $p$, aber $f_n$ konvergiert nicht punktweise.
 
+Die Umkehrung gelingt, wenn punktweise Konvergenz durch die (schwächere) Konvergenz im Maß ersetzt wird. Im Beispiel A (LP 4) gilt
+\begin{align*}
+	\lambda(|f_n - f| > \epsilon) = \lambda([a_n, b_n]) = \frac{1}{2 \lfloor n \rfloor - 1} \rightarrow 0.
+\end{align*}
 
+\begin{theorem}[11.LP]
+	Für $1 \leq p < \infty$ konvergiert die Folge $f_n$ im p-ten Mittel, $||f_n - f||_p \rightarrow 0$ genau dann, wenn $f_n \rightarrow^\mu f$ im Maß mit $f \in L_p$ und $||f_n||_p \rightarrow ||f||_p$
+\end{theorem}
 
+\begin{proof}
+	TODO
+\end{proof}
 
+Aus der Konvergenz im Maß wird eine Konvergenzart von Maßen abgeleitet.
 
+Wenn für alle $A \in \mathcal{A} \mu_n(A) \rightarrow \mu(A)$ für Maße $\mu$ und $\mu_n$ auf $(\Omega, \mathcal{A})$ konvergiert $\mu_n$ schwach gegen $\mu$ (bzw. in Totalvariation), d.h.
+\begin{align*}
+	\lim\limits_{n\rightarrow\infty} \sup |\mu_n(A) - \mu(A)| = 0.
+\end{align*}
+
+TODO Seite 31
 
 
 
