@@ -2121,31 +2121,256 @@ Wenn für alle $A \in \mathcal{A} \mu_n(A) \rightarrow \mu(A)$ für Maße $\mu$ 
 	\lim\limits_{n\rightarrow\infty} \sup |\mu_n(A) - \mu(A)| = 0.
 \end{align*}
 
-TODO Seite 31
+Bei LS-Maßen mit Verteilungsfunktionen $F_n,F$ bedeutet das für $A=(-\infty, x]$
+\begin{align*}
+	\lim\limits_{n\rightarrow\infty}F_n(x) = F(x)
+\end{align*}
+wenn die Maße endlich sind. Es gibt gute Gründe hier die Konvergenz nur für die Stetigkeitspunkte $C_F$ von $F(.)$ zu fordern, $x \in C_F : \lim\limits_{n\rightarrow\infty}F_n(x)=F(x)$.
 
+Allgemein kann die Konvergenz auch auf die Dichten (falls vorhanden) zurückgeführt werden.
 
+\begin{theorem}[12.LP, Satz von Scheffe]
+	$\nu_n, \nu$ sind endliche Maße mit $\nu_n(\Omega) = \nu(\Omega)$. $\mu$ sei sigma-endlich und $\nu_n \ll \mu, \nu \ll \mu$.
+	
+	Dann gilt
+	\begin{align*}
+		\lim\limits_{n\rightarrow\infty} \frac{d\nu_n}{d\mu} = \frac{d\nu}{d\mu} \implies \sup_{A\in \mathcal{A}} |\nu_n(A)-\nu(A)| \rightarrow 0
+	\end{align*}
+\end{theorem}
 
+\begin{proof}
+	TODO
+\end{proof}
 
+Der Satz gilt auch (wie im Beweis), wenn $\nu(\Omega)\rightarrow\nu(\Omega)$. Meist wird aber die Verteilungskonvergenz von W-Maßen mit Dichten untersucht.
 
+Diskrete Verteilung: $(\mathbb{N}, 2^\mathbb{N})$ mit Zählmaß als dominierendes Maß. Es genügt die Konvergenz der Punktwahrscheinlichkeiten für Verteilungskonvergenz $P_n \rightarrow P$.
 
+\begin{example}
+	$P_n \sim H_{N,M,k}$ Hypergeometrische Verteilung wobei für $n, N_n, M_n, \in \mathbb{N}$ Folgen mit $N_n \rightarrow \infty$ und $\frac{M_n}{N_n} \rightarrow p, n\rightarrow\infty$ für $0 < p < 1$.
+	
+	TODO
+\end{example}
 
+\begin{example}
+	TODO
+\end{example}
 
+Auch bei stetigen Verteilungen werden Verteilungskonvergenzen über die Konvergenz der Dichten untersucht.
 
+\begin{example}
+	TODO
+\end{example}
 
+Ein großer Vorteil für eine Familie von Funktionen ist gegeben, wenn die Integrale der Funktionen "gleichgradig" sind, also sich einheitlich verhalten. Das wäre der Fall, wenn eine integrierbare Funktion $g \in \mathcal{L}_1$ existiert, sodass $|f_i| \leq g$.
 
+Eine Funktion $f$ ist genau dann integrierbar, wenn ein $g\in \mathcal{L}_1$ existiert, sodass
+\begin{align*}
+	\int_{|f|>g} |f| d\mu = 0
+\end{align*}
 
+Eine andere Konsequenz der Integrierbarkeit gibt das folgende Lemma.
 
+\begin{lemma}
+	$f\in\mathcal{L}_1$ auf $(\Omega, \mathcal{A}, \mu)$, dann existiert für jedes $\epsilon > 0$ ein $c_\epsilon > 0 $ und ein $A_\epsilon$ mit $\mu(A_\epsilon) < \infty$ mit
+	\begin{align*}
+		\int_{|f|>c_\epsilon} |f| d\mu < \epsilon \text{ und } \int_{A^c_\epsilon} |f| d\mu < \epsilon
+	\end{align*}
+\end{lemma}
 
+\begin{proof}
+	TODO
+\end{proof}
 
+Die Erweiterung obiger Eigenschaften auf eine Familie integrierbarer Funktionen ist folgende Definition.
 
+\begin{definition}[gleichmäßig integrierbar]
+	Die Familie ${f_i, i \in I}$ auf $(\Omega, \mathcal{A}, \mu)$ heißt gleichmäßig integrierbar oder gleichgradig integrierbar wenn für jedes $\epsilon > 0 $ ein $c_\epsilon > 0 $ und ein $A_\epsilon  \in \mathcal{A}$ mit $\mu(A_\epsilon) < \infty$ existieren, sodass
+	\begin{align*}
+		\sup_{i\in I} \int_{|f_i| > c_\epsilon} |f_i| d\mu < \epsilon \text{ und } \sup_{i\in I}\int_{A^c_\epsilon} |f_i| d\mu < \epsilon
+	\end{align*}
+\end{definition}
 
+\begin{theorem}[13.LP, Charakterisierungen der gmI]
+	Für eine Familie $\mathcal{F}=\{f_i, i\in I\}$ messbarer Funktionen auf $(\Omega, \mathcal{A}, \mu)$ sind folgende Bedingungen äquivalent:
+	\begin{enumerate}
+		\item $\mathcal{F}$ ist gleichmäßig integrierbar
+		\item $\forall \epsilon > 0 \exists g_\epsilon \geq 0, g_\epsilon \in L_1$ mit $\sup_{i\in I} \int_{|f_i| > g_\epsilon} |f_i| d\mu < \epsilon$
+		\item $\forall \epsilon > 0 \exists g_\epsilon \geq 0, g_\epsilon \in L_1$ mit $\sup_{i\in I} \int (|f_i| - g_\epsilon)^+ d\mu < \epsilon$
+		\item $\sup \int |f_i| d\mu < \infty$ und $\forall \epsilon > 0 \exists g_\epsilon \geq 0, g_\epsilon \in L_1$ und $\delta > 0$ mit $\int_A g_\epsilon d\mu < \delta \implies \sup_{i\in I} \int_A |f_i| d\mu < \epsilon$
+	\end{enumerate}
+\end{theorem}
 
+\begin{proof}
+	TODO
+\end{proof}
 
+Es ergeben sich unmittelbar viele Situationen (Familien), wo gmI gilt.
 
+\begin{itemize}
+	\item Ist die Familie $\mathcal{F}$ durch $g\in \mathcal{L}_1$ dominiert, d.h. $|f_i| \leq g \forall i$, dann ist $\mathcal{F}$ gmI, wegen 3.
+	\begin{align*}
+		0 = \sup \int (|f_i| - g)^+ < \epsilon
+	\end{align*}
 
+	\item Eine endliche Familie integrierbarer Funktionen $\mathcal{F}$ ist immer gmI.
+	
+	\item Wird die Familie $\mathcal{F}$ durch die Familie $\mathcal{G}$ dominiert, also zu jedem $f\in \mathcal{F}$ existiert ein $g \in \mathcal{G}$ mit $|f|\leq |g|$, dann ist auch $\mathcal{F}$ gmI, vorausgesetzt $\mathcal{G}$ ist gmI.
+	
+	\item Die Summe $\mathcal{F} + \mathcal{G} = \{f+g|f\in \mathcal{F}, g \in \mathcal{G}\}$ ist auch gmI, wenn $\mathcal{F}$ und $\mathcal{G}$ gmI sind.
+	
+	\item Die Integrale sind gleichmäßig über $\mathcal{F}$ (gmI) beschränkt, da $C = \sup_{f\in\mathcal{F}} \int |f| d\mu < \infty$ eine Folgerung aus gmI ist.
+\end{itemize}
 
+Damit ist etwa $\mathcal{F}:= \{f(x)=\frac{1}{x^{1+\epsilon}} 1_{(1,\infty)(x)} | \epsilon > 0\}$ auf $(\mathbb{R}, \mathcal{B}, \lambda)$ keine gmI Familie, obwohl jedes $f \in \mathcal{F}$ integrierbar ist und $\sup_{f\in\mathcal{F}} ||f||_\infty = 1 < \infty$.
 
+Das wäre anders, wenn statt $\lambda$ ein endliches Maß $\mu$ vorliegen würde.
 
+Ist $\mu$ endlich und $\sup_{f\in\mathcal{F}} ||f||_\infty < K$ ist wegen 3. sofort auch $\mathcal{F}$ gmI mit $g_\epsilon = K$.
+
+\begin{itemize}
+	\item Jede Familie $\mathcal{F}$, die gmI ist wegen $\sup_{f\in\mathcal{F}} \int |f| < \infty$ Teilmenge von $\mathcal{L}_1$, $\mathcal{F} \subseteq \mathcal{L}_1$ für $(\Omega, \mathcal{A}, \mu)$.
+\end{itemize}
+
+Für endliche Maße (also alle W-Maße) wird der Nachweis der gmI wesentlich einfacher.
+
+\begin{theorem}[14.LP]
+	Die Familie $\mathcal{F}$ messbarer Funktionen auf dem endlichen Maßraum $(\Omega, \mathcal{A}, \mu)$ ist genau dann gmI, wenn
+	\begin{align*}
+		\sup_{i\in I} \int |f_i| < \infty \text{ oder } \lim\limits_{c\rightarrow\infty} \sup_i \mu(|f_i| \geq c) = 0 \\
+		\text{ und } \forall \epsilon > 0 \exists \delta > 0 \text{ mit } \mu(A) < \delta \implies \sup_i \int_A |f_i| < \epsilon
+	\end{align*}
+\end{theorem}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+Wenn die Funktionen $f_i$ als Dichten verstanden werden von $\nu_i(A) := \int_A |f_i| d\mu$.
+
+Diese (endliche) Maße $\nu_i$ sind daher gleichmäßig absolut stetig bezüglich dem endlichen Maß $\mu$.
+
+Für den Nachweis der gmI einer Familie $\mathcal{F}$ messbarer Funktionen auf dem endlichen Maßraum $(\Omega, \mathcal{A}, \mu)$ genügt es, eine (stärker als $x\rightarrow x$ wachsende) Funktion zu finden, die gleichmäßig über $\mathcal{F}$ integrierbar ist. Dieses Kriterium ist oft einfacher zu prüfen.
+
+\begin{lemma}
+	$\mathcal{F} \subseteq \mathcal{L}_1$ auf dem endlichen Maßraum $(\Omega, \mathcal{A}, \mu)$ ist genau dann gmI, wenn eine Funktion $H:[0, \infty) \rightarrow [0, \infty)$ mit
+	\begin{align*}
+		\lim_{x\rightarrow\infty} \frac{H(x)}{x} = \infty \text{ und } \sup_{f\in\mathcal{F}} \int H(|f|) d\mu < \infty
+	\end{align*}
+	existiert.
+	
+	Die Funktion $H$ ist als monoton wachsend und konvex wählbar.
+\end{lemma}
+
+Für SG $X$ bzw. eine Familie SGn $\mathcal{F}$ reduziert sich die Bedingung für gmI auf 
+\begin{align*}
+	\sup_{X\in\mathcal{F}} \mathbb{E}[|X| 1_{[|X|>K]}] < \epsilon
+\end{align*}
+wobei zu $\epsilon > 0 $ ein $K \geq 0$ mit obiger Bedingung existiert.
+
+\begin{lemma}
+	Folge $X_n$ SGn mit $\mathbb{E}|X_n| < \infty$ ist gmI, genau wenn
+	\begin{align*}
+		\lim\limits_{x\rightarrow\infty} (\sup_{n\geq 1} \mathbb{E}[|X_n| 1_{[|X_n|>x]}]) = 0
+	\end{align*}
+\end{lemma}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+\begin{example}
+	TODO
+\end{example}
+
+Wie es aus den vorigen Aussagen vermuten lässt, ist die Äquivalenz von $L_p$-Konvergenz und Konvergenz im Maß, wenn die Familie (Folge) auch gmI ist.
+
+Als Vorbereitung dienen die folgenden Hilfssätze.
+
+\begin{lemma}
+	$f_n$ ist eine gmI-Folge auf $(\Omega, \mathcal{A}, \mu)$ dann gilt das Lemma von Fatou in der Form
+	\begin{align*}
+		\int \liminf_n f_n \leq \liminf_n \int f_n \leq \limsup_n \int f_n \leq \int \limsup_n f_n
+	\end{align*}
+\end{lemma}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+\begin{lemma}
+	$f_n$ sei gmI Folge. Aus der Konvergenz im Maß $f_n \xrightarrow{\mu} f$ folgt $f \in \mathcal{L}_1$, $\lim \int f_n = f$ und $\lim_n ||f_n - f|| = 0$.
+	
+	Die Folgerungen treffen auch für $f_n \rightarrow f \mu$-f.ü. zu.
+\end{lemma}
+
+\begin{proof}
+	TODO
+\end{proof}
+
+Die letzten Aussagen über gmI Folgen werden zum wesentlichen Kriterium für $L_p$-Konvergenz zusammengefügt.
+
+\begin{theorem}[15.LP, Vitali-Kriterium]
+	Die Folge $f_n \in \mathcal{L}_p, 1 \leq p < \infty$ konvergiert in $L_p$ $||f_n - f||_p \rightarrow 0 \iff f_n \xrightarrow{\mu} f$ und $|f_n|^p$ ist gmI.
+\end{theorem}
+
+\begin{proof}
+	$\implies$: Aus $||f_n - f||_p \rightarrow 0$ folgt nach Satz 11.LP $f_n \xrightarrow{\mu}f$ und $||f_n||_p \rightarrow ||f||_p$ mit $f \in \mathcal{L}_p$.
+	
+	Daher ist $C = \sup \int |f_n|^p < \infty$.
+	
+	Für die zweite Bedingung der gmI sei $\epsilon > 0$ und $\delta := \frac{\epsilon^{1/p}}{2}$ sowie $g:= |f|^p + \sup_{i=1}^{n_\epsilon} |f_i|^p$ wobei $n_\epsilon$ so bestimmt wird, dass $\underbrace{||f_n - f||_p}_{\rightarrow\int |f_n - f|^p < \epsilon/2} < \delta \forall n \geq n_\epsilon$.
+	
+	Damit gilt für ein $A \in \mathcal{A}$
+	\begin{align*}
+		\int_A g d\mu < \delta \implies \int_A |f_n|^p d\mu < \epsilon
+	\end{align*}
+	für $n \leq n_\epsilon$ nach Definition von $g$.
+	
+	TODO
+\end{proof}
+
+Die Sätze 11.LP und 15.LP zusammengefasst
+\begin{align*}
+	||f_n - f||_p \rightarrow 0 \iff f_n \xrightarrow{\mu} f \land f\in L_p \land ||f_n||_p \rightarrow ||f||_p \iff f_n \xrightarrow{\mu} f \land |f_n|^p \text{ ist gmI}
+\end{align*}
+kann als Kriterium für gmI verwendet werden:
+
+Für eine im Maß konvergente Folge $f_n \xrightarrow{\mu}f$ sind $|f_n|^p$ gmI $\iff f \in L_p \land ||f_n||_p \rightarrow ||f||_p, ||f||_p < \infty$.
+
+Wie die $L_p$-Konvergenz von einer Metrik (sogar einer Norm), lässt sich auch die Konvergenz im Maß (für sigma-endliches Maß) aus einer Metrik erzeugen.
+
+\begin{lemma}
+	$\mu$ sei ein sigma-endliches Maß mit $A_n \nearrow \Omega, \mu(A_n) < \infty$. Zu messbaren Funktionen $f,g : \Omega \rightarrow \mathbb{R}$ sei
+	\begin{align*}
+		d(f,g) = \sum_{n=1}^{\infty} \frac{2^{-n}}{1+\mu(A_n)} \int_{A_n} \min (1, |f-g|) d\mu
+	\end{align*}
+
+	Dann ist $d$ eine Metrik, sodass für die Folge $f_n, f$ gilt $f_n \xrightarrow{\mu} f \iff d(f_n, f) \rightarrow 0$.
+\end{lemma}
+
+Eine weitere Bedingung für f.ü. Konvergenz aus $L_p$-Konvergenz abzuleiten ist die schnelle Konvergenz.
+
+\begin{theorem}[15.LP, Schnelle Konvergenz]
+	$f_n$ und $f$ aus $L_p$ für ein $1 \leq p < \infty$. Dann folgt aus
+	\begin{enumerate}
+		\item $\sum_{n\geq 1} ||f_n - f||_p < \infty$ oder
+		\item Für $A \in \mathcal{A}$ mit $\mu(A) < \infty$ und jedes $\epsilon > 0$ gilt $\sum_{n\geq 1} \mu(A \cap [|f_n-f| > \epsilon]) < \infty$
+	\end{enumerate}
+	dass $f_n \rightarrow f \mu$-f.ü.
+\end{theorem}
+
+\begin{proof}
+	Aus 1. folgt wegen
+	\begin{align*}
+		\mu(A \cap [|f_n - f| > \epsilon]) \leq \mu([|f_n - f| > \epsilon]) \leq \frac{1}{\epsilon^p} ||f_n - f||^p_p
+	\end{align*}
+	sofort 2. Für 2. wird ein messbares $A \in \mathcal{A}$ mit $\mu(A) < \infty$ angenommen, o.B.d.A sei $A = \Omega$. Mit $D_n := [|f_n - f| > \epsilon]$ und $D_\epsilon := \limsup_{n}D_{n\rightarrow\infty}$ folgt nach dem Lemma von Borel-Cantelli
+	\begin{align*}
+		\mu(D_\epsilon) = \mu(\bigcap_{n=1}^{\infty} \bigcup_{k=n}^{\infty}[|f_k - f| > \epsilon]) = 0
+	\end{align*}
+	Sei $N = \bigcup_{m=1}^\infty D_{1/m}$, daher $\mu(N) = 0$ und $f_n \rightarrow f$ auf $N^c$.
+\end{proof}
 
 
 \end{document}
