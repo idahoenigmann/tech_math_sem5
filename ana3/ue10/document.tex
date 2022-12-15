@@ -1,0 +1,181 @@
+\documentclass[]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[many]{tcolorbox}
+\usepackage{bm}
+\usepackage{enumitem}
+
+\newtheorem*{angabe*}{Angabe}
+
+\tcolorboxenvironment{angabe*}{
+	colback=blue!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+%opening
+\title{Analysis 3 - Übung Nr. 10}
+\author{Ida Hönigmann}
+
+\begin{document}
+
+\maketitle
+
+\section{Sätze}
+
+Transformationsformel
+
+Gauß'sche Integralsatz
+
+\section{Beispiele}
+
+TODO: Grafik Zylinder + Normalvektor in Bsp 1
+TODO: Grafik in Bsp 2
+
+\subsection*{Beispiel 1}
+\begin{angabe*}
+	Sei $\bm{F}(x,y,z) := (xy, yz, x^2+y^2)^\top$. Betrachte den Zylindermantel
+	\begin{align*}
+		M := \{(x,y,z) \in \mathbb{R}^3: x^2+y^2=1, 0<z<1\}
+	\end{align*}
+	Berechnen Sie den Fluss des Vektorfeldes $\mathbf{F}$ durch die Fläche $M$:
+	\begin{align*}
+		\int_M \bm{F}^\top \cdot \bm{\nu} d\mathcal{H}^2
+	\end{align*}
+	wobei $\bm{\nu}$ den nach außen gerichteten normierten Normalvektor auf $M$ bezeichnet.
+	Tun Sie das auf zwei Arten:
+	\begin{enumerate}[label=(\roman*)]
+		\item direkt
+		\item mithilfe des Gauß'schen Integralsatzes.
+	\end{enumerate}
+\end{angabe*}
+
+\begin{enumerate}[label=(\roman*)]
+	\item \textbf{direkt}:
+	
+	In jedem Punkt $(x,y,z) \in M$ gilt, dass der normierte Normalvektor
+	\begin{align*}
+		\bm{\nu} =
+		\frac{1}{||\bm{\nu}||} \begin{pmatrix} \frac{\partial}{\partial x} x^2 + y^2 - 1\\ \frac{\partial}{\partial y} x^2 + y^2 - 1\\ \frac{\partial}{\partial z} x^2 + y^2 - 1 \end{pmatrix} =
+		\frac{1}{\underbrace{\sqrt{4x^2 + 4y^2}}_{x^2+y^2=1} } \begin{pmatrix} 2x\\ 2y\\ 0 \end{pmatrix} = 
+		\begin{pmatrix} x\\ y\\ 0 \end{pmatrix}.
+	\end{align*}
+
+	Es gilt also $\int_M \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = \int_M x^2y + y^2z d\mathcal{H}^2$. Wir wollen nun zur Berechnung die Transformationsformel anwenden.
+	\begin{align*}
+		D := [0, 2\pi) \times (0,1) && \phi:D \rightarrow \mathbb{R}^2, (\theta, z) \mapsto (\cos(\theta), \sin(\theta), z)\\
+		d\phi = \begin{pmatrix} -\sin(\theta) & 0 \\ \cos(\theta) & 0 \\ 0 & 1 \end{pmatrix} && \det(d\phi^\top d\phi) = \det\begin{pmatrix} \sin^2(\theta) + \cos^2(\theta) & 0 \\ 0 & 1 \end{pmatrix} = 1
+	\end{align*}
+
+	Offenbar gilt $\phi(D)=M$ und $\phi$ ist injektiv und eine $C^1$-Abbildung.
+
+	\begin{align*}
+		\int_M \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = \int_{\phi(D)} x^2y + y^2z d\mathcal{H}^2 = \int_D \cos^2(\theta) \sin(\theta) + \sin^2(\theta) z d\lambda^2(\theta, z) =\\
+		\int_{0}^{2\pi}\int_{0}^{1} \cos^2(\theta)\sin(\theta) dz d\theta + \int_{0}^{2\pi} \int_{0}^{1} \sin^2(\theta)z dz d\theta = \underbrace{\int_{0}^{2\pi} \cos^2(\theta) \sin(\theta) d\theta}_{=0} + \left.\frac{z^2}{2}\right\vert _0^1 \underbrace{\int_{0}^{2\pi} \sin^2(\theta) d\theta}_{=\pi} = \frac{\pi}{2}
+	\end{align*}
+
+	\item \textbf{mit Gauß'schem Integralsatz}:
+
+	Wir betrachten zuerst $A:=\{(x,y,0)^\top\in \mathbb{R}^3: x^2+y^2 < 1\} = B_1^2(0)$ (der Boden des Zylinders) und $B:=\{(x,y,1)^\top \in \mathbb{R}^3: x^2+y^2 < 1\} = B_1^2(0)+(0,0,1)^\top$ (der Deckel des Zylinders). Offenbar gilt für $(x,y,0) \in A$, dass der Normalvektor $\bm{\nu} = (0,0,-1)^\top$ und für $(x,y,1) \in B$, dass $\bm{\nu} = (0,0,1)^\top$. Da $\bm{F}$ in der dritten Komponente nicht von $z$ abhängt gilt nun, dass sich die Summe der folgenden beiden Integrale aufhebt:
+	\begin{align*}
+		\int_A \bm{F}^\top \cdot \bm{\nu} d\mathcal{H}^2 + \int_B \bm{F}^\top \cdot \bm{\nu} d\mathcal{H}^2 = \int_{B_1^2(0)} -(x^2+y^2) d\mathcal{H}^2 + \int_{B_1^2(0)+(0,0,1)^\top} x^2+y^2 d\mathcal{H}^2 = \\
+		-\int_{B_1^2(0)} x^2+y^2 d\mathcal{H}^2 + \int_{B_1^2(0)} x^2+y^2 d\mathcal{H}^2 = 0
+	\end{align*}
+
+	Damit erhalten wir, dass wenn wir mit $Z=\{(x,y,z)\in \mathbb{R}^3: x^2+y^2 < 1, 0<z<1\}$ den Zylinder bezeichnen, gilt
+	\begin{align*}
+		\int_{\partial Z} \bm{F}^\top \cdot \bm{\nu} d\mathcal{H}^2 = \int_M \bm{F}^\top \cdot \bm{\nu} d\mathcal{H}^2
+	\end{align*}
+
+	Um den Integralsatz von Gauß anwenden zu können müssen wir überprüfen ob
+	\begin{itemize}
+		\item $Z$ eine offene, beschränkte Teilmenge des $\mathbb{R}^3$ ist; was klarerweise gilt
+		\item $\mathcal{H}^2(\partial_sZ)=0$ was gilt da $\partial_sZ = \{(x,y,0): x^2+y^2=1\} \cup \{(x,y,1): x^2+y^2=1\}$ und beide diese Mengen haben endliches eindimensionales Hausdorffmaß (genauer $\mathcal{H}^1(\text{Kreisrand})=2\pi$) und somit zweidimensionales Hausdorffmaß Null haben müssen ($\mathcal{H}^2(\text{Kreisrand})=0$).
+		\item $\bm{F}:\bar{Z} \rightarrow \mathbb{R}^3 \in C(\bar{Z}) \cap C^1(Z)$, da $\bm{F}$ offenbar stetig ist und
+		\begin{align*}
+			D\bm{F} = \begin{pmatrix}
+				y & x & 0\\ 0 & z & y\\ 2x & 2y & 0
+			\end{pmatrix}
+		\end{align*}
+		ist stetig.
+	\end{itemize}
+	
+	Also gilt nun
+	\begin{align*}
+		\int_{\partial_Z} \bm{F}^\top \cdot \nu d\mathcal{H}^2 = \int_Z div\bm{F} d\lambda^3 = \int_Z \frac{\partial F_1}{\partial x} + \frac{\partial F_2}{\partial y} + \frac{\partial F_3}{\partial z} d\lambda^3 = \int_Z y + z d\lambda^3
+	\end{align*}
+
+	Zur Berechnung verwenden wir wieder den Transformationssatz
+	\begin{align*}
+		D := (0,1)\times[0,2\pi)\times(0,1) && \phi:D\rightarrow\mathbb{R}^3, (r,\theta,z) \mapsto (r\cos(\theta), r\sin(\theta), z)^\top && \det d\phi = r
+	\end{align*}
+
+	wobei $D$ ist eine offene Teilmenge des $\mathbb{R}^3$, $\phi$ ist eine injektive $C^1$-Abbildung und $Z=\phi(D)$. Damit folgt 
+	\begin{align*}
+		\int_{\phi(D)} y + z d\lambda^3 = \int_D (r\sin(\theta) + z)r d\lambda^3 = \int_{0}^{1} \int_{0}^{2\pi} \int_{0}^{1} r^2 \sin(\theta) dz d\theta dr + \int_{0}^{1} \int_{0}^{2\pi} \int_{0}^{1} rz dz d\theta dr = \\
+		\int_{0}^{1} r^2 \left.(-\cos(\theta))\right\vert_0^{2\pi} dr + 2\pi \int_{0}^{1} r \left. \frac{z^2}{2}\right\vert_0^1 dr = 0 + 2\pi \int_0^1 \frac{1}{2} r dr = \pi \left. \frac{r^2}{2}\right\vert_0^1 = \frac{\pi}{2}.
+	\end{align*}
+
+\end{enumerate}
+
+\subsection*{Beispiel 2}
+\begin{angabe*}
+	Sei $\bm{F}(x,y,z):=(xz, xy, z^2-x)^\top$. Betrachte das Gebiet
+	\begin{align*}
+		\Omega := \{(x,y,z)\in \mathbb{R}^3: 0<x<1, 0<y<x+1, 0<z<x+y\}.
+	\end{align*}
+	Berechnen Sie den Fluss des Vektorfeldes $\bm{F}$ durch den Rand von $\Omega$.
+\end{angabe*}
+
+Gesucht ist
+\begin{align*}
+	\int_{\partial \Omega} \bm{F}^\top \cdot \bm{\nu} d\mathcal{H}^2
+\end{align*}
+weshalb wir den Gauß'schen Integralsatz verwenden wollen. Daher prüfen wir zuerst die Bedingungen:
+\begin{itemize}
+	\item $\Omega$ ist offen und beschränkt: offen ist aus der Definition klar, Beschränktheit folgt aus $\Omega \subseteq (0,1)\times(0,2)\times(0,3)$.
+	\item $\mathcal{H}^2(\partial_s\Omega) = 0$, da $\partial_s\Omega$ aus 12 Kanten (und 7 Ecken) besteht (siehe Grafik TODO) und diese alle endliches eindimensionales Hausdorffmaß besitzen und daher $\mathcal{H}^2(\partial_s\Omega) = 0$.
+	\item $\bm{F}:\overline{\Omega} \rightarrow \mathbb{R}^3 \in C(\overline{\Omega}) \cap C^1(\Omega)$, da $\bm{F}$ offenbar stetig ist und
+	\begin{align*}
+		D\bm{F} = \begin{pmatrix}
+			z & 0 & x\\ y & x & 0\\ 2x & -2y & 0\\
+		\end{pmatrix}
+	\end{align*}
+	ist stetig.
+\end{itemize}
+
+Gemeinsam mit $div\bm{F} = \sum_{i=1}^{3} \partial f_i / \partial x_i = x+z$ und dem Gauß'schen Integralsatz ergibt sich
+\begin{align*}
+	\int_{\partial\Omega} \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = \int_\Omega div\bm{F} d\lambda^3 = \int_0^1 \int_0^{x+1} \int_0^{x+y} x+z dzdydx\\
+	\int_0^1 \int_0^{x+1} \int_0^{x+y} x dzdydx = \int_0^1 x \int_0^{x+1} x+y dy dx = \int_0^1 x\left(x(x+1) + \left.\frac{y^2}{2}\right\vert_0^{x+1}\right) dx =\\
+	\int_0^1 x \left(x^2+x + \frac{(x+1)^2}{2}\right) dx = \int_0^1 x^3 + x^2 + \frac{x}{2} (x^2+2x+1) dx = \int_0^1 \frac{3}{2} x^3 + 2 x^2 + \frac{1}{2} x dx = \frac{31}{24}\\
+	\int_0^1 \int_0^{x+1} \int_0^{x+y} z dzdydx = \int_0^1 \int_0^{x+1} \frac{(x+y)^2}{2} dy dx = \frac{1}{2} \int_0^1 \int_x^{2x+1} u^2 du dx = \frac{1}{2} \int_0^1 \left.\frac{u^3}{3}\right\vert_x^{2x+1} dx =\\
+	\frac{1}{6} \int_0^1 (2x+1)^3 - x^3 dx = \frac{1}{6} \left(\int_1^3 \frac{v^3}{2} dv - \left. \frac{x^4}{4}\right\vert_0^1\right) = \frac{1}{6} \left(\frac{1}{2} \left.\frac{v^3}{4}\right\vert_1^3 - \frac{1}{4}\right) = \frac{13}{8}\\
+	\implies \int_{\partial\Omega} \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = \frac{31}{24} + \frac{13}{8} = \frac{35}{12}
+\end{align*}
+
+\subsection*{Beispiel 3}
+\begin{angabe*}
+	Verifizieren Sie den Gauß'schen Integralsatz für das Gebiet
+	\begin{align*}
+		\Omega := \{(x,y,z) \in \mathbb{R}^3: 0<z<1-x^2-y^2\}
+	\end{align*}
+	und das Vektorfeld
+	\begin{align*}
+		\bm{F}(x,y,z) := (x, x+y, x^2+z)^\top,
+	\end{align*}
+	d.h., berechnen Sie die beiden Integrale und überprüfen Sie deren Gleichheit.
+\end{angabe*}
+
+TODO
+
+\end{document}
