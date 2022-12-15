@@ -178,4 +178,44 @@ Gemeinsam mit $div\bm{F} = \sum_{i=1}^{3} \partial f_i / \partial x_i = x+z$ und
 
 TODO
 
+\subsection*{Beispiel 4}
+\begin{angabe*}
+	Sei $A \subseteq \mathbb{R}^3$ offen. Sei $f\in C^2(A)$ eine reelle Funktion, sei $\bm{F} \in C^2(A;\mathbb{R}^3)$ ein Vektorfeld. Zeigen Sie
+	\begin{enumerate}[label=(\roman*)]
+		\item $rot\nabla f = \bm{0}$,
+		\item $div rot \bm{F} = 0$
+	\end{enumerate}
+\end{angabe*}
+
+\begin{enumerate}[label=(\roman*)]
+	\item Da die Reihenfolge bei Differenzieren von $f$ egal ist ergibt sich
+	\begin{align*}
+		\nabla f = \begin{pmatrix}
+			\frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial x}
+		\end{pmatrix} =: (f_1, f_2, f_3)^\top &&
+		rot \nabla f = \begin{pmatrix}
+			\frac{\partial f_3}{\partial y} - \frac{\partial f_2}{\partial z}\\
+			\frac{\partial f_1}{\partial z} - \frac{\partial f_3}{\partial x}\\
+			\frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y}\\
+		\end{pmatrix} = \begin{pmatrix} 
+		\frac{\partial^2 f}{\partial y \partial z} - \frac{\partial^2 f}{\partial z \partial y}\\
+		\frac{\partial^2 f}{\partial z \partial x} - \frac{\partial^2 f}{\partial x \partial z}\\
+		\frac{\partial^2 f}{\partial x \partial y} - \frac{\partial^2 f}{\partial y \partial x}\\
+		\end{pmatrix} = \begin{pmatrix}
+			0 \\ 0 \\ 0
+		\end{pmatrix}
+	\end{align*}
+
+	\item Sei $\bm{F} = (f_1, f_2, f_3)$, dann gilt
+	\begin{align*}
+		rot \bm{F} = \begin{pmatrix}
+			\frac{\partial f_3}{\partial y} - \frac{\partial f_2}{\partial z}\\
+			\frac{\partial f_1}{\partial z} - \frac{\partial f_3}{\partial x}\\
+			\frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y}\\
+		\end{pmatrix}\\
+		\text{div rot} \bm{F} = \frac{\partial}{\partial x} \left(\frac{\partial f_3}{\partial y} - \frac{\partial f_2}{\partial z}\right) + \frac{\partial}{\partial y} \left(\frac{\partial f_1}{\partial z} - \frac{\partial f_3}{\partial x}\right) + \frac{\partial}{\partial z} \left(\frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y}\right) = \\
+		\frac{\partial^2 f_3}{\partial x \partial y} - \frac{\partial^2 f_2}{\partial x \partial z} + \frac{\partial^2 f_1}{\partial y \partial z} - \frac{\partial^2 f_3}{\partial x \partial y} + \frac{\partial^2 f_2}{\partial x \partial z} - \frac{\partial^2 f_1}{\partial y \partial z} = 0
+	\end{align*}
+\end{enumerate}
+
 \end{document}
