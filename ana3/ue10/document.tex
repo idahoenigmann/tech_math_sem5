@@ -378,6 +378,23 @@ TODO
 \end{angabe*}
 TODO
 
+Zuerst suchen wir einen Normalvektor für jeden Punkt $(x,y,z)\in \Omega$:
+\begin{align*}
+	\bm{n} = \frac{\partial}{\partial r}\begin{pmatrix} 2r\cos(t)\\ 2r\sin(t)\\ r\cos(t)\sin(t) \end{pmatrix} \times \frac{\partial}{\partial t}\begin{pmatrix}
+	2r\cos(t)\\ 2r\sin(t)\\ r\cos(t)\sin(t) \end{pmatrix} = \begin{pmatrix}
+	-2r\sin^3(t)\\ -2r\cos^3(t)\\ 4r
+\end{pmatrix}
+\end{align*}
+
+Tangentialvektor
+\begin{align*}
+	\bm{t} = \left(\frac{\partial}{\partial t} 2\cos(t), \frac{\partial}{\partial t} 2\sin(t), \frac{\partial}{\partial t} \cos(t)\sin(t)\right)^\top = (-2\sin(t), 2\cos(t), \cos^2(t)-\sin^2(t))^\top
+\end{align*}
+
+TODO
+
+\newpage
+
 \subsection*{Beispiel 8}
 \begin{angabe*}
 	Sei $\bm{F}(x,y,z):=(x^2y, z^2, x+y+z^3)^\top$. Betrachte
