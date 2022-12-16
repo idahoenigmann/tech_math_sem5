@@ -389,6 +389,50 @@ TODO
 		\int_\Omega (rot \bm{F})^\top \cdot \bm{n} d\mathcal{H}^2.
 	\end{align*}
 \end{angabe*}
-TODO
+
+Wir suchen zuerst die Normalvektoren auf $\Omega$ mit positiver $z$-Koordinate. Für jeden Punkt $(x,y,z(x,y)) \in \Omega$ ist $\bm{n}$ ein normierter Normalvektor:
+\begin{align*}
+	\tilde{\bm{n}} := \left(-\frac{\partial}{\partial x} z(x,y), -\frac{\partial}{\partial y} z(x,y), 1\right)^\top = (-2x(2x^2+2y^2-1), -2y(2x^2+2y^2-1), 1)^\top\\
+	||\tilde{\bm{n}}|| = \sqrt{4x^2(2x^2+2y^2-1)^2 + 4y^2(2x^2+2y^2-1)^2 + 1} = \sqrt{(4x^2+4y^2)(2x^2+2y^2-1)^2+1}\\
+	\bm{n}:= \frac{\tilde{\bm{n}}}{||\tilde{\bm{n}}||}
+\end{align*}
+
+Um den Integralsatz von Stokes in $\mathbb{R}^3$ anwenden zu können müssen wir nun einen Tangentialvektor $\bm{t}$ für jeden Punkt in $\partial\Omega$ finden.
+\begin{align*}
+	\partial\Omega = \{(x,y,(\sqrt{x^2+y^2}+1)(\sqrt{x^2+y^2}-1)(x^2+y^2)) \in \mathbb{R}^3: x^2+y^2=1\} = \{(x,y,0) \in \mathbb{R}^3: x^2+y^2=1\}
+\end{align*}
+\begin{align*}
+	\bm{t} = (y, -x, 0)^\top && ||\bm{t}|| = \sqrt{y^2+x^2} = 1\\
+\end{align*}
+
+Auf $\partial\Omega$ gilt $\tilde{\bm{n}}=(-2x(2-1), -2y(2-1), 1)^\top = (-2x, -2y, 1)^\top$.
+\begin{align*}
+	\bm{\nu} = \tilde{\bm{n}} \times \bm{t} = \begin{pmatrix} -x\\ -y\\ -2x^2-2y^2 \end{pmatrix} = \begin{pmatrix} -x\\ -y\\ -2 \end{pmatrix}\\
+	\det(\bm{\nu}, \bm{t}, \bm{n}) = \det\begin{pmatrix}
+		-x & y & -2x\\
+		-y & -x  & -2y\\
+		-2 & 0  & 1
+	\end{pmatrix} = x^2+4y^2+4x^2+y^2 = 5 > 0
+\end{align*}
+
+Überprüfen wir als nächstes die Bedingungen des Integralsatzes von Stokes in $\mathbb{R}^3$:
+
+\begin{itemize}
+	\item $\Omega \subseteq \mathbb{R}^3$ ist eine beschränkt
+	\item $\Omega$ ist das Bild einer $C^2$-Abbildung:
+	\begin{align*}
+		D := \{(x,y)\in\mathbb{R}^2: x^2+y^2 < 1\}\\
+		\phi: D \rightarrow \mathbb{R}^3, \phi(x, y) := (x, y, (\sqrt{x^2+y^2}+1)(\sqrt{x^2+y^2}-1)(x^2+y^2))
+	\end{align*}
+	Es gilt $\phi(D)=\Omega$ und $\phi \in C^2(\bar{D})$.
+\end{itemize}
+
+Also gilt
+\begin{align*}
+	\int_\Omega (rot\bm{F})^\top \cdot \bm{n} d\mathcal{H}^2 = \int_{\partial\Omega} \bm{F}^\top \cdot \bm{t} d\mathcal{H}^1 = \int_{\partial\Omega} (x^2y, 0, x+y) \cdot \begin{pmatrix} y\\ -x\\ 0 \end{pmatrix} d\mathcal{H}^1 =\\
+	\int_{\partial\Omega} x^2y^2 d\mathcal{H}^1 = \int_{0}^{2\pi} \cos^2(\theta) \sin^2(\theta) d\theta = \frac{\pi}{4}
+\end{align*}
+
+Wobei die vorletzte Gleichung aus der Transformationsformel für $D=[0,2\pi)$ und $\phi(\theta)=(\cos(\theta), \sin(\theta), 0)$ folgt.
 
 \end{document}
