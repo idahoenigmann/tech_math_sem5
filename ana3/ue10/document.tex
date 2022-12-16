@@ -35,6 +35,7 @@
 Transformationsformel
 
 Gauß'sche Integralsatz
+\newpage
 
 \section{Beispiele}
 
@@ -116,7 +117,7 @@ TODO: Grafik in Bsp 2
 
 	Zur Berechnung verwenden wir wieder den Transformationssatz
 	\begin{align*}
-		D := (0,1)\times[0,2\pi)\times(0,1) && \phi:D\rightarrow\mathbb{R}^3, (r,\theta,z) \mapsto (r\cos(\theta), r\sin(\theta), z)^\top && \det d\phi = r
+		D := (0,1)\times[0,2\pi)\times(0,1) && \phi:D\rightarrow\mathbb{R}^3, (r,\theta,z) \mapsto (r\cos(\theta), r\sin(\theta), z)^\top && \det(d\phi^T d\phi) = r^2
 	\end{align*}
 
 	wobei $D$ ist eine offene Teilmenge des $\mathbb{R}^3$, $\phi$ ist eine injektive $C^1$-Abbildung und $Z=\phi(D)$. Damit folgt 
@@ -126,6 +127,7 @@ TODO: Grafik in Bsp 2
 	\end{align*}
 
 \end{enumerate}
+\newpage
 
 \subsection*{Beispiel 2}
 \begin{angabe*}
@@ -162,6 +164,7 @@ Gemeinsam mit $div\bm{F} = \sum_{i=1}^{3} \partial f_i / \partial x_i = x+z$ und
 	\frac{1}{6} \int_0^1 (2x+1)^3 - x^3 dx = \frac{1}{6} \left(\int_1^3 \frac{v^3}{2} dv - \left. \frac{x^4}{4}\right\vert_0^1\right) = \frac{1}{6} \left(\frac{1}{2} \left.\frac{v^3}{4}\right\vert_1^3 - \frac{1}{4}\right) = \frac{13}{8}\\
 	\implies \int_{\partial\Omega} \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = \frac{31}{24} + \frac{13}{8} = \frac{35}{12}
 \end{align*}
+\newpage
 
 \subsection*{Beispiel 3}
 \begin{angabe*}
@@ -176,7 +179,42 @@ Gemeinsam mit $div\bm{F} = \sum_{i=1}^{3} \partial f_i / \partial x_i = x+z$ und
 	d.h., berechnen Sie die beiden Integrale und überprüfen Sie deren Gleichheit.
 \end{angabe*}
 
-TODO
+Zuerst berechnen wir $\int_\Omega div\bm{F} d\lambda^3$:
+\begin{align*}
+	div\bm{F} = \frac{\partial f_1}{\partial x} + \frac{\partial f_2}{\partial y} + \frac{\partial f_3}{\partial z} = 1 + 1 + 1 = 3 && \implies	\int_\Omega div\bm{F} d\lambda^3 = 3 \int_\Omega d\lambda^3
+\end{align*}
+
+Mit der Transformationsformel für $D:=\{(r,\theta, z): r \in (0,1), \theta \in [0,2\pi), z \in (0,1-r^2)\}$ und $\phi(r,\theta, z) = (r\cos(\theta), r\sin(\theta), z)$ gilt $\det(d\phi^\top d\phi) = r^2$ sowie $\Omega=\phi(D)$ und es folgt
+\begin{align*}
+	3 \int_\Omega d\lambda^3 = 3 \int_{0}^{1} \int_{0}^{2\pi} \int_{0}^{1-r^2} r dz d\theta dr = 6\pi \int_{0}^{1} r(1-r^2) dr = 6\pi \left(\int_{0}^{1} r dr - \int_{0}^{1} r^3 dr\right) = 6\pi (\frac{1}{2}-\frac{1}{4}) = \frac{3\pi}{2}
+\end{align*}
+
+Für die Berechnung von $\int_{\partial\Omega} \bm{F}^\top \bm{\nu} d\mathcal{H}^2$ müssen wir uns zuerst überlegen wie der normierte Normalvektor auf $\partial\Omega$ aussieht.
+\begin{align*}
+	\partial\Omega = A_1 \cup A_2 = \{(x,y,0)\in\mathbb{R}^3: x^2+y^2 < 1\} \cup \{(x,y,1-x^2-y^2)\}\in\mathbb{R}^3: x^2+y^2 < 1\}\\
+	\text{Auf } A_1: \bm{\nu} = (0,0,-1)^\top\\
+	\text{Auf } A_2: \tilde{\bm{\nu}} = \left(-\frac{\partial}{\partial x} (1-x^2-y^2),-\frac{\partial}{\partial y} (1-x^2-y^2), 1\right)^\top = (2x, 2y, 1)^\top\\
+	||\tilde{\bm{\nu}}|| = \sqrt{4x^2+4y^2+1} \implies \bm{\nu} = \frac{\tilde{\bm{\nu}}}{||\tilde{\bm{\nu}}||}
+\end{align*}
+
+Nun gilt
+\begin{align*}
+	\int_{\partial\Omega} \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = \int_{A_1} \bm{F}^\top \bm{\nu} d\mathcal{H}^2 + \int_{A_2} \bm{F}^\top \bm{\nu} d\mathcal{H}^2\\
+	\int_{A_1} \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = \int_{A_1} (x, x+y, x^2)\cdot \begin{pmatrix}0\\ 0\\ -1\end{pmatrix} d\mathcal{H}^2 = \int_{A_1} -x^2 d\mathcal{H}^2\\
+	\int_{A_2} \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = \int_{A_2} \frac{1}{\sqrt{4(x^2+y^2)+1}} (x, x+y, 1-y^2)\cdot \begin{pmatrix}2x\\ 2y\\ 1\end{pmatrix} d\mathcal{H}^2 =\\
+	\int_{A_2} \frac{2x^2 + 2xy + 2y^2 + 1 - y^2}{\sqrt{4(x^2+y^2)+1}} d\mathcal{H}^2 = \int_{A_2} \frac{2x^2 + 2xy + y^2 + 1}{\sqrt{4(x^2+y^2)+1}} d\mathcal{H}^2
+\end{align*}
+
+Für die Transformationsformel sein nun $D:=(0,1)\times[0,2\pi)$, $\phi_1(r, \theta)=(r\cos(\theta), r\sin(\theta), 0)$ und $\phi_2(r, \theta)=(r\cos(\theta), r\sin(\theta), 1-r^2)$, dann gilt $A_1=\phi_1(D)$ und $A_2=\phi_2(D)$, sowie $\det(d\phi_1^\top d\phi_1) = r^2$ und $\det(d\phi_2^\top d\phi_2) = r^2(4r^2+1)$.
+
+\begin{align*}
+	\int_{A_1} -x^2 d\mathcal{H}^2 = \int_{0}^{1} \int_{0}^{2\pi} -r^2 \cos^2(\theta) r d\theta dr = -\int_{0}^{1} r^3 \int_{0}^{2\pi} \cos^2(\theta) d\theta dr = -\pi \int_{0}^{1} r^3 dr = -\frac{\pi}{4}\\
+	\int_{A_2} \frac{2x^2 + 2xy + y^2 + 1}{\sqrt{4(x^2+y^2)+1}} d\mathcal{H}^2 = \int_{0}^{1}\int_{0}^{2\pi} \frac{2r^2\cos^2(\theta)+2r^2\cos(\theta)\sin(\theta)+r^2\sin^2(\theta)+1}{\sqrt{4r^2 + 1}} r\sqrt{4r^2+1} d\theta dr =\\
+	\int_{0}^{1} 2r^3 \int_{0}^{2\pi} \cos^2(\theta) d\theta + 2r^3 \int_{0}^{2\pi} \cos(\theta)\sin(\theta) d\theta + r^3 \int_{0}^{2\pi} \sin^2(\theta) d\theta + r \int_{0}^{2\pi} d\theta dr =\\
+	\int_{0}^{1} 2\pi r^3 + \pi r^3 + 2\pi r dr = \frac{2\pi}{4} + \frac{\pi}{4} + \frac{2\pi}{2} = \frac{7\pi}{4}\\
+	\implies \int_{\partial\Omega} \bm{F}^\top \bm{\nu} d\mathcal{H}^2 = -\frac{\pi}{4} + \frac{7\pi}{4} = \frac{3\pi}{2}
+\end{align*}
+\newpage
 
 \subsection*{Beispiel 4}
 \begin{angabe*}
@@ -217,5 +255,140 @@ TODO
 		\frac{\partial^2 f_3}{\partial x \partial y} - \frac{\partial^2 f_2}{\partial x \partial z} + \frac{\partial^2 f_1}{\partial y \partial z} - \frac{\partial^2 f_3}{\partial x \partial y} + \frac{\partial^2 f_2}{\partial x \partial z} - \frac{\partial^2 f_1}{\partial y \partial z} = 0
 	\end{align*}
 \end{enumerate}
+\newpage
+
+\subsection*{Beispiel 5}
+\begin{angabe*}
+	Sei $B \subseteq \mathbb{R}^2$ die offene Einheitskreisscheibe in $\mathbb{R}^2$. Wir schreiben das Wegintegral
+	\begin{align*}
+		\int_\gamma \begin{pmatrix}	f_1(\bm{x})\\ f_2(\bm{x}) \end{pmatrix} d\bm{x} =: \int_\gamma f_1(\bm{x}) dx + f_2(\bm{x}) dy.
+	\end{align*}
+	Berechnen Sie das Wegintegral
+	\begin{align*}
+		\int_{\partial B} (x-y^3) dx + y^3 dy
+	\end{align*}
+	\begin{enumerate}[label*=(\roman*)]
+		\item direkt
+		\item mithilfe des Stoke'schen Integralsatzes.
+	\end{enumerate}
+\end{angabe*}
+
+\begin{enumerate}[label*=(\roman*)]
+	\item \textbf{direkt}:
+	
+	Wir setzen $D:=[0,2\pi)$ und $\phi(\theta):=(\cos(\theta), \sin(\theta))$, dann wird der Weg des Wegintegrals wird durch $\phi(D)$ beschrieben. Wegen $\int_\gamma f(x) dx = \int_{[a, b]} f(\gamma(t)) \gamma'(t) dt$ gilt:
+	
+	\begin{align*}
+		\int_{\partial B} \begin{pmatrix} x-y^3\\ y^3 \end{pmatrix} d(x,y) = \int_{0}^{2\pi} \begin{pmatrix} \cos(\theta)-\sin^3(\theta)\\ \sin^3(\theta) \end{pmatrix} \begin{pmatrix} \cos(\theta)\\ \sin(\theta) \end{pmatrix}' d\theta =\\
+		\int_{0}^{2\pi} -\sin(\theta)\cos(\theta) + \sin^4(\theta) + \sin^3(\theta)\cos(\theta) d\theta = 0 + \frac{3\pi}{4} + 0 = \frac{3\pi}{4}
+	\end{align*}
+
+	\item \textbf{mithilfe des Stoke'schen Integralsatzes}:
+	
+	Auf der Einheitskreisscheibe ist offenbar für jeden Punkt $(x,y)^\top$ der Vektor $(x,y)^\top$ ein normierter Normalvektor, daher sind die beiden Tangentialvektor an der Stelle $(-y, x)^\top$ und $(y, -x)^\top$, wobei der erste der positiven Orientierung entspricht.
+	
+	Zuerst prüfen wir die Vorraussetzungen für den Integralsatz von Stokes für die Ebene:
+	\begin{itemize}
+		\item $B$ ist klarerweise offen und beschränkt in $\mathbb{R}^2$
+		\item $\partial B \setminus \partial_r B = \emptyset$ also endlich
+		\item $f:\bar{B}\rightarrow\mathbb{R}^2 \in C(\bar{B}) \cap C^1(B)$: stetig auf $\bar{B}$ ist klar;
+		\begin{align*}
+			Df = \begin{pmatrix} 1 & -3y^2\\ 0 & 3y^2 \end{pmatrix}
+		\end{align*}
+		ist stetig auf $B$.
+	\end{itemize}
+
+	Daher gilt nun
+	\begin{align*}
+		\int_{0}^{2\pi} \begin{pmatrix} \cos(\theta)-\sin^3(\theta)\\ \sin^3(\theta) \end{pmatrix} \begin{pmatrix} -\sin(\theta)\\ \cos(\theta) \end{pmatrix} d\theta = \int_{\partial B} \bm{f} \cdot \bm{t} ds = \int_B rot\bm{f} d\lambda^2 = \\
+		\int_B \frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y} d\lambda^2 =		\int_B 0 - (-3y^2) d\lambda^2 = 3 \int_B y^2 d\lambda^2
+	\end{align*}
+
+	Mit der Transformationssformel für $D:=(0,1)\times[0,2\pi)$ und $\phi(r,\theta):=(r\cos(\theta), r\sin(\theta))^\top$ gilt $\det(d\phi^\top d\phi) = r^2$ und es folgt:
+	\begin{align*}
+		3 \int_B y^2 d\lambda^2 = 3 \int_{0}^{1} \int_{0}^{2\pi} r^2 \sin^2(\theta) r d\theta dr = 3\pi \int_{0}^{1} r^3 dr = \frac{3\pi}{4}
+	\end{align*}
+\end{enumerate}
+\newpage
+
+\subsection*{Beispiel 6}
+\begin{angabe*}
+	Sei $\bm{F}(x,y,z):=(1-xy, xz, x+z)^\top$. Betrachte das hyperbolische Paraboloid
+	\begin{align*}
+		\Omega := \{(x,y,z) \in \mathbb{R}^3: z = x^2-y^2, x^2+y^2 < 1\}.
+	\end{align*}
+	Verifizieren Sie den Stoke'schen Integralsatz für $\bm{F}$ auf $\Omega$.
+\end{angabe*}
+
+Zuerst wollen wir die benötigten Normal- und Tangentialvektoren berechnen.
+Sei $(x,y,z) \in \Omega$, dann ist
+\begin{align*}
+	\tilde{n} := (-\frac{\partial x^2-y^2}{\partial x}, -\frac{\partial x^2-y^2}{\partial y}, 1)^\top = (-2x, 2y, 1)^\top
+\end{align*}
+ein Normalvektor auf $\Omega$ im Punkt $(x,y,z)$. Normieren ergibt
+\begin{align*}
+	n:= \frac{\tilde{n}}{||\tilde{n}||} = \frac{1}{\sqrt{4(x^2+y^2)+1}}(-2x, 2y, 1)^\top
+\end{align*}
+
+Sei nun $(x,y,z) \in \partial \Omega$ also aus dem Rand $\partial\Omega = \{(x,y,z) \in \mathbb{R}^3: z=x^2-y^2, x^2+y^2=1\}$. Dann ist die Polarkoordinatendarstellung gleich $(\cos(\theta), \sin(\theta), \cos^2(\theta) - \sin^2(\theta))$ und ein Tangentialvektor an dem Punkt gleich
+\begin{align*}
+	\tilde{\bm{t}} = \left(\frac{\partial}{\partial \theta} \cos(\theta), \frac{\partial}{\partial \theta} \sin(\theta), \frac{\partial}{\partial \theta} \cos^2(\theta)-\sin^2(\theta)\right)^\top = (-\sin(\theta), \cos(\theta), -4\sin(\theta)\cos(\theta))^\top = (-y, x, -4xy)^\top\\
+\end{align*}
+\begin{align*}
+	||\tilde{\bm{t}}|| = \sqrt{x^2+y^2+16x^2*y^2} = \sqrt{16x^2y^2+1} && \bm{t} := \frac{\tilde{\bm{t}}}{||\tilde{\bm{t}}||}
+\end{align*}
+
+Nun berechnen wir $\int_\Omega rot\bm{f} \cdot \bm{n} d\mathcal{H}^2$:
+\begin{align*}
+	rot \bm{f} = \left(\frac{\partial f_3}{\partial y} - \frac{\partial f_2}{\partial z},
+					   \frac{\partial f_1}{\partial z} - \frac{\partial f_3}{\partial x},
+					   \frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y}\right)^\top =
+	(0-x, 0-1, z-(-x))^\top = (-x, -1, x+z)^\top\\
+	\int_\Omega rot\bm{f} \cdot \bm{n} d\mathcal{H}^2 = \int_\Omega \frac{1}{\sqrt{4(x^2+y^2)+1}} (-x, -1, x+z) \cdot \begin{pmatrix} -2x\\ 2y\\ 1 \end{pmatrix} d\mathcal{H}^2 =\\
+	\int_\Omega \frac{2x^2 - 2y + x + z}{\sqrt{4(x^2+y^2)+1}} d\mathcal{H}^2 = \int_\Omega \frac{3x^2 - y^2 + x - 2y}{\sqrt{4(x^2+y^2)+1}} d\mathcal{H}^2
+\end{align*}
+
+Die Transformationsformel für $D:=(0,1)\times[0,2\pi)$ und $\phi(r, \theta) = (r\cos(\theta), r\sin(\theta))$ liefert uns $\det(d\phi^\top d\phi) = r^2$ und
+\begin{align*}
+	\int_\Omega \frac{3x^2 - y^2 + x - 2y}{\sqrt{4(x^2+y^2)+1}} d\mathcal{H}^2 = \int_{0}^{1} \int_{0}^{2\pi} \frac{3r^2\cos^2(\theta) - r^2\sin^2(\theta) + r\cos(\theta) - 2r\sin(\theta)}{\sqrt{4(r^2\cos^2(\theta)+r^2\sin^2(\theta))+1}} r d\theta dr =\\
+	\int_{0}^{1} \frac{r}{\sqrt{4r^2 + 1}} \left(3r^2\int_{0}^{2\pi} \cos^2(\theta) d\theta - r^2\int_{0}^{2\pi} \sin^2(\theta) d\theta + r\int_{0}^{2\pi} \cos(\theta) d\theta - 2r\int_{0}^{2\pi} \sin(\theta) d\theta \right) dr = \\
+	\int_{0}^{1} \frac{r}{\sqrt{4r^2 + 1}} (3\pi r^2 - \pi r^2) dr = 2\pi \int_{0}^{1} \frac{r^3}{\sqrt{4r^2+1}} dr = 2\pi \left. \frac{1}{24} (2r^2-1)\sqrt{4r^2 + 1}\right\vert_0^1 =  \frac{\pi}{12} (\sqrt{5} + 1)
+\end{align*}
+
+Nun zur Berechnung von $\int_{\partial\Omega} \bm{F}^\top \cdot \bm{t} d\mathcal{H}^1$:
+\begin{align*}
+	\int_{\partial\Omega} \bm{F}^\top \cdot \bm{t} d\mathcal{H}^1 = \int_{\partial\Omega} \frac{-y + xy^2 + x^2z - 4x^2y - 4xyz}{\sqrt{16x^2y^2+1}} d\mathcal{H}^1 =\\
+	\int_{\partial\Omega} \frac{x^4 - 4x^3y + 4x^2y^3 - x^2y^2 - 4x^2y + xy^2 - y}{\sqrt{16x^2y^2+1}} d\mathcal{H}^1
+\end{align*}
+TODO
+\newpage
+ 
+\subsection*{Beispiel 7}
+\begin{angabe*}
+	Sei $\bm{F}(x,y,z):=(z, -z, y)^\top$. Betrachte
+	\begin{align*}
+		\Omega := \{(2r\cos(t), 2r\sin(t), r\cos(t)\sin(t))\in \mathbb{R}^3: 0 \leq r < 1, 0 \leq t < 2\pi\}.
+	\end{align*}
+	
+	Berechnen Sie mithilfe des Stoke'schen Integralsatzes
+	\begin{align*}
+		\int_\Omega (rot \bm{F})^\top \cdot \bm{n} d\mathcal{H}^2,
+	\end{align*}
+	wobei das Normalvektorfeld $\bm{n}$ so gewählt ist, dass $\bm{n}\cdot e_3 > 0$ (wobei $e_3$ der dritte kanonische Einheitsvektor in $\mathbb{R}^3$ ist).
+\end{angabe*}
+TODO
+
+\subsection*{Beispiel 8}
+\begin{angabe*}
+	Sei $\bm{F}(x,y,z):=(x^2y, z^2, x+y+z^3)^\top$. Betrachte
+	\begin{align*}
+		\Omega := \{(x,y,z) \in \mathbb{R}^3: z=(\sqrt{x^2+y^2}+1)(\sqrt{x^2+y^2}-1)(x^2+y^2), x^2+y^2 < 1\}.
+	\end{align*}
+	Setzte $\bm{n}$ das normierte Normalvektorfeld auf $\Omega$ mit positiver $z$-Koordinate. Berechen Sie
+	\begin{align*}
+		\int_\Omega (rot \bm{F})^\top \cdot \bm{n} d\mathcal{H}^2.
+	\end{align*}
+\end{angabe*}
+TODO
 
 \end{document}
