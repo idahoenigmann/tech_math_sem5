@@ -10,9 +10,21 @@
 \usepackage{enumitem}
 
 \newtheorem*{angabe*}{Angabe}
+\newtheorem*{theorem*}{Satz}
 
 \tcolorboxenvironment{angabe*}{
 	colback=blue!5!white,
+	boxrule=0pt,
+	boxsep=1pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	oversize=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\tcolorboxenvironment{theorem*}{
+	colback=red!5!white,
 	boxrule=0pt,
 	boxsep=1pt,
 	left=2pt,right=2pt,top=2pt,bottom=2pt,
@@ -32,15 +44,32 @@
 
 \section{Sätze}
 
-Transformationsformel
+\begin{theorem*}[Integralsatz von Gauß]
+	Ist $A$ ein offene und beschränkte Teilmenge des $\mathbb{R}^n$ mit $\mathcal{H}^{n-1}(\partial_sA)=0$, $\bm{f}:\bar{A}\rightarrow\mathbb{R}^n$ ein Vektorfeld aus $C(\bar{A})\cap C^1(A)$, so gilt wenn beide Integrale existieren
+	\begin{align*}
+		\int_A div\bm{f} d\lambda^n = \int_{\partial A} \bm{f}^\top \bm{n} d\mathcal{H}^{n-1}
+	\end{align*}
+	wobei $\nu$ den in das Äußere von $A$ zeigenden normierten Normalvektor auf $\partial A$ bezeichnet.
+\end{theorem*}
 
-Gauß'sche Integralsatz
+\begin{theorem*}[Integralsatz von Stokes für die Ebene]
+	Ist $A$ offen und beschränkt in $\mathbb{R}^2$ mit $\partial A \setminus \partial_r A$ endlich, sowie $\bm{f}:\bar{A}\rightarrow\mathbb{R}^2$ eine auf $\bar{A}$ stetige und auf $A$ stetig differenzierbare Funktion, so gilt:
+	\begin{align*}
+		\int_A rot\bm{f} d\lambda^2 = \int_{\partial A} \bm{f}\cdot \bm{t} ds,
+	\end{align*}
+	wobei $\bm{t}$ den normierten Tangentialvektor einer positiv orientierten Parametrisierung und $s$ die Weglänge bezeichnet.
+\end{theorem*}
+
+\begin{theorem*}[Integralsatz von Stokes im $\mathbb{R}^3$]
+	Es sei $\Omega \subset \mathbb{R}^3$ das Bild einer beschränkten Teilmenge des $\mathbb{R}^2$ mit stückweise stetig differenzierbarem Rand unter einer $C^2$-Abbildung. Weiters sei $\bm{f}$ ein $C^1$-Vektorfeld auf einer offenen Obermenge von $\bar{\Omega}$. Dann gilt
+	\begin{align*}
+		\int_\Omega rot\bm{f}\cdot\bm{n}d\mathcal{H}^2 = \int_{\partial\Omega} \bm{f}^\top \cdot \bm{t} d\mathcal{H}^1,
+	\end{align*}
+	wobei $\bm{n}$ ein normiertes Normalvektorfeld auf $\Omega$ und $\bm{t}$ ein normiertes Tangentialvektorfeld an $\partial\Omega$ bezeichnet wobei die Orientierung von $\bm{n}$ und $\bm{t}$ so zu wählen ist, dass auf $\partial\Omega$ $\det(\bm{\nu}, \bm{t}, \bm{n}) > 0$ für ein in das Äußere von $\Omega$ zeigende Tangentialvektorfeld $\bm{\nu}$ auf $\partial\Omega$ gilt.
+\end{theorem*}
 \newpage
 
 \section{Beispiele}
-
-TODO: Grafik Zylinder + Normalvektor in Bsp 1
-TODO: Grafik in Bsp 2
 
 \subsection*{Beispiel 1}
 \begin{angabe*}
@@ -358,7 +387,7 @@ Die Transformationsformel für $D:=(0,1)\times[0,2\pi)$ und $\phi(r, \theta) = (
 Nun zur Berechnung von $\int_{\partial\Omega} \bm{F}^\top \cdot \bm{t} d\mathcal{H}^1$:
 \begin{align*}
 	\int_{\partial\Omega} \bm{F}^\top \cdot \bm{t} d\mathcal{H}^1 = \int_{\partial\Omega} \frac{-y + xy^2 + x^2z - 4x^2y - 4xyz}{\sqrt{16x^2y^2+1}} d\mathcal{H}^1 =\\
-	\int_{\partial\Omega} \frac{x^4 - 4x^3y + 4x^2y^3 - x^2y^2 - 4x^2y + xy^2 - y}{\sqrt{16x^2y^2+1}} d\mathcal{H}^1
+	\int_{\partial\Omega} \frac{-y+xy^2+x^4-x^2y^2-8x^2y+4y^3}{\sqrt{16x^2y^2+1}} d\mathcal{H}^1 = \int_0^{2\pi} \frac{num}{den}
 \end{align*}
 TODO
 \newpage
@@ -376,22 +405,54 @@ TODO
 	\end{align*}
 	wobei das Normalvektorfeld $\bm{n}$ so gewählt ist, dass $\bm{n}\cdot e_3 > 0$ (wobei $e_3$ der dritte kanonische Einheitsvektor in $\mathbb{R}^3$ ist).
 \end{angabe*}
-TODO
 
 Zuerst suchen wir einen Normalvektor für jeden Punkt $(x,y,z)\in \Omega$:
 \begin{align*}
 	\bm{n} = \frac{\partial}{\partial r}\begin{pmatrix} 2r\cos(t)\\ 2r\sin(t)\\ r\cos(t)\sin(t) \end{pmatrix} \times \frac{\partial}{\partial t}\begin{pmatrix}
 	2r\cos(t)\\ 2r\sin(t)\\ r\cos(t)\sin(t) \end{pmatrix} = \begin{pmatrix}
-	-2r\sin^3(t)\\ -2r\cos^3(t)\\ 4r
-\end{pmatrix}
+	-2r\sin^3(t)\\ -2r\cos^3(t)\\ 4r \end{pmatrix}
 \end{align*}
 
-Tangentialvektor
+Normieren ist nicht notwendig, da wir uns nur für die Orientierung interessieren. 
+
+Nun zum Tangentialvektor auf $\partial\Omega = \{(2\cos(t), 2\sin(t), \cos(t)\sin(t))\in \mathbb{R}^3: 0 \leq t < 2\pi\}$:
+
 \begin{align*}
-	\bm{t} = \left(\frac{\partial}{\partial t} 2\cos(t), \frac{\partial}{\partial t} 2\sin(t), \frac{\partial}{\partial t} \cos(t)\sin(t)\right)^\top = (-2\sin(t), 2\cos(t), \cos^2(t)-\sin^2(t))^\top
+	\tilde{\bm{t}} = \left(\frac{\partial}{\partial t} 2\cos(t), \frac{\partial}{\partial t} 2\sin(t), \frac{\partial}{\partial t} \cos(t)\sin(t)\right)^\top = (-2\sin(t), 2\cos(t), \cos^2(t)-\sin^2(t))^\top\\
+	||\tilde{\bm{t}}|| = \sqrt{4\sin^2(t)+4\cos^2(t)+(\cos^2(t)-\sin^2(t))^2} = \sqrt{(\cos^2(t)-\sin^2(t))^2 + 4}\\
+	\bm{t} := \frac{\tilde{\bm{t}}}{||\tilde{\bm{t}}||}
 \end{align*}
 
-TODO
+\begin{align*}
+	\bm{\nu} = \bm{n} \times \bm{\tilde{t}} = \begin{pmatrix} 8\cos(t)+2\cos^5(t)-2\sin^2(t)\cos^3(t)\\ -2\sin^3(t)\cos^2(t)+2\sin^5(t)+8\sin(t)\\ 4\sin(t)\cos^3(t)+4\sin^3(t)\cos(t) \end{pmatrix} = \begin{pmatrix} 8\cos(t)+2\cos^3(t)(\cos^2(t)-\sin^2(t))\\ 8\sin(t)+2\sin^3(t)(\sin^2(t)-\cos^2(t))\\ 4\sin(t)\cos(t)(\cos^2(t)+\sin^2(t)) \end{pmatrix}
+\end{align*}
+
+TODO Grafik
+
+Die Bedingungen für den Stoke'schen Integralsatz im $\mathbb{R}^3$ sind:
+\begin{itemize}
+	\item $\Omega$ ist eine Teilmenge des $\mathbb{R}^3$
+	\item $\Omega$ ist das Bild von $\phi \in C^2$ unter einer beschränkten Teilmenge des $\mathbb{R}^2$
+\end{itemize}
+
+Es gilt nun also
+\begin{align*}
+	\int_\Omega (rot \bm{F})^\top \cdot \bm{n} d\mathcal{H}^2 =	\int_{\partial\Omega} \bm{F}\cdot \bm{t} d\mathcal{H}^1 =\\
+	\int_0^{2\pi} \frac{1}{\sqrt{(\cos^2(t)-\sin^2(t))^2 + 4}} (\cos(t)\sin(t), -\cos(t)\sin(t), 2\sin(t)) \cdot \begin{pmatrix} -2\sin(t)\\ 2\cos(t)\\ \cos^2(t)-\sin^2(t) \end{pmatrix} dt =\\
+	\int_0^{2\pi} \frac{-2\sin^2(t)\cos(t) - 2\sin(t)\cos^2(t) + 2\sin(t)\cos^2(t) - 2\sin^3(t)}{\sqrt{(\cos^2(t)-\sin^2(t))^2 + 4}} dt = \int_0^{2\pi} \frac{-2\sin^2(t) (\sin(t)+\cos(t))}{\sqrt{(\cos^2(t)-\sin^2(t))^2 + 4}} dt
+\end{align*}
+
+Definieren wir $f(t)$ als das was im Integral steht so gilt $\forall t \in [0, \pi):$
+\begin{align*}
+	-f(t+\pi) = -\frac{-2\sin^2(t+\pi) (\sin(t+\pi)+\cos(t+\pi))}{\sqrt{(\cos^2(t+\pi)-\sin^2(t+\pi))^2 + 4}} =\\
+	-\frac{-2\sin^2(t) (-\sin(t)-\cos(t))}{\sqrt{(\cos^2(t)-\sin^2(t))^2 + 4}} =
+	\frac{-2\sin^2(t) (\sin(t)+\cos(t))}{\sqrt{(\cos^2(t)-\sin^2(t))^2 + 4}} = f(t)
+\end{align*}
+
+Woraus folgt
+\begin{align*}
+	\int_\Omega (rot \bm{F})^\top \cdot \bm{n} d\mathcal{H}^2 = \int_0^{2\pi} f(t) dt = \int_0^{\pi} f(t) dt + \int_\pi^{2\pi} f(t) dt = \int_0^{\pi} f(t) dt + \int_0^{\pi} f(t+\pi) dt = 0
+\end{align*}
 
 \newpage
 
@@ -435,13 +496,14 @@ Auf $\partial\Omega$ gilt $\tilde{\bm{n}}=(-2x(2-1), -2y(2-1), 1)^\top = (-2x, -
 Überprüfen wir als nächstes die Bedingungen des Integralsatzes von Stokes in $\mathbb{R}^3$:
 
 \begin{itemize}
-	\item $\Omega \subseteq \mathbb{R}^3$ ist eine beschränkt
+	\item $\Omega \subseteq \mathbb{R}^3$
 	\item $\Omega$ ist das Bild einer $C^2$-Abbildung:
 	\begin{align*}
 		D := \{(x,y)\in\mathbb{R}^2: x^2+y^2 < 1\}\\
 		\phi: D \rightarrow \mathbb{R}^3, \phi(x, y) := (x, y, (\sqrt{x^2+y^2}+1)(\sqrt{x^2+y^2}-1)(x^2+y^2))
 	\end{align*}
 	Es gilt $\phi(D)=\Omega$ und $\phi \in C^2(\bar{D})$.
+	\item $D$ ist beschränkt.
 \end{itemize}
 
 Also gilt
