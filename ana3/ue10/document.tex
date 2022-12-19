@@ -456,6 +456,13 @@ Die Bedingungen für den Stoke'schen Integralsatz im $\mathbb{R}^3$ sind:
 \begin{itemize}
 	\item $\Omega$ ist eine Teilmenge des $\mathbb{R}^3$
 	\item $\Omega$ ist das Bild von $\phi \in C^2$ unter einer beschränkten Teilmenge des $\mathbb{R}^2$
+	\item $\det(\bm{\nu}, \bm{t}, \bm{n}) > 0$:
+	\begin{align*}
+		\det(\bm{\nu}, \bm{t}, \bm{n}) = \begin{pmatrix} 8\cos(t)+2\cos^3(t)(\cos^2(t)-\sin^2(t)) & -2\sin(t) & -2\sin^3(t)\\
+															8\sin(t)+2\sin^3(t)(\sin^2(t)-\cos^2(t)) & 2\cos(t) & -2\cos^3(t)\\
+															4\sin(t)\cos(t) & \cos^2(t)-\sin^2(t) & 4 \end{pmatrix} =\\
+		16\cos(4t)+\frac{3}{8}(\cos(8t)+223) > 0
+	\end{align*}
 \end{itemize}
 
 Es gilt nun also
