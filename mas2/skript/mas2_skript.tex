@@ -1926,7 +1926,25 @@ Für SG $X,Y$ bezüglich $(\Omega, \mathcal{A}, P)$ mit 2. Moment: $\mathbb{E}XY
 	\end{align*}
 \end{theorem}
 \begin{proof}
-	TODO
+	$p=1$ oder $p=\infty$ Übung
+	
+	$\infty > p > 1:$
+	\begin{align*}
+		(f+g)^p = (f+g)(f+g)^{p-1} = f(f+g)^{p-1} + g(f+g)^{p-1}\\
+		|f+g|^p \leq |f|\cdot |f+g|^{p-1} + |g|\cdot |f+g|^{p-1} \text{ also durch integrieren}\\
+		||f+g||^p_p \leq \int|f|\cdot |f+g|^{p-1} + \int |g|\cdot |f+g|^{p-1} \text{mit Hölder}\\
+		\leq ||f||_p \cdot ||(f+g)^{p-1}||_q + ||g||_p \cdot ||(f+g)^{p-1}||_q + \int |g|\cdot |f+g|^{p-1} \text{ mit } q=\frac{p}{p-1}\\
+		= (||f||_p + ||g||_p) \cdot || |f+g|^{p-1}||_q + \int |g|\cdot |f+g|^{p-1} = (||f||_p + ||g||_p) \cdot ||f+g||^{p-1}_p + \int |g|\cdot |f+g|^{p-1}\\
+		|| |f+g|^{p-1}||_q = \left(\int |f+g|^{(p-1)q}\right)^{\frac{p-1}{p}} = \left(\int |f+g|^p\right)^{\frac{p-1}{p}} = ||f+g||^{p-1}_p
+	\end{align*}
+	Dividiert durch den letzten Wert ist
+	\begin{align*}
+		||f+g||_p = \frac{||f+g||_p^p}{||f+g||_p^{p-1}} \leq ||f||_p + ||g||_p
+	\end{align*}
+	Die linke Seite ist definiert (also endlich) weil aus $f,g \in \mathcal{L}^p$ folgt
+	\begin{align*}
+		|f+g|^p \leq (2\cdot \max(|f|,|g|))^p \leq 2^p\cdot \underbrace{\max(|f|^p, |g|^p)}_{\leq |f|^p + |g|^p}.
+	\end{align*}
 \end{proof}
 
 Mit der Minkowski-Ungleichung ist jetzt $L^p$ ein Vektorraum ($f,g \in \mathcal{L}^p \implies f+g\in \mathcal{L}^p$) und $||f||_p$ eine Norm mit der Dreiecksungleichung.
@@ -1946,7 +1964,21 @@ Die Bezeichnung $L_\infty$ kann man aus folgendem Zusammenhang rechtfertigen:
 \end{theorem}
 
 \begin{proof}
-	TODO
+	\begin{align*}
+		\int |f|^p d\mu \leq K^p \int d\mu = K^p \mu(\Omega) && K := ess\sup_c \{c| \mu(|f|>c)=0\} (K=\infty\text{ möglich}) && |f| \leq K [\mu]\\
+		\implies ||f||^p_p \leq ||f||_\infty^p \mu(\Omega) && \implies ||f||_p \leq ||f||_\infty (\mu(\Omega)^{\frac{1}{p}})\\
+		\limsup_{p\rightarrow\infty} ||f||_p \leq ||f||_\infty && \text{da } \limsup_{p\rightarrow\infty}(\mu(\Omega)^{\frac{1}{p}}) = 1
+	\end{align*}
+
+	Die andere Ungleichung folgt aus der Markoff-Ungleichung $\phi(x)=x^p$
+	\begin{align*}
+		\int |f|^p d\mu \geq C^p \mu(|f|>c) \forall C>0 &&
+		\liminf_{p\rightarrow\infty} ||f||_p \geq C \cdot \liminf_{p\rightarrow\infty} \underbrace{(\mu(|f|>C))^{\frac{1}{p}}}_{>0 \text{ wenn } C < ||f||_\infty = K}\\
+	\end{align*}
+	\begin{align*}
+		\implies \liminf ||f||_p \geq C \forall 0 < C < ||f||_\infty \implies \liminf ||f||_p \geq ||f||_\infty\\
+		\text{Aus } ||f||_\infty \leq \liminf_p ||f||_p \limsup_p ||f||_p \leq ||f||_\infty \implies \lim_p ||f||_p = ||f||_\infty
+	\end{align*}
 \end{proof}
 
 Für endliche Maße gelten spezielle Aussagen, wie etwa:
@@ -1960,7 +1992,14 @@ Für endliche Maße gelten spezielle Aussagen, wie etwa:
 \end{theorem}
 
 \begin{proof}
-	TODO
+	Es sei $\tilde{p}=\infty$, da $||f||_\infty = \int\{K>0| \mu(|f|>K)=0\}$ also $|f| \leq ||f||_\infty [\mu]$-f.s
+	\begin{align*}
+		\int |f|^p d\mu \leq \int ||f||_\infty^p d\mu = |f||_\infty^p \mu(\mathbb{R}) < \infty
+	\end{align*}
+	Sonst $\tilde{p}$ bel. $p < \tilde{p}$: Da $|f|^p = |f|^p \cdot 1_{(|f|\leq 1)} + |f|^p 1_{(|f| >1)} \leq 1 + |f|^{\tilde{p}}$ und Minkowski-Ungl.
+	\begin{align*}
+		\int |f|^p d\mu \leq \int 1 d\mu + \int |f|^{\tilde{p}} d\mu = \mu(\Omega) + ||f||_{\tilde{p}}^{\tilde{p}} < \infty
+	\end{align*}
 \end{proof}
 
 Für sigma-endliche (aber nicht endliche) Maße gilt diese Schachtelung i.a. nicht. Es gibt sogar sigma-endliche Maße $\mu$, wo die umgedrehte Schachtelung gilt $\mathcal{L}^p(\mu) \subseteq \mathcal{L}^{\tilde{p}}(\mu)$.
@@ -1974,7 +2013,22 @@ Nach Satz 8.MS ist $L_\infty$ ein Banachraum. Die Vollständigkeit wird für all
 \end{theorem}
 
 \begin{proof}
-	TODO
+	$p=\infty$ ist Satz 8.MS. Für endliches $p\geq 1$ gehen wir den Umweg über die Konvergenz im Maß. $f_n$ sei eine Cauchyfolge aus $\mathcal{L}_p$. $\implies f_n$ ist Cauchyfolge im Maß.
+	
+	Nach Satz 10.MS existiert eine $\mu$-fast glm. konvergente Teilfolge $f_{n_k} \rightarrow f$ $\mu$-fast glm.
+	
+	Daher gilt auch $f_{n_k}\rightarrow f$ $\mu$-f.ü. Diese Teilfolge ist nach Voraussetzung auch $L_p$-konvergent.
+	
+	Für $\epsilon > 0 \exists n_{\epsilon}: ||f_n-f_m||_p^p < \epsilon; n,m\geq n_\epsilon$ und für festes $n \geq n_\epsilon ||f_n-f_{n_k}||_p^p < \epsilon; n_k\geq n_\epsilon$, dh. $|f_n-f|^p = \liminf_{k\rightarrow\infty} |f_n-f_{n_k}|^p$
+	\begin{align*}
+		\int |f_n - f|^p d\mu = \int \liminf_k |f_n - f_{n_k}|^p d\mu \leq \liminf_k \int |f_n - f_{n_k}|^p d\mu < \epsilon \text{ mit Lemma von Fatou}
+	\end{align*}
+	
+	Somit ist $f$ der Grenzwert der Folge $f_n$. Aus der Dreiecksungleichung folgt
+	\begin{align*}
+		||f||_p = ||f-f_n+f_n||_p \leq ||f_n||_p + \underbrace{||f-f_n||_p}_{<\epsilon^{\frac{1}{p}}} \leq \inf_n ||f_n||_p + \epsilon^{\frac{1}{p}} < \infty
+	\end{align*}
+	und $f\in\mathcal{L}_p$.
 \end{proof}
 
 $L_p$-Räume sind Banachräume und $L_2$ ist sogar ein Hilbertraum mit $<f,g> := \int f\cdot g d\mu$.
@@ -2015,7 +2069,22 @@ Für den Banachraum $(L^p, ||.||_p)$ kann eine solche Isometrie gefunden werden.
 	$1 \leq p \leq \infty$ Zu $f\in \mathcal{L}^p$ existiert eine Folge $t_n \in \mathcal{L}^p$ von Treppenfunktionen mit $||t_n||_p \leq ||f||_p \forall n$ und $\lim\limits_{n\rightarrow\infty}||f-t_n||_p = 0$.
 \end{lemma}
 \begin{proof}
-	TODO
+	Für die Konstruktion des Integrals wurde beispielsweise die Folge von Treppenfunktionen
+	\begin{align*}
+		t_n(w):= \begin{cases}
+			n & f(w)\geq n\\
+			\frac{k-1}{2^n} & \frac{k-1}{2^n} \leq f(w) \leq \frac{k}{2^n}
+		\end{cases}
+	\end{align*}
+	verwendet. $|t_n|\nearrow |f|$ mit $|t_n| \leq |f|$, daher $||t_n||_p \leq ||f||_p$ und $|f-t_n|^p \leq 2^p |f|^p \in L^p$
+	
+	Da $\lim\limits_{n\rightarrow\infty}|f-t_n|^p=0$ gilt nach dem Satz der dominierten Konvergenz
+	\begin{align*}
+		\lim\limits_{n\rightarrow\infty} ||f-t_n||^p_p = \lim\limits_{n\rightarrow\infty} \int|f-t_n|^p = \int \underbrace{\lim\limits_{n\rightarrow\infty}|f-t_n|^p}_{=0} = 0
+	\end{align*}
+	für $p <\infty$.
+	
+	Bei $p=\infty$ konvergieren obige $t_n$ sogar gleichmäßig gegen $f\in L_\infty$ und $||f-t_n||_\infty \rightarrow 0$.
 \end{proof}
 
 Zwischen $L^q$ und $(L^p)'$ sei die kanonische Abbildung
@@ -2030,7 +2099,44 @@ $K$ ist eine lineare Abbildung.
 \end{theorem}
 
 \begin{proof}
-	TODO
+	$K(f)$ ist aus dem Dualraum von $L^p$ mit der Norm (des Dualraums)
+	\begin{align*}
+		||K(f)||'_p := \sup \{\underbrace{|K(f)(g)|}_{|\int fg| \leq \int |fg| \leq ||f||_q ||g||_p = ||f||_q} : ||g||_p=1, g \in L^p\}
+	\end{align*}
+	mit $f \in L^q$.
+	
+	Daher gilt $||K(f)||'_p \leq ||f||_q$
+	
+	Für die umgekehrte Ungleichung betrachte
+	\begin{align*}
+		||K(f)||'_p \geq |\int f \cdot \frac{g}{||g||_p} d\mu| \forall g \in L^p\\
+		\implies ||K(f)||'_p ||g||_p \geq |\int fgd\mu|
+	\end{align*}
+	Ersetze $g$ durch $\tilde{g}:= |g|\cdot sign(f)$, dann ist $|\tilde{g}| \leq |g|$ (wo $f=0$, ist $\tilde{g}=0$) und auch $||\tilde{g}||_p \leq ||g||_p$
+	\begin{align*}
+		\implies ||K(f)||'_p ||g||_p \geq ||K(f)||'_p \cdot ||\tilde{g}||_p \geq |\underbrace{\int f\cdot \tilde{g}}_{\geq 0}| = \int |fg| d\mu = ||fg||_1
+	\end{align*}
+	
+	Fallunterscheidung
+	\begin{enumerate}
+		\item $q=1$, d.h. $f\in L^1$, wähle $g=1\in \mathcal{L}_\infty$. $\implies ||K(f)||'_p \geq ||f||_1$
+		\item $q\in(1,\infty)$ wähle $g=|f|^{q-1} = |f|^{\frac{q}{p}}$ da $\int g^p = \int |f|^q < \infty$, $f\in L^q \implies g\in L^p$
+		\begin{align*}
+			||K(f)||'_p ||g||_p \geq ||fg||_1 = || |f|^q ||_1 = ||f||_q^q = ||f||_q \cdot \underbrace{||f||_q^{q-1}}_{(\int |f|^q)^{\frac{q-1}{q}}} = ||f||_q \cdot (\int g^p)^{\frac{1}{p}} = ||f||_q ||g||_p\\
+			\implies ||K(f)||'_p \geq ||f||_q
+		\end{align*}
+		\item $q=\infty$ also $||f||_\infty < \infty$
+		
+		Für jedes $\epsilon > 0$ ist $\{|f| > (1-\epsilon) ||f||_\infty\}=:A_\epsilon$ keine Nullmenge. $0 < \mu(A_\epsilon) < \infty$.
+		
+		Wähle $g=\frac{1}{\mu(A_\epsilon)}1_{A_\epsilon}$ ist aus $L_1$, $||g||_1=1$
+		\begin{align*}
+			\implies ||K(f)||'_p \geq ||fg||_1 = \int |fg| d\mu = \int |f| |g| d\mu = \int \underbrace{|f| 1_{A_\epsilon}}_{>(1-\epsilon)||f||_\infty \int 1_{A_\epsilon} \frac{1}{\mu(A_\epsilon)} d\mu} \frac{1}{\mu(A_\epsilon)} d\mu
+		\end{align*}
+		für alle $\epsilon > 0$, d.h. $||K(f)||'_p \geq ||f||_\infty$
+	\end{enumerate}
+	In allen Fällen folgt mit oben $||K(f)||'_p = ||f||_q$.
+
 \end{proof}
 
 Die kanonische Abbildung liefert eine Isometrie und ist daher injektiv.
@@ -2090,7 +2196,19 @@ Für die Konvergenz im $L_p$ werden zur punktweisen Konvergenz noch weitere stru
 \end{theorem}
 
 \begin{proof}
-	TODO
+	Da $|f+f_n|^p \leq (2\cdot \max(|f|, |f_n|))^p \leq 2^p (|f_n|^p + |f|^p)$ gilt
+	\begin{align*}
+		2^p (\int |f|^p + \int |f|^p) = \int \liminf \left((2^p(|f|^p+|f_n|^p))- |f-f_n|^p\right) d\mu \text{ da } \lim |f-f_n|^p = 0
+	\end{align*}
+	wegen Fatou ist weiter
+	\begin{align*}
+		\leq \liminf\left(2^p \int|f|^p + 2^p \int |f_n|^p - \int |f-f_n|^p\right) = 2^p \int |f|^p + 2^p \lim \int |f_n|^p + \liminf (-\int |f-f_n|^p)
+	\end{align*}
+	Insgesamt ist
+	\begin{align*}
+		2^p(\int|f|^p + \int|f|^p) \leq 2^p(\int|f|^p + \int |f|^p) - \limsup \int |f-f_n|^p
+	\end{align*}
+	das ist nur möglich, wenn $\limsup \int |f-f_n|^p=0$ also $||f_n-f||_p\rightarrow0$.
 \end{proof}
 
 Für $p = \infty$ gilt obige Aussage auch für sigma-endliche Maße i.A. nicht.
@@ -2111,7 +2229,13 @@ Die Umkehrung gelingt, wenn punktweise Konvergenz durch die (schwächere) Konver
 \end{theorem}
 
 \begin{proof}
-	TODO
+	$\implies$ Aus $||f_n-f||_p$ folgt Konvergenz im Maß (Satz 1.LP) und wegen der Vollständigkeit ist $f \in L_p$. Die Konvergenz der Integrale ergibt sich aus der (umgekehrten) Dreiecksungleichung. $||f||_p \leq ||f-f_n||_p + ||f_n||_p$ und $||f_n||_p \leq ||f-f_n||_p + ||f||_p$
+	\begin{align*}
+		| ||f||_p - ||f_n||_p | \leq ||f-f_n||_p \rightarrow 0 \implies ||f_n||_p \rightarrow ||f||_p
+	\end{align*}
+	Wenn $f_n\rightarrow f$ im Maß, dann betrachtet man wieder eine Teilfolge $f_{n_k}$ mit $f_{n_k}\rightarrow f \mu$-f.ü. (sogar $\mu$-fast gleichmäßig). Nach dem vorigen Satz folgt daraus auch $||f_{n_k}-f||_p \rightarrow 0$.
+	
+	Angenommen $f_n$ konvergiert nicht in $L_p$, dann existiert eine Teilfolge $f_m$, die $||f-f_{m_j}||_p \geq \epsilon \forall j$ aber $f_{m_j} \rightarrow f$ im Maß, dann gibt es wieder eine Teilfolge $f_{m_{j_k}}$ mit $||f-f_{m_{j_k}}||_p \rightarrow 0, k\rightarrow \infty$, wie oben. Das ist ein Widerspruch, und $||f_n-f||_p \rightarrow 0$.
 \end{proof}
 
 Aus der Konvergenz im Maß wird eine Konvergenzart von Maßen abgeleitet.
@@ -2139,7 +2263,11 @@ Allgemein kann die Konvergenz auch auf die Dichten (falls vorhanden) zurückgef�
 \end{theorem}
 
 \begin{proof}
-	TODO
+	Die punktweise Konvergenz der RN-Dichten und Konvergenz der Integrale bringt nach Satz 10.LP
+	\begin{align*}
+		\left|\int_A \frac{d\nu_n}{d\mu} - \int_A \frac{d\nu}{d\mu}\right| \leq \int_A \left|\frac{d\nu_n}{d\mu} - \frac{d\nu}{d\mu}\right| d\mu \leq \int \left|\frac{d\nu_n}{d\mu} - \frac{d\nu}{d\mu}\right| d\mu = ||\frac{d\nu_n}{d\mu} - \frac{d\nu}{d\mu}||
+	\end{align*}
+	Da $||\frac{d\nu_n}{d\mu}|| = \nu_n(\Omega) \rightarrow \nu(\Omega) = ||\frac{d\nu}{d\mu}||$ nach Voraussetzung liefert der vorige Satz die Aussage.
 \end{proof}
 
 Der Satz gilt auch (wie im Beweis), wenn $\nu(\Omega)\rightarrow\nu(\Omega)$. Meist wird aber die Verteilungskonvergenz von W-Maßen mit Dichten untersucht.
@@ -2149,7 +2277,17 @@ Diskrete Verteilung: $(\mathbb{N}, 2^\mathbb{N})$ mit Zählmaß als dominierende
 \begin{example}
 	$P_n \sim H_{N,M,k}$ Hypergeometrische Verteilung wobei für $n, N_n, M_n, \in \mathbb{N}$ Folgen mit $N_n \rightarrow \infty$ und $\frac{M_n}{N_n} \rightarrow p, n\rightarrow\infty$ für $0 < p < 1$.
 	
-	TODO
+	Somit $P_n(\{i\}) = \frac{\binom{M_n}{i}\binom{N_n-M_n}{k-i}}{\binom{N_n}{k}}, i\in \mathbb{N}$
+	
+	Asymptotisch gilt für den Binomialkoeffizienten $\binom{n}{x} \sim \frac{n^x}{x!}, n\rightarrow\infty$ da $\binom{n}{x} = \frac{n^x}{x!} \frac{n(n-1)\cdots(n-x+1)}{n^x} \rightarrow \frac{n^x}{x!}, n\rightarrow\infty$.
+	
+	Daher
+	\begin{align*}
+		P_n(\{i\}) \sim \frac{\frac{M_n^i}{i!}\frac{(N_n-M_n)^{k-i}}{(k-i)!}}{\frac{N_n^k}{k!}} = \binom{k}{i} \left(\frac{M_n}{N_n}\right)^i \left(1-\frac{M_n}{N_n}\right)^{k-i}\\
+		\lim\limits_{n\rightarrow\infty} P_n(\{i\}) = \binom{k}{i} p^i (1-p)^{k-i}
+	\end{align*}
+	Binomial $B_{k,p}$. Die Hypergeometrische Verteilung wird durch die Binomialverteilung approximiert, $N\rightarrow\infty H_{N,M,k}\sim B_{k,p=M/N}$. (Ziehung mit (Binomial) und ohne (Hypergeom.) Zurücklegen.) Erwartungswert $k\frac{M}{N} \rightarrow kp$
+	
 \end{example}
 
 \begin{example}
@@ -2179,7 +2317,17 @@ Eine andere Konsequenz der Integrierbarkeit gibt das folgende Lemma.
 \end{lemma}
 
 \begin{proof}
-	TODO
+	Da $f\in L_1$ muss $\mu([f=\infty])=0$ sein. Für die Folge $f_n:=|f|1_{[|f|>n]}$ gilt $f_n$ fallend, $f_n\rightarrow |f|1_{[|f|=\infty]}$ und $f_n\rightarrow0 \mu$-f.ü.
+	
+	$f_n \leq |f|$ und mit dominierter Konvergenz
+	\begin{align*}
+		\lim_n \int f_n d\mu = \lim \int_{[|f|>n} |f| d\mu = 0
+	\end{align*}
+	Genauso für $A_n := [|f|\geq \frac{1}{n}]$ und $A^c_n = [|f|<\frac{1}{n}]$, $A_n^c \searrow [|f|=0]$
+	\begin{align*}
+		\lim_{n\rightarrow\infty} \int_{A_n^c} |f| d\mu = \int \lim\limits_{n\rightarrow\infty} |f| 1_{A_n^c} = 0
+	\end{align*}
+	Da $\int|f| \geq \int |f| 1_{[|f|>\frac{1}{n}]} \geq \frac{1}{n} \int 1_{[|f|>\frac{1}{n}]}$ ist $\mu(A_n) < \infty$ und $\mu(A_n^c) \rightarrow 0$.
 \end{proof}
 
 Die Erweiterung obiger Eigenschaften auf eine Familie integrierbarer Funktionen ist folgende Definition.
