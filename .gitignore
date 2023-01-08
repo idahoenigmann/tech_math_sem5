@@ -267,3 +267,6 @@ TSWLatexianTemp*
 *.sta
 
 # Taken from github.com/github/gitignore/blob/master/TeX.gitignore
+
+
+*xcf
